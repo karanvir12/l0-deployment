@@ -141,6 +141,29 @@ pub fn polkadot_chain_spec_properties() -> serde_json::map::Map<String, serde_js
 	.clone()
 }
 
+// Polkadot staging testnet config.
+#[cfg(feature = "polkadot-native")]
+pub fn polkadot_staging_testnet_config() -> Result<PolkadotChainSpec, String> {
+	let wasm_binary = polkadot::WASM_BINARY.ok_or("Polkadot development wasm not available")?;
+	let boot_nodes = vec![];
+
+	Ok(PolkadotChainSpec::from_genesis(
+		"Polkadot Staging Testnet",
+		"polkadot_staging_testnet",
+		ChainType::Live,
+		move || polkadot_staging_testnet_config_genesis(wasm_binary, 100),
+		boot_nodes,
+		Some(
+			TelemetryEndpoints::new(vec![(POLKADOT_STAGING_TELEMETRY_URL.to_string(), 0)])
+				.expect("Polkadot Staging telemetry url is valid; qed"),
+		),
+		Some(DEFAULT_PROTOCOL_ID),
+		None,
+		Some(polkadot_chain_spec_properties()),
+		Default::default(),
+	))
+}
+
 #[cfg(any(
 
 	feature = "polkadot-native"

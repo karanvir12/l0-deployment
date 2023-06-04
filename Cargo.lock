@@ -6377,6 +6377,7 @@ name = "polkadot-client"
 version = "0.9.36"
 dependencies = [
  "async-trait",
+ "fp-rpc",
  "frame-benchmarking",
  "frame-benchmarking-cli",
  "frame-system",
@@ -7473,6 +7474,8 @@ dependencies = [
  "mmr-gadget",
  "mmr-rpc",
  "pallet-babe",
+ "pallet-ethereum",
+ "pallet-evm",
  "pallet-im-online",
  "pallet-staking",
  "pallet-transaction-payment-rpc",

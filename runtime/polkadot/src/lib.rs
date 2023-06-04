@@ -2314,7 +2314,8 @@ sp_api::impl_runtime_apis! {
 			System::account_nonce(account)
 		}
 	}
-	impl fp_rpc::EthereumRuntimeRPCApi<Block> for Runtime {
+	impl fp_rpc::EthereumRuntimeRPCApi<sp_runtime::generic::Block<sp_runtime::generic::Header<u32, BlakeTwo256>, UncheckedExtrinsic>> 
+	for Runtime {
 		fn chain_id() -> u64 {
 			<Runtime as pallet_evm::Config>::ChainId::get()
 		}
@@ -2442,7 +2443,8 @@ sp_api::impl_runtime_apis! {
 		}
 		fn gas_limit_multiplier_support() {}
 	}
-	impl fp_rpc::ConvertTransactionRuntimeApi<Block> for Runtime {
+	impl fp_rpc::ConvertTransactionRuntimeApi<sp_runtime::generic::Block<sp_runtime::generic::Header<u32, BlakeTwo256>, UncheckedExtrinsic>> 
+	for Runtime {
 		fn convert_transaction(transaction: EthereumTransaction) -> <Block as BlockT>::Extrinsic {
 			UncheckedExtrinsic::new_unsigned(
 				pallet_ethereum::Call::<Runtime>::transact { transaction }.into(),

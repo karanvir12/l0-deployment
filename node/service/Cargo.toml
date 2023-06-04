@@ -150,6 +150,8 @@ fp-dynamic-fee = { path = "../../evm-primitives/dynamic-fee" }
 fp-evm = { path = "../../evm-primitives/evm" }
 fp-rpc = { path = "../../evm-primitives/rpc" }
 fp-storage = { path = "../../evm-primitives/storage" }
+pallet-evm = {path = "../../evm-frame/evm"}
+pallet-ethereum = {path = "../../evm-frame/ethereum"}
 
 [dev-dependencies]
 polkadot-test-client = { path = "../test/client" }
