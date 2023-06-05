@@ -416,6 +416,7 @@ impl<Context: Send> ApprovalVotingSubsystem {
 		.map_err(|e| SubsystemError::with_origin("approval-voting", e))
 		.boxed();
 
+		frame_support::log::info!("start in node/core/approval-voting/src working -------------------");
 		SpawnedSubsystem { name: "approval-voting-subsystem", future }
 	}
 }

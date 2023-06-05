@@ -6582,6 +6582,7 @@ dependencies = [
  "async-trait",
  "bitvec",
  "derive_more",
+ "frame-support",
  "futures",
  "futures-timer",
  "kvdb",
