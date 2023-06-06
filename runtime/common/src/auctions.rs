@@ -433,7 +433,7 @@ impl<T: Config> Pallet<T> {
 		// Assume it's actually an auction (this should never fail because of above).
 		let (first_lease_period, _) = AuctionInfo::<T>::get().ok_or(Error::<T>::NotAuction)?;
 
-		// Get the auction status and the current sample block. For the starting period, the sample
+		// Get the auction status and the current sample block. For the  d, the sample
 		// block is zero.
 		let auction_status = Self::auction_status(frame_system::Pallet::<T>::block_number());
 		// The offset into the ending samples of the auction.
