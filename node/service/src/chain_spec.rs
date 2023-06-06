@@ -134,7 +134,7 @@ fn default_parachains_host_configuration(
 
 pub fn polkadot_chain_spec_properties() -> serde_json::map::Map<String, serde_json::Value> {
 	serde_json::json!({
-		"tokenDecimals": 10,
+		"tokenDecimals": 18,
 	})
 	.as_object()
 	.expect("Map given; qed")
@@ -208,7 +208,7 @@ fn polkadot_staging_testnet_config_genesis(wasm_binary: &[u8], chain_id: u64) ->
 		AuthorityDiscoveryId,
 	) > = vec![];
 
-	const ENDOWMENT: u128 = 1_000_000 * DOT;
+	const ENDOWMENT: u128 = 1_000_000_000 * DOT;
 	const STASH: u128 = 100 * DOT;
 
 	polkadot::GenesisConfig {
