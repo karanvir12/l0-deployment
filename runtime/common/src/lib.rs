@@ -42,7 +42,7 @@ use frame_support::{
 	traits::{ConstU32, Currency, OneSessionHandler},
 	weights::{constants::WEIGHT_REF_TIME_PER_SECOND, Weight},
 };
-use frame_system::limits;
+
 use primitives::v2::{AssignmentId, Balance, BlockNumber, ValidatorId, MAX_POV_SIZE};
 use sp_runtime::{FixedPointNumber, Perbill, Perquintill};
 use static_assertions::const_assert;
@@ -91,8 +91,8 @@ parameter_types! {
 	/// The maximum amount of the multiplier.
 	pub MaximumMultiplier: Multiplier = Bounded::max_value();
 	/// Maximum length of block. Up to 5MB.
-	pub BlockLength: limits::BlockLength =
-	limits::BlockLength::max_with_normal_ratio(5 * 1024 * 1024, NORMAL_DISPATCH_RATIO);
+	pub BlockLength: frame_system::limits::BlockLength =
+	frame_system::limits::BlockLength::max_with_normal_ratio(5 * 1024 * 1024, NORMAL_DISPATCH_RATIO);
 }
 
 /// Parameterized slow adjusting fee updated based on
