@@ -50,7 +50,7 @@ pub type FullClient<RuntimeApi, ExecutorDispatch> =
 )))]
 compile_error!("at least one runtime feature must be enabled");
 
-/// The native executor instance for Polkadot.
+// The native executor instance for Polkadot.
 #[cfg(feature = "polkadot")]
 pub struct PolkadotExecutorDispatch;
 
