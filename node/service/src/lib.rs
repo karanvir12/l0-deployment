@@ -124,14 +124,7 @@ use telemetry::TelemetryWorker;
 #[cfg(feature = "full-node")]
 use telemetry::{Telemetry, TelemetryWorkerHandle};
 
-#[cfg(feature = "rococo-native")]
-pub use polkadot_client::RococoExecutorDispatch;
 
-#[cfg(feature = "westend-native")]
-pub use polkadot_client::WestendExecutorDispatch;
-
-#[cfg(feature = "kusama-native")]
-pub use polkadot_client::KusamaExecutorDispatch;
 
 #[cfg(feature = "polkadot-native")]
 pub use polkadot_client::PolkadotExecutorDispatch;
@@ -288,9 +281,6 @@ pub enum Error {
 	#[error("Creating a custom database is required for validators")]
 	DatabasePathRequired,
 
-	#[cfg(feature = "full-node")]
-	#[error("Expected at least one of polkadot, kusama, westend or rococo runtime feature")]
-	NoRuntime,
 }
 
 /// Can be called for a `Configuration` to identify which network the configuration targets.
@@ -298,19 +288,6 @@ pub trait IdentifyVariant {
 	/// Returns if this is a configuration for the `Polkadot` network.
 	fn is_polkadot(&self) -> bool;
 
-	/// Returns if this is a configuration for the `Kusama` network.
-	fn is_kusama(&self) -> bool;
-
-	/// Returns if this is a configuration for the `Westend` network.
-	fn is_westend(&self) -> bool;
-
-	/// Returns if this is a configuration for the `Rococo` network.
-	fn is_rococo(&self) -> bool;
-
-	/// Returns if this is a configuration for the `Wococo` test network.
-	fn is_wococo(&self) -> bool;
-
-	/// Returns if this is a configuration for the `Versi` test network.
 	fn is_versi(&self) -> bool;
 
 	/// Returns true if this configuration is for a development network.
@@ -321,18 +298,7 @@ impl IdentifyVariant for Box<dyn ChainSpec> {
 	fn is_polkadot(&self) -> bool {
 		self.id().starts_with("polkadot") || self.id().starts_with("dot")
 	}
-	fn is_kusama(&self) -> bool {
-		self.id().starts_with("kusama") || self.id().starts_with("ksm")
-	}
-	fn is_westend(&self) -> bool {
-		self.id().starts_with("westend") || self.id().starts_with("wnd")
-	}
-	fn is_rococo(&self) -> bool {
-		self.id().starts_with("rococo") || self.id().starts_with("rco")
-	}
-	fn is_wococo(&self) -> bool {
-		self.id().starts_with("wococo") || self.id().starts_with("wco")
-	}
+	
 	fn is_versi(&self) -> bool {
 		self.id().starts_with("versi") || self.id().starts_with("vrs")
 	}
@@ -930,9 +896,8 @@ where
 	let backoff_authoring_blocks = {
 		let mut backoff = sc_consensus_slots::BackoffAuthoringOnFinalizedHeadLagging::default();
 
-		if config.chain_spec.is_rococo() ||
-			config.chain_spec.is_wococo() ||
-			config.chain_spec.is_versi()
+		
+			config.chain_spec.is_versi();
 		{
 			// it's a testnet that's in flux, finality has stalled sometimes due
 			// to operational issues and it's annoying to slow down block
@@ -945,8 +910,7 @@ where
 
 	// If not on a known test network, warn the user that BEEFY is still experimental.
 	if enable_beefy &&
-		!config.chain_spec.is_rococo() &&
-		!config.chain_spec.is_wococo() &&
+		
 		!config.chain_spec.is_versi()
 	{
 		gum::warn!("BEEFY is still experimental, usage on a production network is discouraged.");
@@ -1534,7 +1498,6 @@ where
 		// 	runtime: client.clone(),
 		// 	key_store: keystore_opt.clone(),
 		// 	network_params,
-		// 	min_block_delta: if chain_spec.is_wococo() { 4 } else { 8 },
 		// 	prometheus_registry: prometheus_registry.clone(),
 		// 	links: grandpa_link,
 		// 	on_demand_justifications_handler: beefy_on_demand_justifications_handler,
@@ -1542,7 +1505,6 @@ where
 
 		// let gadget = beefy_gadget::start_beefy_gadget::<_, _, _, _, _, _>(beefy_params);
 
-		// Wococo's purpose is to be a testbed for BEEFY, so if it fails we'll
 		// bring the node down with it to make sure it is noticed.
 	
 			// task_manager.spawn_handle().spawn_blocking("beefy-gadget", None, gadget);
@@ -1678,23 +1640,6 @@ pub fn new_chain_ops(
 
 	let telemetry_worker_handle = None;
 
-	#[cfg(feature = "rococo-native")]
-	if config.chain_spec.is_rococo() ||
-		config.chain_spec.is_wococo() ||
-		config.chain_spec.is_versi()
-	{
-		return chain_ops!(config, jaeger_agent, telemetry_worker_handle; rococo_runtime, RococoExecutorDispatch, Rococo)
-	}
-
-	#[cfg(feature = "kusama-native")]
-	if config.chain_spec.is_kusama() {
-		return chain_ops!(config, jaeger_agent, telemetry_worker_handle; kusama_runtime, KusamaExecutorDispatch, Kusama)
-	}
-
-	#[cfg(feature = "westend-native")]
-	if config.chain_spec.is_westend() {
-		return chain_ops!(config, jaeger_agent, telemetry_worker_handle; westend_runtime, WestendExecutorDispatch, Westend)
-	}
 
 	#[cfg(feature = "polkadot-native")]
 	{
@@ -1704,14 +1649,9 @@ pub fn new_chain_ops(
 	Err(Error::NoRuntime)
 }
 
-/// Build a full node.
-///
-/// The actual "flavor", aka if it will use `Polkadot`, `Rococo` or `Kusama` is determined based on
-/// [`IdentifyVariant`] using the chain spec.
-///
-/// `overseer_enable_anyways` always enables the overseer, based on the provided `OverseerGenerator`,
-/// regardless of the role the node has. The relay chain selection (longest or disputes-aware) is
-/// still determined based on the role of the node. Likewise for authority discovery.
+// Build a full node.
+// [`IdentifyVariant`] using the chain spec.
+
 #[cfg(feature = "full-node")]
 pub fn build_full(
 	config: Configuration,
@@ -1726,65 +1666,7 @@ pub fn build_full(
 	malus_finality_delay: Option<u32>,
 	hwbench: Option<sc_sysinfo::HwBench>,
 ) -> Result<NewFull<Client>, Error> {
-	#[cfg(feature = "rococo-native")]
-	if config.chain_spec.is_rococo() ||
-		config.chain_spec.is_wococo() ||
-		config.chain_spec.is_versi()
-	{
-		return new_full::<rococo_runtime::RuntimeApi, RococoExecutorDispatch, _>(
-			config,
-			is_collator,
-			grandpa_pause,
-			enable_beefy,
-			jaeger_agent,
-			telemetry_worker_handle,
-			None,
-			overseer_enable_anyways,
-			overseer_gen,
-			overseer_message_channel_override,
-			malus_finality_delay,
-			hwbench,
-		)
-		.map(|full| full.with_client(Client::Rococo))
-	}
-
-	#[cfg(feature = "kusama-native")]
-	if config.chain_spec.is_kusama() {
-		return new_full::<kusama_runtime::RuntimeApi, KusamaExecutorDispatch, _>(
-			config,
-			is_collator,
-			grandpa_pause,
-			enable_beefy,
-			jaeger_agent,
-			telemetry_worker_handle,
-			None,
-			overseer_enable_anyways,
-			overseer_gen,
-			overseer_message_channel_override,
-			malus_finality_delay,
-			hwbench,
-		)
-		.map(|full| full.with_client(Client::Kusama))
-	}
-
-	#[cfg(feature = "westend-native")]
-	if config.chain_spec.is_westend() {
-		return new_full::<westend_runtime::RuntimeApi, WestendExecutorDispatch, _>(
-			config,
-			is_collator,
-			grandpa_pause,
-			enable_beefy,
-			jaeger_agent,
-			telemetry_worker_handle,
-			None,
-			overseer_enable_anyways,
-			overseer_gen,
-			overseer_message_channel_override,
-			malus_finality_delay,
-			hwbench,
-		)
-		.map(|full| full.with_client(Client::Westend))
-	}
+	
 
 	#[cfg(feature = "polkadot-native")]
 	{
