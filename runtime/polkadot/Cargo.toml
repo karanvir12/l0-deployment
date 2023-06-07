@@ -76,6 +76,12 @@ pallet-utility = { git = "https://github.com/paritytech/substrate", default-feat
 frame-election-provider-support = { git = "https://github.com/paritytech/substrate", default-features = false , branch = "polkadot-v0.9.36" }
 pallet-xcm = { path = "../../xcm/pallet-xcm", default-features = false }
 
+pallet-contracts = { git = "https://github.com/paritytech/substrate", default-features = false , branch = "polkadot-v0.9.36" }
+pallet-randomness-collective-flip = { git = "https://github.com/paritytech/substrate", default-features = false , branch = "polkadot-v0.9.36" }
+
+pallet-contracts-primitives = { git = "https://github.com/paritytech/substrate", default-features = false , branch = "polkadot-v0.9.36" }
+
+
 frame-benchmarking = { git = "https://github.com/paritytech/substrate", default-features = false, optional = true , branch = "polkadot-v0.9.36" }
 frame-try-runtime = { git = "https://github.com/paritytech/substrate", default-features = false, optional = true , branch = "polkadot-v0.9.36" }
 frame-system-benchmarking = { git = "https://github.com/paritytech/substrate", default-features = false, optional = true , branch = "polkadot-v0.9.36" }
@@ -209,6 +215,11 @@ std = [
 	"xcm/std",
 	"xcm-executor/std",
 	"xcm-builder/std",
+    "pallet-randomness-collective-flip/std",
+	"pallet-contracts/std",
+		"pallet-contracts-primitives/std",
+
+
 
   #frontier
 	 "fp-rpc/std",
@@ -271,6 +282,8 @@ runtime-benchmarks = [
 	 "pallet-ethereum/runtime-benchmarks",
     "pallet-evm/runtime-benchmarks",
 	"pallet-hotfix-sufficients/runtime-benchmarks",
+		"pallet-contracts/runtime-benchmarks",
+
 
 
 
@@ -315,6 +328,10 @@ try-runtime = [
 	"pallet-vesting/try-runtime",
 	"pallet-utility/try-runtime",
 	"pallet-xcm/try-runtime",
+		"pallet-randomness-collective-flip/try-runtime",
+			"pallet-contracts/try-runtime",
+
+
 ]
 # When enabled, the runtime API will not be build.
 #
