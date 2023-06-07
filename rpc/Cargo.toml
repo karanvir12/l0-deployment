@@ -6,6 +6,7 @@ edition.workspace = true
 
 [dependencies]
 jsonrpsee = { version = "0.16.2", features = ["server"] }
+futures = { version = "0.3.21", features = [ "compat" ] }
 polkadot-primitives = { path = "../primitives" }
 sc-client-api = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
 sp-blockchain = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
@@ -24,6 +25,7 @@ sc-finality-grandpa-rpc = { git = "https://github.com/paritytech/substrate", bra
 sc-sync-state-rpc = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
 sc-transaction-pool = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
 sc-network = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
+sc-service= { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
 
 txpool-api = { package = "sc-transaction-pool-api", git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
 frame-rpc-system = { package = "substrate-frame-rpc-system", git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }

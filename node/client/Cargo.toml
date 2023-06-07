@@ -47,6 +47,7 @@ polkadot-runtime = { path = "../../runtime/polkadot", optional = true }
 
 polkadot-core-primitives = { path = "../../core-primitives" }
 polkadot-primitives = { path = "../../primitives" }
+
 polkadot-node-core-parachains-inherent = { path = "../core/parachains-inherent" }
 polkadot-runtime-common = { path = "../../runtime/common" }
 

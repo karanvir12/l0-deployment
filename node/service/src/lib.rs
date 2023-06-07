@@ -57,9 +57,12 @@ use {
 use fc_rpc_core::types::FeeHistoryCache;
 use std::sync::Mutex;
 use std::path::PathBuf;
+use sc_client_api::BlockchainEvents;
 use service::BasePath;
 use polkadot_node_subsystem_util::database::Database;
 
+use polkadot_runtime::RuntimeApi as RuntimeApiPolka;
+mod rpc;
 #[cfg(feature = "full-node")]
 pub use {
 	polkadot_overseer::{Handle, Overseer, OverseerConnector, OverseerHandle},
@@ -71,6 +74,39 @@ pub use {
 	sp_consensus_babe::BabeApi,
 };
 use fc_db::Backend as FrontierBackend;
+use futures::{future, StreamExt};
+// pub struct ExecutorDispatch;
+// impl sc_executor::NativeExecutionDispatch for ExecutorDispatch {
+//     /// Only enable the benchmarking host functions when we actually want to benchmark.
+//     #[cfg(feature = "runtime-benchmarks")]
+//     type ExtendHostFunctions = frame_benchmarking::benchmarking::HostFunctions;
+//     /// Otherwise we only use the default Substrate host functions.
+//     #[cfg(not(feature = "runtime-benchmarks"))]
+//     type ExtendHostFunctions = ();
+//     fn dispatch(method: &str, data: &[u8]) -> Option<Vec<u8>> {
+//         polkadot_runtime::api::dispatch(method, data)
+//     }
+//     fn native_version() -> sc_executor::NativeVersion {
+//         polkadot_runtime::native_version()
+//     }
+// }
+
+pub struct ExecutorDispatchStruct;
+impl sc_executor::NativeExecutionDispatch for ExecutorDispatchStruct {
+    /// Only enable the benchmarking host functions when we actually want to benchmark.
+    #[cfg(feature = "runtime-benchmarks")]
+    type ExtendHostFunctions = frame_benchmarking::benchmarking::HostFunctions;
+    /// Otherwise we only use the default Substrate host functions.
+    #[cfg(not(feature = "runtime-benchmarks"))]
+    type ExtendHostFunctions = ();
+    fn dispatch(method: &str, data: &[u8]) -> Option<Vec<u8>> {
+        polkadot_runtime::api::dispatch(method, data)
+    }
+    fn native_version() -> sc_executor::NativeVersion {
+        polkadot_runtime::native_version()
+    }
+}
+
 
 use fc_rpc_core::types::FeeHistoryCacheLimit;
 #[cfg(feature = "full-node")]
@@ -118,6 +154,9 @@ pub use service::{
 	ChainSpec, Configuration, Error as SubstrateServiceError, PruningMode, Role, RuntimeGenesis,
 	TFullBackend, TFullCallExecutor, TFullClient, TaskManager, TransactionPoolOptions,
 };
+
+use fc_rpc::{EthTask, OverrideHandle};
+use fc_mapping_sync::{MappingSyncWorker, SyncStrategy};
 pub use sp_api::{ApiRef, ConstructRuntimeApi, Core as CoreApi, ProvideRuntimeApi, StateBackend};
 pub use sp_runtime::{
 	generic,
@@ -128,8 +167,6 @@ pub use sp_runtime::{
 
 
 pub use polkadot_runtime;
-
-
 /// The maximum number of active leaves we forward to the [`Overseer`] on startup.
 #[cfg(any(test, feature = "full-node"))]
 const MAX_ACTIVE_LEAVES: usize = 4;
@@ -857,8 +894,11 @@ pub const AVAILABILITY_CONFIG: AvailabilityConfig = AvailabilityConfig {
 /// `overseer_enable_anyways` always enables the overseer, based on the provided `OverseerGenerator`,
 /// regardless of the role the node has. The relay chain selection (longest or disputes-aware) is
 /// still determined based on the role of the node. Likewise for authority discovery.
+pub type FullClientNew =
+	service::TFullClient<Block, RuntimeApiPolka, NativeElseWasmExecutor<PolkadotExecutorDispatch>>;
+	
 #[cfg(feature = "full-node")]
-pub fn new_full<RuntimeApi, ExecutorDispatch, OverseerGenerator>(
+pub fn new_full<RuntimeApiPol, ExecutorDispatchStruct, OverseerGenerator>(
 	mut config: Configuration,
 	is_collator: IsCollator,
 	grandpa_pause: Option<(u32, u32)>,
@@ -871,15 +911,15 @@ pub fn new_full<RuntimeApi, ExecutorDispatch, OverseerGenerator>(
 	overseer_message_channel_capacity_override: Option<usize>,
 	_malus_finality_delay: Option<u32>,
 	hwbench: Option<sc_sysinfo::HwBench>,
-) -> Result<NewFull<Arc<FullClient<RuntimeApi, ExecutorDispatch>>>, Error>
+) -> Result<NewFull<Arc<FullClient<RuntimeApiPolka, PolkadotExecutorDispatch>>>, Error>
 where
-	RuntimeApi: ConstructRuntimeApi<Block, FullClient<RuntimeApi, ExecutorDispatch>>
+  RuntimeApiPol: ConstructRuntimeApi<Block, FullClientNew>
 		+ Send
 		+ Sync
 		+ 'static,
-	RuntimeApi::RuntimeApi:
+	RuntimeApiPol::RuntimeApi:
 		RuntimeApiCollection<StateBackend = sc_client_api::StateBackendFor<FullBackend, Block>>,
-	ExecutorDispatch: NativeExecutionDispatch + 'static,
+	PolkadotExecutorDispatch: NativeExecutionDispatch + 'static,
 	OverseerGenerator: OverseerGen,
 {
 	use polkadot_node_network_protocol::request_response::IncomingRequest;
@@ -915,7 +955,7 @@ where
 	let disable_grandpa = config.disable_grandpa;
 	let name = config.network.node_name.clone();
 
-	let basics = new_partial_basics::<RuntimeApi, ExecutorDispatch>(
+	let basics = new_partial_basics::<RuntimeApiPolka, PolkadotExecutorDispatch>(
 		&mut config,
 		jaeger_agent,
 		telemetry_worker_handle,
@@ -957,7 +997,7 @@ where
 		transaction_pool,
 		// other: (rpc_extensions_builder, import_setup, rpc_setup, slot_duration, mut telemetry,frontier_backend),
 		other: (import_setup,slot_duration,mut telemetry,frontier_backend),
-	} = new_partial::<RuntimeApi, ExecutorDispatch, SelectRelayChain<_>>(
+	} = new_partial::<RuntimeApiPolka, PolkadotExecutorDispatch, SelectRelayChain<_>>(
 		&mut config,
 		basics,
 		select_chain,
@@ -1052,6 +1092,7 @@ where
 			sc_offchain::OffchainWorkerOptions { enable_http_requests: false },
 		));
 
+		
 		// Start the offchain workers to have
 		task_manager.spawn_handle().spawn(
 			"offchain-notifications",
@@ -1133,6 +1174,8 @@ where
 		Some(shared_authority_set.clone()),
 	);
 
+	
+
 	let rpc_extensions_builder = {
 		let client = client.clone();
 		let keystore = keystore_container.sync_keystore();
@@ -1151,7 +1194,20 @@ where
 		let chain_spec = config.chain_spec.cloned_box();
 		let pool = transaction_pool.clone();
 		let backend = backend.clone();
+		let filter_pool=filter_pool.clone();
+		let backends = backend.clone();
 
+
+		spawn_frontier_tasks(
+			&task_manager,
+			client.clone(),
+			backends,
+			frontier_backend.clone(),
+			filter_pool.clone(),
+			overrides.clone(),
+			fee_history_cache.clone(),
+			fee_history_cache_limit,
+		);
 		Box::new(move |deny_unsafe,  subscription_executor: polkadot_rpc::SubscriptionTaskExecutor|
 			{
 			let deps = polkadot_rpc::FullDeps {
@@ -1194,6 +1250,55 @@ where
 			polkadot_rpc::create_full(deps,subscription_task_executor.clone(), backend.clone()).map_err(Into::into)
 		})
 	};
+	
+
+	fn spawn_frontier_tasks(
+		task_manager: &TaskManager,
+		client: Arc<FullClient<RuntimeApiPolka, PolkadotExecutorDispatch>>,
+		backend: Arc<FullBackend>,
+		frontier_backend: Arc<FrontierBackend<Block>>,
+		filter_pool: Option<FilterPool>,
+		overrides: Arc<OverrideHandle<Block>>,
+		fee_history_cache: FeeHistoryCache,
+		fee_history_cache_limit: FeeHistoryCacheLimit,
+	) {
+		task_manager.spawn_essential_handle().spawn(
+			"frontier-mapping-sync-worker",
+			None,
+			MappingSyncWorker::new(
+				client.import_notification_stream(),
+				Duration::new(6, 0),
+				client.clone(),
+				backend,
+				frontier_backend,
+				3,
+				0,
+				SyncStrategy::Normal,
+			)
+			.for_each(|()| future::ready(())),
+		);
+	
+		// Spawn Frontier EthFilterApi maintenance task.
+		if let Some(filter_pool) = filter_pool {
+			// Each filter is allowed to stay in the pool for 100 blocks.
+			const FILTER_RETAIN_THRESHOLD: u64 = 100;
+			task_manager.spawn_essential_handle().spawn(
+				"frontier-filter-pool",
+				None,
+				EthTask::filter_pool_task(client.clone(), filter_pool, FILTER_RETAIN_THRESHOLD),
+			);
+		}
+	
+		// Spawn Frontier FeeHistory cache maintenance task.
+		task_manager.spawn_essential_handle().spawn(
+			"frontier-fee-history",
+			None,
+			EthTask::fee_history_task(client, overrides, fee_history_cache, fee_history_cache_limit),
+		);
+	}
+
+
+
 
 
 	let rpc_handlers = service::spawn_tasks(service::SpawnTasksParams {
@@ -1284,7 +1389,7 @@ where
 
 	let overseer_handle = if let Some((authority_discovery_service, keystore)) = maybe_params {
 		let (overseer, overseer_handle) = overseer_gen
-			.generate::<service::SpawnTaskHandle, FullClient<RuntimeApi, ExecutorDispatch>>(
+			.generate::<service::SpawnTaskHandle, FullClientNew>(
 				overseer_connector,
 				OverseerGenArgs {
 					leaves: active_leaves,
@@ -1683,7 +1788,7 @@ pub fn build_full(
 
 	#[cfg(feature = "polkadot-native")]
 	{
-		return new_full::<polkadot_runtime::RuntimeApi, PolkadotExecutorDispatch, _>(
+		return new_full::<RuntimeApiPolka, PolkadotExecutorDispatch, _>(
 			config,
 			is_collator,
 			grandpa_pause,
@@ -1700,8 +1805,12 @@ pub fn build_full(
 			malus_finality_delay,
 			hwbench,
 		)
-		.map(|full| full.with_client(Client::Polkadot))
+		.map(|full| 
+			full.with_client(Client::Polkadot)	
+			
+		)
 	}
+	
 
 	#[cfg(not(feature = "polkadot-native"))]
 	Err(Error::NoRuntime)

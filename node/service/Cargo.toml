@@ -24,6 +24,7 @@ sc-consensus-slots = { git = "https://github.com/paritytech/substrate", branch =
 sc-executor = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
 sc-network = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
 sc-network-common = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
+sc-network-sync = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
 sc-transaction-pool = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
 sc-sync-state-rpc = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
 sc-keystore = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
