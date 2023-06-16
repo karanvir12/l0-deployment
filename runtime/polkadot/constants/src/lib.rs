@@ -25,7 +25,7 @@ pub mod currency {
 	use primitives::v2::Balance;
 
 	/// The existential deposit.
-	pub const EXISTENTIAL_DEPOSIT: Balance = 100 * CENTS;
+	pub const EXISTENTIAL_DEPOSIT: Balance = 1 ;
 
 	pub const UNITS: Balance = 1_000_000_000_000_000_000;
 	pub const DOLLARS: Balance = UNITS; // 10_000_000_000
@@ -43,7 +43,7 @@ pub mod time {
 	use runtime_common::prod_or_fast;
 	pub const MILLISECS_PER_BLOCK: Moment = 6000;
 	pub const SLOT_DURATION: Moment = MILLISECS_PER_BLOCK;
-	pub const EPOCH_DURATION_IN_SLOTS: BlockNumber = prod_or_fast!(1 * MINUTES, 1 * MINUTES);
+	pub const EPOCH_DURATION_IN_SLOTS: BlockNumber = prod_or_fast!(2 * MINUTES, 2 * MINUTES);
 
 	// These time units are defined in number of blocks.
 	pub const MINUTES: BlockNumber = 60_000 / (MILLISECS_PER_BLOCK as BlockNumber);
