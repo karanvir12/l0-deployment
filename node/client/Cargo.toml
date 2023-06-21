@@ -42,18 +42,18 @@ beefy-primitives = { git = "https://github.com/karanvir12/substrate36.git", pack
 fp-rpc = { path = "../../evm-primitives/rpc" }
 
 # Polkadot Runtimes
-polkadot-runtime = { path = "../../runtime/polkadot", optional = true }
+Peer-Runtime = { path = "../../runtime/polkadot", optional = true }
 
 
 polkadot-core-primitives = { path = "../../core-primitives" }
 polkadot-primitives = { path = "../../primitives" }
 
 polkadot-node-core-parachains-inherent = { path = "../core/parachains-inherent" }
-polkadot-runtime-common = { path = "../../runtime/common" }
+Peer-Runtime-common = { path = "../../runtime/common" }
 
 [features]
 default = ["polkadot"]
-polkadot = ["polkadot-runtime"]
+polkadot = ["Peer-Runtime"]
 runtime-metrics = [
-    "polkadot-runtime/runtime-metrics",
+    "Peer-Runtime/runtime-metrics",
 ]

@@ -34,4 +34,4 @@ sp-consensus = { git = "https://github.com/karanvir12/substrate36.git", branch =
 sp-io = { git = "https://github.com/karanvir12/substrate36.git", default-features = false , branch = "relpeer"  }
 substrate-test-runtime-client = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer", default-features = false   }
 # Frontier
-polkadot-runtime = { version = "3.0.0-dev", path = "../../runtime/polkadot" }
+Peer-Runtime = { version = "3.0.0-dev", path = "../../runtime/polkadot" }

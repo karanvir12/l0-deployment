@@ -5,8 +5,8 @@ authors.workspace = true
 edition.workspace = true
 
 [dependencies]
-polkadot-runtime = { path = "../../../runtime/polkadot" }
-polkadot-runtime-constants = { path = "../../../runtime/polkadot/constants" }
+Peer-Runtime = { path = "../../../runtime/polkadot" }
+Peer-Runtime-constants = { path = "../../../runtime/polkadot/constants" }
 
 
 pallet-bags-list-remote-tests = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }

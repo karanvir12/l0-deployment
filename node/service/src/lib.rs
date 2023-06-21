@@ -61,7 +61,7 @@ use sc_client_api::BlockchainEvents;
 use service::BasePath;
 use polkadot_node_subsystem_util::database::Database;
 
-use polkadot_runtime::RuntimeApi as RuntimeApiPolka;
+use Peer_Runtime::RuntimeApi as RuntimeApiPolka;
 mod rpc;
 #[cfg(feature = "full-node")]
 pub use {
@@ -84,10 +84,10 @@ use futures::{future, StreamExt};
 //     #[cfg(not(feature = "runtime-benchmarks"))]
 //     type ExtendHostFunctions = ();
 //     fn dispatch(method: &str, data: &[u8]) -> Option<Vec<u8>> {
-//         polkadot_runtime::api::dispatch(method, data)
+//         Peer_Runtime::api::dispatch(method, data)
 //     }
 //     fn native_version() -> sc_executor::NativeVersion {
-//         polkadot_runtime::native_version()
+//         Peer_Runtime::native_version()
 //     }
 // }
 
@@ -100,10 +100,10 @@ impl sc_executor::NativeExecutionDispatch for ExecutorDispatchStruct {
     #[cfg(not(feature = "runtime-benchmarks"))]
     type ExtendHostFunctions = ();
     fn dispatch(method: &str, data: &[u8]) -> Option<Vec<u8>> {
-        polkadot_runtime::api::dispatch(method, data)
+        Peer_Runtime::api::dispatch(method, data)
     }
     fn native_version() -> sc_executor::NativeVersion {
-        polkadot_runtime::native_version()
+        Peer_Runtime::native_version()
     }
 }
 
@@ -159,7 +159,7 @@ pub use sp_runtime::{
 };
 
 
-pub use polkadot_runtime;
+pub use Peer_Runtime;
 /// The maximum number of active leaves we forward to the [`Overseer`] on startup.
 #[cfg(any(test, feature = "full-node"))]
 const MAX_ACTIVE_LEAVES: usize = 4;
@@ -1643,7 +1643,7 @@ pub fn new_chain_ops(
 
 	#[cfg(feature = "polkadot-native")]
 	{
-		return chain_ops!(config, jaeger_agent, telemetry_worker_handle; polkadot_runtime, PolkadotExecutorDispatch, Polkadot)
+		return chain_ops!(config, jaeger_agent, telemetry_worker_handle; Peer_Runtime, PolkadotExecutorDispatch, Polkadot)
 	}
 	#[cfg(not(feature = "polkadot-native"))]
 	Err(Error::NoRuntime)

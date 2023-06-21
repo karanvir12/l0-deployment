@@ -1,18 +1,18 @@
 // Copyright 2017-2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of PEER.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// PEER is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// PEER is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with PEER.  If not, see <http://www.gnu.org/licenses/>.
 
 //! The Polkadot runtime. This can be compiled with `#[no_std]`, ready for Wasm.
 
@@ -131,7 +131,7 @@ use sp_runtime::traits::Get;
 pub use sp_runtime::BuildStorage;
 
 /// Constant values used within the runtime.
-use polkadot_runtime_constants::{currency::*, fee::*, time::*};
+use Peer_Runtime_constants::{currency::*, fee::*, time::*};
 
 // Weights used in the runtime.
 mod weights;
@@ -140,7 +140,7 @@ mod bag_thresholds;
 
 pub mod xcm_config;
 
-impl_runtime_weights!(polkadot_runtime_constants);
+impl_runtime_weights!(Peer_Runtime_constants);
 
 // Make the WASM binary available.
 #[cfg(feature = "std")]

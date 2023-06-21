@@ -91,14 +91,14 @@ polkadot-rpc = { path = "../../rpc" }
 polkadot-node-subsystem = {path = "../subsystem" }
 polkadot-node-subsystem-util = { path = "../subsystem-util" }
 polkadot-node-subsystem-types = { path = "../subsystem-types" }
-polkadot-runtime-parachains = { path = "../../runtime/parachains" }
+Peer-Runtime-parachains = { path = "../../runtime/parachains" }
 polkadot-node-network-protocol = { path = "../network/protocol" }
 
 # Polkadot Runtime Constants
-polkadot-runtime-constants = { path = "../../runtime/polkadot/constants", optional = true }
+Peer-Runtime-constants = { path = "../../runtime/polkadot/constants", optional = true }
 
 # Polkadot Runtimes
-polkadot-runtime = { path = "../../runtime/polkadot", optional = true }
+Peer-Runtime = { path = "../../runtime/polkadot", optional = true }
 
 # Polkadot Subsystems
 polkadot-approval-distribution = { path = "../network/approval-distribution", optional = true }
@@ -137,7 +137,7 @@ beefy-gadget-rpc = { git = "https://github.com/karanvir12/substrate36.git", bran
 substrate-state-trie-migration-rpc = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 pallet-transaction-payment-rpc = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
-# polkadot-runtime = { version = "3.0.0-dev", path = "../runtime/polkadot" }
+# Peer-Runtime = { version = "3.0.0-dev", path = "../runtime/polkadot" }
 
 # Frontier
 fc-cli = { path = "../../evm-client/cli" }
@@ -199,23 +199,23 @@ full-node = [
 # Configure the native runtimes to use. Polkadot is enabled by default.
 #
 # Validators require the native runtime currently
-polkadot-native = [ "polkadot-runtime", "polkadot-runtime-constants", "polkadot-client/polkadot" ]
+polkadot-native = [ "Peer-Runtime", "Peer-Runtime-constants", "polkadot-client/polkadot" ]
 
 runtime-benchmarks = [
-	"polkadot-runtime?/runtime-benchmarks",
+	"Peer-Runtime?/runtime-benchmarks",
 
 	"service/runtime-benchmarks",
 ]
 try-runtime = [
-	"polkadot-runtime?/try-runtime",
+	"Peer-Runtime?/try-runtime",
 ]
 fast-runtime = [
-	"polkadot-runtime?/fast-runtime",
+	"Peer-Runtime?/fast-runtime",
 ]
 
 malus = ["full-node"]
 runtime-metrics = [
 	"polkadot-client/runtime-metrics",
-	"polkadot-runtime?/runtime-metrics",
-	"polkadot-runtime-parachains/runtime-metrics"
+	"Peer-Runtime?/runtime-metrics",
+	"Peer-Runtime-parachains/runtime-metrics"
 ]

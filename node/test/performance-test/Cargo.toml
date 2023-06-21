@@ -14,11 +14,11 @@ polkadot-node-core-pvf = { path = "../../core/pvf" }
 polkadot-erasure-coding = { path = "../../../erasure-coding" }
 polkadot-node-primitives = { path = "../../primitives" }
 
-polkadot-runtime = { path = "../../../runtime/polkadot" }
+Peer-Runtime = { path = "../../../runtime/polkadot" }
 
 [[bin]]
 name = "gen-ref-constants"
 path = "src/gen_ref_constants.rs"
 
 [features]
-runtime-benchmarks = ["polkadot-runtime/runtime-benchmarks"]
+runtime-benchmarks = ["Peer-Runtime/runtime-benchmarks"]

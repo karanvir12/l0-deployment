@@ -23,7 +23,7 @@ use sp_runtime::{testing::Header, traits::IdentityLookup, AccountId32};
 use sp_std::cell::RefCell;
 
 use polkadot_parachain::primitives::Id as ParaId;
-use polkadot_runtime_parachains::{configuration, origin, shared};
+use Peer_Runtime_parachains::{configuration, origin, shared};
 use xcm::latest::{opaque, prelude::*};
 use xcm_executor::XcmExecutor;
 

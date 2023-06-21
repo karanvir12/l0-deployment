@@ -23,15 +23,15 @@ use pallet_im_online::sr25519::AuthorityId as ImOnlineId;
 use pallet_staking::Forcing;
 use polkadot_primitives::v2::{AccountId, AccountPublic, AssignmentId, ValidatorId};
 #[cfg(feature = "polkadot-native")]
-use polkadot_runtime as polkadot;
+use Peer_Runtime as polkadot;
 #[cfg(feature = "polkadot-native")]
-use polkadot_runtime_constants::currency::UNITS as DOT;
+use Peer_Runtime_constants::currency::UNITS as DOT;
 use sp_authority_discovery::AuthorityId as AuthorityDiscoveryId;
 use sp_consensus_babe::AuthorityId as BabeId;
 
-use polkadot_runtime::EVMChainIdConfig;
-use polkadot_runtime::EvmConfig;
-use polkadot_runtime::EthereumConfig;
+use Peer_Runtime::EVMChainIdConfig;
+use Peer_Runtime::EvmConfig;
+use Peer_Runtime::EthereumConfig;
 use std::collections::BTreeMap;
 use sp_core::{H160, U256};
 use std::str::FromStr;
@@ -89,12 +89,12 @@ pub fn polkadot_config() -> Result<PolkadotChainSpec, String> {
 	feature = "polkadot-native"
 ))]
 fn default_parachains_host_configuration(
-) -> polkadot_runtime_parachains::configuration::HostConfiguration<
+) -> Peer_Runtime_parachains::configuration::HostConfiguration<
 	polkadot_primitives::v2::BlockNumber,
 > {
 	use polkadot_primitives::v2::{MAX_CODE_SIZE, MAX_POV_SIZE};
 
-	polkadot_runtime_parachains::configuration::HostConfiguration {
+	Peer_Runtime_parachains::configuration::HostConfiguration {
 		validation_upgrade_cooldown: 2u32,
 		validation_upgrade_delay: 2,
 		code_retention_period: 1200,

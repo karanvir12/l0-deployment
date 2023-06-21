@@ -59,11 +59,11 @@ impl sc_executor::NativeExecutionDispatch for PolkadotExecutorDispatch {
 	type ExtendHostFunctions = frame_benchmarking::benchmarking::HostFunctions;
 
 	fn dispatch(method: &str, data: &[u8]) -> Option<Vec<u8>> {
-		polkadot_runtime::api::dispatch(method, data)
+		Peer_Runtime::api::dispatch(method, data)
 	}
 
 	fn native_version() -> sc_executor::NativeVersion {
-		polkadot_runtime::native_version()
+		Peer_Runtime::native_version()
 	}
 }
 
@@ -210,7 +210,7 @@ macro_rules! with_client {
 			#[cfg(feature = "polkadot")]
 			Client::Polkadot($client) => {
 				#[allow(unused_imports)]
-				use polkadot_runtime as runtime;
+				use Peer_Runtime as runtime;
 
 				$code
 			},
@@ -227,7 +227,7 @@ pub(crate) use with_client;
 #[derive(Clone)]
 pub enum Client {
 	#[cfg(feature = "polkadot")]
-	Polkadot(Arc<FullClient<polkadot_runtime::RuntimeApi, PolkadotExecutorDispatch>>),
+	Polkadot(Arc<FullClient<Peer_Runtime::RuntimeApi, PolkadotExecutorDispatch>>),
 
 }
 

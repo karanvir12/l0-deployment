@@ -17,13 +17,13 @@ polkadot-overseer = { path = "../../overseer" }
 polkadot-primitives = { path = "../../../primitives" }
 polkadot-parachain = { path = "../../../parachain" }
 polkadot-rpc = { path = "../../../rpc" }
-polkadot-runtime-common = { path = "../../../runtime/common" }
+Peer-Runtime-common = { path = "../../../runtime/common" }
 polkadot-service = { path = "../../service" }
 polkadot-node-subsystem = { path = "../../subsystem" }
 polkadot-node-primitives = { path = "../../primitives" }
 polkadot-test-runtime = { path = "../../../runtime/test-runtime" }
 test-runtime-constants = { path = "../../../runtime/test-runtime/constants" }
-polkadot-runtime-parachains = { path = "../../../runtime/parachains" }
+Peer-Runtime-parachains = { path = "../../../runtime/parachains" }
 
 # Substrate dependencies
 sp-authority-discovery = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }

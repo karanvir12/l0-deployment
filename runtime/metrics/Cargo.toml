@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-runtime-metrics"
+name = "Peer-Runtime-metrics"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true

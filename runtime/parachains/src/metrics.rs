@@ -16,7 +16,7 @@
 
 //! Runtime declaration of the parachain metrics.
 
-use polkadot_runtime_metrics::{Counter, CounterVec};
+use Peer_Runtime_metrics::{Counter, CounterVec};
 use primitives::v2::metric_definitions::{
 	PARACHAIN_CREATE_INHERENT_BITFIELDS_SIGNATURE_CHECKS,
 	PARACHAIN_INHERENT_DATA_BITFIELDS_PROCESSED, PARACHAIN_INHERENT_DATA_CANDIDATES_PROCESSED,

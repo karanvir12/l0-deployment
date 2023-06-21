@@ -115,7 +115,7 @@ impl SubstrateCli for Cli {
 
 		#[cfg(feature = "polkadot-native")]
 		{
-			return &service::polkadot_runtime::VERSION
+			return &service::Peer_Runtime::VERSION
 		}
 
 		#[cfg(not(feature = "polkadot-native"))]
@@ -506,7 +506,7 @@ pub fn run() -> Result<()> {
 					#[cfg(feature = "polkadot-native")]
 					{
 						return runner.sync_run(|config| {
-							cmd.run::<service::polkadot_runtime::Block, service::PolkadotExecutorDispatch>(config)
+							cmd.run::<service::Peer_Runtime::Block, service::PolkadotExecutorDispatch>(config)
 								.map_err(|e| Error::SubstrateCli(e))
 						})
 					}
@@ -558,7 +558,7 @@ pub fn run() -> Result<()> {
 			{
 				return runner.async_run(|_| {
 					Ok((
-						cmd.run::<service::polkadot_runtime::Block, HostFunctionsOf<service::PolkadotExecutorDispatch>>(
+						cmd.run::<service::Peer_Runtime::Block, HostFunctionsOf<service::PolkadotExecutorDispatch>>(
 						)
 						.map_err(Error::SubstrateCli),
 						task_manager,

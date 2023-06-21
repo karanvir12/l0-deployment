@@ -54,7 +54,7 @@ impl frame_benchmarking_cli::ExtrinsicBuilder for RemarkBuilder {
 				let call = RuntimeCall::System(SystemCall::remark { remark: vec![] });
 				let signer = Sr25519Keyring::Bob.pair();
 
-				let period = polkadot_runtime_common::BlockHashCount::get().checked_next_power_of_two().map(|c| c / 2).unwrap_or(2) as u64;
+				let period = Peer_Runtime_common::BlockHashCount::get().checked_next_power_of_two().map(|c| c / 2).unwrap_or(2) as u64;
 				let genesis = client.usage_info().chain.best_hash;
 
 				Ok(client.sign_call(call, nonce, 0, period, genesis, signer))
@@ -100,7 +100,7 @@ impl frame_benchmarking_cli::ExtrinsicBuilder for TransferKeepAliveBuilder {
 				});
 				let signer = Sr25519Keyring::Bob.pair();
 
-				let period = polkadot_runtime_common::BlockHashCount::get().checked_next_power_of_two().map(|c| c / 2).unwrap_or(2) as u64;
+				let period = Peer_Runtime_common::BlockHashCount::get().checked_next_power_of_two().map(|c| c / 2).unwrap_or(2) as u64;
 				let genesis = client.usage_info().chain.best_hash;
 
 				Ok(client.sign_call(call, nonce, 0, period, genesis, signer))
@@ -130,19 +130,19 @@ trait BenchmarkCallSigner<RuntimeCall: Encode + Clone, Signer: Pair> {
 }
 
 #[cfg(feature = "polkadot")]
-impl BenchmarkCallSigner<polkadot_runtime::RuntimeCall, sp_core::sr25519::Pair>
-	for FullClient<polkadot_runtime::RuntimeApi, PolkadotExecutorDispatch>
+impl BenchmarkCallSigner<Peer_Runtime::RuntimeCall, sp_core::sr25519::Pair>
+	for FullClient<Peer_Runtime::RuntimeApi, PolkadotExecutorDispatch>
 {
 	fn sign_call(
 		&self,
-		call: polkadot_runtime::RuntimeCall,
+		call: Peer_Runtime::RuntimeCall,
 		nonce: u32,
 		current_block: u64,
 		period: u64,
 		genesis: H256,
 		acc: sp_core::sr25519::Pair,
 	) -> OpaqueExtrinsic {
-		use polkadot_runtime as runtime;
+		use Peer_Runtime as runtime;
 
 		let extra: runtime::SignedExtra = (
 			frame_system::CheckNonZeroSender::<runtime::Runtime>::new(),
@@ -155,7 +155,7 @@ impl BenchmarkCallSigner<polkadot_runtime::RuntimeCall, sp_core::sr25519::Pair>
 			frame_system::CheckNonce::<runtime::Runtime>::from(nonce),
 			frame_system::CheckWeight::<runtime::Runtime>::new(),
 			pallet_transaction_payment::ChargeTransactionPayment::<runtime::Runtime>::from(0),
-			polkadot_runtime_common::claims::PrevalidateAttests::<runtime::Runtime>::new(),
+			Peer_Runtime_common::claims::PrevalidateAttests::<runtime::Runtime>::new(),
 		);
 
 		let payload = runtime::SignedPayload::from_raw(

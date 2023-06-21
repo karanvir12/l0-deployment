@@ -28,7 +28,7 @@ pub use polkadot_parachain::primitives::{
 	DmpMessageHandler as DmpMessageHandlerT, Id as ParaId, XcmpMessageFormat,
 	XcmpMessageHandler as XcmpMessageHandlerT,
 };
-pub use polkadot_runtime_parachains::{
+pub use Peer_Runtime_parachains::{
 	dmp,
 	ump::{self, MessageId, UmpSink, XcmSink},
 };

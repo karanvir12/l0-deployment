@@ -61,7 +61,7 @@ async fn main() {
 	use pallet_bags_list_remote_tests::*;
 	match options.runtime {
 		Runtime::Polkadot => sp_core::crypto::set_default_ss58_version(
-			<polkadot_runtime::Runtime as frame_system::Config>::SS58Prefix::get()
+			<Peer_Runtime::Runtime as frame_system::Config>::SS58Prefix::get()
 				.try_into()
 				.unwrap(),
 		),
@@ -121,18 +121,18 @@ async fn main() {
 		},
 
 		(Runtime::Polkadot, Command::CheckMigration) => {
-			use polkadot_runtime::{Block, Runtime};
-			use polkadot_runtime_constants::currency::UNITS;
+			use Peer_Runtime::{Block, Runtime};
+			use Peer_Runtime_constants::currency::UNITS;
 			migration::execute::<Runtime, Block>(UNITS as u64, "DOT", options.uri.clone()).await;
 		},
 		(Runtime::Polkadot, Command::SanityCheck) => {
-			use polkadot_runtime::{Block, Runtime};
-			use polkadot_runtime_constants::currency::UNITS;
+			use Peer_Runtime::{Block, Runtime};
+			use Peer_Runtime_constants::currency::UNITS;
 			try_state::execute::<Runtime, Block>(UNITS as u64, "DOT", options.uri.clone()).await;
 		},
 		(Runtime::Polkadot, Command::Snapshot) => {
-			use polkadot_runtime::{Block, Runtime};
-			use polkadot_runtime_constants::currency::UNITS;
+			use Peer_Runtime::{Block, Runtime};
+			use Peer_Runtime_constants::currency::UNITS;
 			snapshot::execute::<Runtime, Block>(
 				options.snapshot_limit,
 				UNITS.try_into().unwrap(),
