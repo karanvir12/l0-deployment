@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-collator-protocol"
+name = "peer-collator-protocol"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -15,11 +15,11 @@ sp-core = { git = "https://github.com/karanvir12/substrate36.git", branch = "rel
 sp-runtime = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sp-keystore = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
-polkadot-primitives = { path = "../../../primitives" }
-polkadot-node-network-protocol = { path = "../../network/protocol" }
-polkadot-node-primitives = { path = "../../primitives" }
-polkadot-node-subsystem-util = { path = "../../subsystem-util" }
-polkadot-node-subsystem = {path = "../../subsystem" }
+peer-primitives = { path = "../../../primitives" }
+peer-node-network-protocol = { path = "../../network/protocol" }
+peer-node-primitives = { path = "../../primitives" }
+peer-node-subsystem-util = { path = "../../subsystem-util" }
+peer-node-subsystem = {path = "../../subsystem" }
 fatality = "0.0.6"
 thiserror = "1.0.31"
 
@@ -33,5 +33,5 @@ sp-keyring = { git = "https://github.com/karanvir12/substrate36.git", branch = "
 sc-network = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 parity-scale-codec = { version = "3.1.5", features = ["std"] }
 
-polkadot-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
-polkadot-primitives-test-helpers = { path = "../../../primitives/test-helpers" }
+peer-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
+peer-primitives-test-helpers = { path = "../../../primitives/test-helpers" }

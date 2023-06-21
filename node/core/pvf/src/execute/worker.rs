@@ -34,7 +34,7 @@ use cpu_time::ProcessTime;
 use futures::FutureExt;
 use futures_timer::Delay;
 use parity_scale_codec::{Decode, Encode};
-use polkadot_parachain::primitives::ValidationResult;
+use peer_parachain::primitives::ValidationResult;
 use std::{
 	sync::{
 		atomic::{AtomicBool, Ordering},

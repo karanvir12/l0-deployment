@@ -21,13 +21,13 @@ use std::sync::Arc;
 use futures::channel::oneshot;
 
 use fatality::Nested;
-use polkadot_node_network_protocol::{
+use peer_node_network_protocol::{
 	request_response::{v1, IncomingRequest, IncomingRequestReceiver},
 	UnifiedReputationChange as Rep,
 };
-use polkadot_node_primitives::{AvailableData, ErasureChunk};
-use polkadot_node_subsystem::{jaeger, messages::AvailabilityStoreMessage, SubsystemSender};
-use polkadot_primitives::v2::{CandidateHash, ValidatorIndex};
+use peer_node_primitives::{AvailableData, ErasureChunk};
+use peer_node_subsystem::{jaeger, messages::AvailabilityStoreMessage, SubsystemSender};
+use peer_primitives::v2::{CandidateHash, ValidatorIndex};
 
 use crate::{
 	error::{JfyiError, Result},

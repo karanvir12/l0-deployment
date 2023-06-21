@@ -24,7 +24,7 @@
 
 #![warn(missing_docs)]
 
-use polkadot_node_subsystem::{
+use peer_node_subsystem::{
 	errors::{RuntimeApiError, SubsystemError},
 	messages::{RuntimeApiMessage, RuntimeApiRequest, RuntimeApiSender},
 	overseer, SubsystemSender,
@@ -35,12 +35,12 @@ pub use overseer::{
 	Subsystem, TimeoutExt,
 };
 
-pub use polkadot_node_metrics::{metrics, Metronome};
+pub use peer_node_metrics::{metrics, Metronome};
 
 use futures::channel::{mpsc, oneshot};
 use parity_scale_codec::Encode;
 
-use polkadot_primitives::v2::{
+use peer_primitives::v2::{
 	AuthorityDiscoveryId, CandidateEvent, CommittedCandidateReceipt, CoreState, EncodeAs,
 	GroupIndex, GroupRotationInfo, Hash, Id as ParaId, OccupiedCoreAssumption,
 	PersistedValidationData, ScrapedOnChainVotes, SessionIndex, SessionInfo, Signed,
@@ -55,13 +55,13 @@ use std::time::Duration;
 use thiserror::Error;
 
 pub use metered;
-pub use polkadot_node_network_protocol::MIN_GOSSIP_PEERS;
+pub use peer_node_network_protocol::MIN_GOSSIP_PEERS;
 
 pub use determine_new_blocks::determine_new_blocks;
 
 /// These reexports are required so that external crates can use the `delegated_subsystem` macro properly.
 pub mod reexports {
-	pub use polkadot_overseer::gen::{SpawnedSubsystem, Spawner, Subsystem, SubsystemContext};
+	pub use peer_overseer::gen::{SpawnedSubsystem, Spawner, Subsystem, SubsystemContext};
 }
 
 /// A rolling session window cache.

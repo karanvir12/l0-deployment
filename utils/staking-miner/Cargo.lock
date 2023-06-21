@@ -1933,7 +1933,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8b870d8c151b6f2fb93e84a13146138f05d02ed11c7e7c54f8826aaaf7c9f184"
 
 [[package]]
-name = "polkadot-core-primitives"
+name = "peer-core-primitives"
 version = "0.9.25"
 dependencies = [
  "parity-scale-codec",
@@ -3695,7 +3695,7 @@ dependencies = [
  "pallet-transaction-payment",
  "parity-scale-codec",
  "paste",
- "polkadot-core-primitives",
+ "peer-core-primitives",
  "remote-externalities",
  "sc-transaction-pool-api",
  "scale-info",

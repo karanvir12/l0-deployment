@@ -97,13 +97,13 @@ build-malus:
     - .compiler-info
     - .collect-artifacts
   script:
-    - time cargo build --profile testnet --verbose -p polkadot-test-malus
+    - time cargo build --profile testnet --verbose -p peer-test-malus
     # pack artifacts
     - mkdir -p ./artifacts
     - mv ./target/testnet/malus ./artifacts/.
     - echo -n "${CI_COMMIT_REF_NAME}" > ./artifacts/VERSION
     - echo -n "${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}" > ./artifacts/EXTRATAG
-    - echo "polkadot-test-malus = $(cat ./artifacts/VERSION) (EXTRATAG = $(cat ./artifacts/EXTRATAG))"
+    - echo "peer-test-malus = $(cat ./artifacts/VERSION) (EXTRATAG = $(cat ./artifacts/EXTRATAG))"
     - cp -r ./scripts/* ./artifacts
 
 build-staking-miner:
@@ -154,7 +154,7 @@ build-rustdoc:
     - mv ./target/doc ./crate-docs
     # FIXME: remove me after CI image gets nonroot
     - chown -R nonroot:nonroot ./crate-docs
-    - echo "<meta http-equiv=refresh content=0;url=polkadot_service/index.html>" > ./crate-docs/index.html
+    - echo "<meta http-equiv=refresh content=0;url=peer_service/index.html>" > ./crate-docs/index.html
 
 build-implementers-guide:
   stage:                           build

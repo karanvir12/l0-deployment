@@ -32,7 +32,7 @@ pallet-staking = { git = "https://github.com/karanvir12/substrate36.git", branch
 pallet-balances = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 pallet-transaction-payment = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
-core-primitives = { package = "polkadot-core-primitives", path = "../../core-primitives" }
+core-primitives = { package = "peer-core-primitives", path = "../../core-primitives" }
 
 runtime-common = { package = "Peer-Runtime-common", path = "../../runtime/common" }
 Peer-Runtime = { path = "../../runtime/polkadot" }

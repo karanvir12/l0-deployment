@@ -17,9 +17,9 @@
 
 //! Error handling related code and Error/Result definitions.
 
-use polkadot_node_primitives::disputes::DisputeMessageCheckError;
-use polkadot_node_subsystem::SubsystemError;
-use polkadot_node_subsystem_util::runtime;
+use peer_node_primitives::disputes::DisputeMessageCheckError;
+use peer_node_subsystem::SubsystemError;
+use peer_node_subsystem_util::runtime;
 
 #[allow(missing_docs)]
 #[fatality::fatality(splitable)]

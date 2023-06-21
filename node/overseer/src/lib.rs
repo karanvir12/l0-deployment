@@ -72,9 +72,9 @@ use futures::{channel::oneshot, future::BoxFuture, select, Future, FutureExt, St
 use lru::LruCache;
 
 use client::{BlockImportNotification, BlockchainEvents, FinalityNotification};
-use polkadot_primitives::v2::{Block, BlockNumber, Hash};
+use peer_primitives::v2::{Block, BlockNumber, Hash};
 
-use polkadot_node_subsystem_types::messages::{
+use peer_node_subsystem_types::messages::{
 	ApprovalDistributionMessage, ApprovalVotingMessage, AvailabilityDistributionMessage,
 	AvailabilityRecoveryMessage, AvailabilityStoreMessage, BitfieldDistributionMessage,
 	BitfieldSigningMessage, CandidateBackingMessage, CandidateValidationMessage, ChainApiMessage,
@@ -83,7 +83,7 @@ use polkadot_node_subsystem_types::messages::{
 	NetworkBridgeRxMessage, NetworkBridgeTxMessage, ProvisionerMessage, PvfCheckerMessage,
 	RuntimeApiMessage, StatementDistributionMessage,
 };
-pub use polkadot_node_subsystem_types::{
+pub use peer_node_subsystem_types::{
 	errors::{SubsystemError, SubsystemResult},
 	jaeger, ActivatedLeaf, ActiveLeavesUpdate, LeafStatus, OverseerSignal,
 	RuntimeApiSubsystemClient,
@@ -96,7 +96,7 @@ pub use self::metrics::Metrics as OverseerMetrics;
 pub mod dummy;
 pub use self::dummy::DummySubsystem;
 
-pub use polkadot_node_metrics::{
+pub use peer_node_metrics::{
 	metrics::{prometheus, Metrics as MetricsTrait},
 	Metronome,
 };
@@ -369,8 +369,8 @@ pub async fn forward_events<P: BlockchainEvents<Block>>(client: Arc<P>, mut hand
 /// # use std::time::Duration;
 /// # use futures::{executor, pin_mut, select, FutureExt};
 /// # use futures_timer::Delay;
-/// # use polkadot_primitives::v2::Hash;
-/// # use polkadot_overseer::{
+/// # use peer_primitives::v2::Hash;
+/// # use peer_overseer::{
 /// # 	self as overseer,
 /// #   OverseerSignal,
 /// # 	SubsystemSender as _,
@@ -384,7 +384,7 @@ pub async fn forward_events<P: BlockchainEvents<Block>>(client: Arc<P>, mut hand
 /// # 		SpawnedSubsystem,
 /// # 	},
 /// # };
-/// # use polkadot_node_subsystem_types::messages::{
+/// # use peer_node_subsystem_types::messages::{
 /// # 	CandidateValidationMessage, CandidateBackingMessage,
 /// # 	NetworkBridgeTxMessage,
 /// # };

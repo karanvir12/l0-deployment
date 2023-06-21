@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-node-core-approval-voting"
+name = "peer-node-core-approval-voting"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -17,12 +17,12 @@ kvdb = "0.13.0"
 derive_more = "0.99.17"
 thiserror = "1.0.31"
 
-polkadot-node-subsystem = { path = "../../subsystem" }
-polkadot-node-subsystem-util = { path = "../../subsystem-util" }
-polkadot-overseer = { path = "../../overseer" }
-polkadot-primitives = { path = "../../../primitives" }
-polkadot-node-primitives = { path = "../../primitives" }
-polkadot-node-jaeger = { path = "../../jaeger" }
+peer-node-subsystem = { path = "../../subsystem" }
+peer-node-subsystem-util = { path = "../../subsystem-util" }
+peer-overseer = { path = "../../overseer" }
+peer-primitives = { path = "../../../primitives" }
+peer-node-primitives = { path = "../../primitives" }
+peer-node-jaeger = { path = "../../jaeger" }
 
 sc-keystore = { git = "https://github.com/karanvir12/substrate36.git", default-features = false , branch = "relpeer" }
 sp-consensus = { git = "https://github.com/karanvir12/substrate36.git", default-features = false , branch = "relpeer" }
@@ -39,7 +39,7 @@ sp-keyring = { git = "https://github.com/karanvir12/substrate36.git", branch = "
 sp-keystore = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sp-core = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sp-consensus-babe = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
-polkadot-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
+peer-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
 assert_matches = "1.4.0"
 kvdb-memorydb = "0.13.0"
-test-helpers = { package = "polkadot-primitives-test-helpers", path = "../../../primitives/test-helpers" }
+test-helpers = { package = "peer-primitives-test-helpers", path = "../../../primitives/test-helpers" }

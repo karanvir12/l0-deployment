@@ -40,7 +40,7 @@ frame-system = { git = "https://github.com/karanvir12/substrate36.git", default-
 
 xcm = { package = "xcm", path = "../../xcm", default-features = false }
 xcm-executor = { package = "xcm-executor", path = "../../xcm/xcm-executor", default-features = false }
-primitives = { package = "polkadot-primitives", path = "../../primitives", default-features = false }
+primitives = { package = "peer-primitives", path = "../../primitives", default-features = false }
 
 rand = { version = "0.8.5", default-features = false }
 rand_chacha = { version = "0.3.1", default-features = false }
@@ -53,7 +53,7 @@ hex-literal = "0.3.4"
 keyring = { package = "sp-keyring", git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 frame-support-test = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sc-keystore = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
-test-helpers = { package = "polkadot-primitives-test-helpers", path = "../../primitives/test-helpers"}
+test-helpers = { package = "peer-primitives-test-helpers", path = "../../primitives/test-helpers"}
 sp-tracing = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 thousands = "0.2.0"
 assert_matches = "1"

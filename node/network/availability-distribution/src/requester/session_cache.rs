@@ -19,9 +19,9 @@ use std::{collections::HashSet, num::NonZeroUsize};
 use lru::LruCache;
 use rand::{seq::SliceRandom, thread_rng};
 
-use polkadot_node_subsystem::overseer;
-use polkadot_node_subsystem_util::runtime::RuntimeInfo;
-use polkadot_primitives::v2::{
+use peer_node_subsystem::overseer;
+use peer_node_subsystem_util::runtime::RuntimeInfo;
+use peer_primitives::v2::{
 	AuthorityDiscoveryId, GroupIndex, Hash, SessionIndex, ValidatorIndex,
 };
 

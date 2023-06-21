@@ -15,7 +15,7 @@
 // along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
 
 use crate::artifacts::ArtifactId;
-use polkadot_parachain::primitives::ValidationCodeHash;
+use peer_parachain::primitives::ValidationCodeHash;
 use sp_core::blake2_256;
 use std::{fmt, sync::Arc};
 

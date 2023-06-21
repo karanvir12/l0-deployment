@@ -18,7 +18,7 @@ use crate::cli::{Cli, Subcommand};
 use frame_benchmarking_cli::{BenchmarkCmd, ExtrinsicFactory, SUBSTRATE_REFERENCE_HARDWARE};
 use futures::future::TryFutureExt;
 use log::info;
-use polkadot_client::benchmarking::{
+use peer_client::benchmarking::{
 	benchmark_inherent_data, ExistentialDepositProvider, RemarkBuilder, TransferKeepAliveBuilder,
 };
 use sc_cli::{RuntimeVersion, SubstrateCli};
@@ -28,7 +28,7 @@ use sp_keyring::Sr25519Keyring;
 use std::net::ToSocketAddrs;
 
 pub use crate::{error::Error, service::BlockId};
-pub use polkadot_performance_test::PerfCheckError;
+pub use peer_performance_test::PerfCheckError;
 
 impl From<String> for Error {
 	fn from(s: String) -> Self {
@@ -143,7 +143,7 @@ fn ensure_dev(spec: &Box<dyn service::ChainSpec>) -> std::result::Result<(), Str
 	}
 }
 
-/// Unwraps a [`polkadot_client::Client`] into the concrete runtime client.
+/// Unwraps a [`peer_client::Client`] into the concrete runtime client.
 macro_rules! unwrap_client {
 	(
 		$client:ident,
@@ -151,7 +151,7 @@ macro_rules! unwrap_client {
 	) => {
 		match $client.as_ref() {
 			#[cfg(feature = "polkadot-native")]
-			polkadot_client::Client::Polkadot($client) => $code,
+			peer_client::Client::Polkadot($client) => $code,
 			#[allow(unreachable_patterns)]
 			_ => Err(Error::CommandNotImplemented),
 		}
@@ -298,7 +298,7 @@ pub fn run() -> Result<()> {
 			cli,
 			service::RealOverseerGen,
 			None,
-			polkadot_node_metrics::logger_hook(),
+			peer_node_metrics::logger_hook(),
 		),
 		Some(Subcommand::BuildSpec(cmd)) => {
 			let runner = cli.create_runner(cmd)?;
@@ -393,7 +393,7 @@ pub fn run() -> Result<()> {
 
 			#[cfg(not(target_os = "android"))]
 			{
-				polkadot_node_core_pvf::prepare_worker_entrypoint(&cmd.socket_path);
+				peer_node_core_pvf::prepare_worker_entrypoint(&cmd.socket_path);
 				Ok(())
 			}
 		},
@@ -412,7 +412,7 @@ pub fn run() -> Result<()> {
 
 			#[cfg(not(target_os = "android"))]
 			{
-				polkadot_node_core_pvf::execute_worker_entrypoint(&cmd.socket_path);
+				peer_node_core_pvf::execute_worker_entrypoint(&cmd.socket_path);
 				Ok(())
 			}
 		},

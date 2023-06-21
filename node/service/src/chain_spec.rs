@@ -21,7 +21,7 @@ use frame_support::weights::Weight;
 use grandpa::AuthorityId as GrandpaId;
 use pallet_im_online::sr25519::AuthorityId as ImOnlineId;
 use pallet_staking::Forcing;
-use polkadot_primitives::v2::{AccountId, AccountPublic, AssignmentId, ValidatorId};
+use peer_primitives::v2::{AccountId, AccountPublic, AssignmentId, ValidatorId};
 #[cfg(feature = "polkadot-native")]
 use Peer_Runtime as polkadot;
 #[cfg(feature = "polkadot-native")]
@@ -56,9 +56,9 @@ const DEFAULT_PROTOCOL_ID: &str = "Peer";
 #[serde(rename_all = "camelCase")]
 pub struct Extensions {
 	/// Block numbers with known hashes.
-	pub fork_blocks: sc_client_api::ForkBlocks<polkadot_primitives::v2::Block>,
+	pub fork_blocks: sc_client_api::ForkBlocks<peer_primitives::v2::Block>,
 	/// Known bad block hashes.
-	pub bad_blocks: sc_client_api::BadBlocks<polkadot_primitives::v2::Block>,
+	pub bad_blocks: sc_client_api::BadBlocks<peer_primitives::v2::Block>,
 	/// The light sync state.
 	///
 	/// This value will be set by the `sync-state rpc` implementation.
@@ -90,9 +90,9 @@ pub fn polkadot_config() -> Result<PolkadotChainSpec, String> {
 ))]
 fn default_parachains_host_configuration(
 ) -> Peer_Runtime_parachains::configuration::HostConfiguration<
-	polkadot_primitives::v2::BlockNumber,
+	peer_primitives::v2::BlockNumber,
 > {
-	use polkadot_primitives::v2::{MAX_CODE_SIZE, MAX_POV_SIZE};
+	use peer_primitives::v2::{MAX_CODE_SIZE, MAX_POV_SIZE};
 
 	Peer_Runtime_parachains::configuration::HostConfiguration {
 		validation_upgrade_cooldown: 2u32,

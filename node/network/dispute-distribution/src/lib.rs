@@ -28,16 +28,16 @@ use std::{num::NonZeroUsize, time::Duration};
 
 use futures::{channel::mpsc, FutureExt, StreamExt, TryFutureExt};
 
-use polkadot_node_network_protocol::authority_discovery::AuthorityDiscovery;
+use peer_node_network_protocol::authority_discovery::AuthorityDiscovery;
 use sp_keystore::SyncCryptoStorePtr;
 
-use polkadot_node_network_protocol::request_response::{incoming::IncomingRequestReceiver, v1};
-use polkadot_node_primitives::DISPUTE_WINDOW;
-use polkadot_node_subsystem::{
+use peer_node_network_protocol::request_response::{incoming::IncomingRequestReceiver, v1};
+use peer_node_primitives::DISPUTE_WINDOW;
+use peer_node_subsystem::{
 	messages::DisputeDistributionMessage, overseer, FromOrchestra, OverseerSignal,
 	SpawnedSubsystem, SubsystemError,
 };
-use polkadot_node_subsystem_util::{runtime, runtime::RuntimeInfo};
+use peer_node_subsystem_util::{runtime, runtime::RuntimeInfo};
 
 /// ## The sender [`DisputeSender`]
 ///

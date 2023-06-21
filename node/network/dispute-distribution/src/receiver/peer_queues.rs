@@ -18,8 +18,8 @@ use std::collections::{hash_map::Entry, HashMap, VecDeque};
 
 use futures::future::pending;
 use futures_timer::Delay;
-use polkadot_node_network_protocol::request_response::{v1::DisputeRequest, IncomingRequest};
-use polkadot_primitives::v2::AuthorityDiscoveryId;
+use peer_node_network_protocol::request_response::{v1::DisputeRequest, IncomingRequest};
+use peer_primitives::v2::AuthorityDiscoveryId;
 
 use crate::RECEIVE_RATE_LIMIT;
 

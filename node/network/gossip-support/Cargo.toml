@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-gossip-support"
+name = "peer-gossip-support"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -10,10 +10,10 @@ sp-keystore = { git = "https://github.com/karanvir12/substrate36.git", branch = 
 sp-core = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sc-network = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
-polkadot-node-network-protocol = { path = "../protocol" }
-polkadot-node-subsystem = { path = "../../subsystem" }
-polkadot-node-subsystem-util = { path = "../../subsystem-util" }
-polkadot-primitives = { path = "../../../primitives" }
+peer-node-network-protocol = { path = "../protocol" }
+peer-node-subsystem = { path = "../../subsystem" }
+peer-node-subsystem-util = { path = "../../subsystem-util" }
+peer-primitives = { path = "../../../primitives" }
 
 futures = "0.3.21"
 futures-timer = "3.0.2"
@@ -27,7 +27,7 @@ sp-consensus-babe = { git = "https://github.com/karanvir12/substrate36.git", bra
 sp-tracing = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sp-authority-discovery = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
-polkadot-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
+peer-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
 
 assert_matches = "1.4.0"
 async-trait = "0.1.57"

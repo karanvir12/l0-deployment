@@ -33,7 +33,7 @@ use futures::{
 	channel::{mpsc, oneshot},
 	Future, FutureExt, SinkExt, StreamExt,
 };
-use polkadot_parachain::primitives::ValidationResult;
+use peer_parachain::primitives::ValidationResult;
 use std::{
 	collections::HashMap,
 	time::{Duration, SystemTime},

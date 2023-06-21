@@ -86,7 +86,7 @@ dependencies = [
  "pallet-vesting",
  "pallet-xcm",
  "parity-scale-codec",
- "polkadot-primitives",
+ "peer-primitives",
  "rustc-hex",
  "scale-info",
  "separator",
@@ -152,8 +152,8 @@ dependencies = [
  "pallet-treasury",
  "pallet-vesting",
  "parity-scale-codec",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
  "rustc-hex",
  "scale-info",
  "serde",
@@ -181,7 +181,7 @@ version = "0.9.36"
 dependencies = [
  "Peer-Runtime-common",
  "frame-support",
- "polkadot-primitives",
+ "peer-primitives",
  "smallvec",
  "sp-core",
  "sp-runtime",
@@ -194,7 +194,7 @@ version = "0.9.36"
 dependencies = [
  "bs58",
  "parity-scale-codec",
- "polkadot-primitives",
+ "peer-primitives",
  "sp-std",
  "sp-tracing",
 ]
@@ -224,8 +224,8 @@ dependencies = [
  "pallet-timestamp",
  "pallet-vesting",
  "parity-scale-codec",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
  "rand 0.8.5",
  "rand_chacha 0.3.1",
  "rustc-hex",
@@ -6379,7 +6379,7 @@ dependencies = [
  "log",
  "pallet-balances",
  "parity-scale-codec",
- "polkadot-parachain",
+ "peer-parachain",
  "scale-info",
  "serde",
  "sp-core",
@@ -6404,7 +6404,7 @@ dependencies = [
  "pallet-balances",
  "pallet-xcm",
  "parity-scale-codec",
- "polkadot-primitives",
+ "peer-primitives",
  "scale-info",
  "sp-core",
  "sp-io",
@@ -6566,12 +6566,1250 @@ dependencies = [
  "assert_cmd",
  "color-eyre",
  "nix 0.24.3",
- "polkadot-cli",
- "polkadot-core-primitives",
+ "peer-cli",
+ "peer-core-primitives",
  "substrate-rpc-client",
  "tempfile",
  "tikv-jemallocator",
  "tokio",
+]
+
+[[package]]
+name = "peer-availability-bitfield-distribution"
+version = "0.9.36"
+dependencies = [
+ "assert_matches",
+ "bitvec",
+ "env_logger 0.9.3",
+ "futures 0.3.28",
+ "log",
+ "maplit",
+ "peer-node-network-protocol",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "rand 0.8.5",
+ "rand_chacha 0.3.1",
+ "sp-application-crypto",
+ "sp-authority-discovery",
+ "sp-core",
+ "sp-keyring",
+ "sp-keystore",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-cli"
+version = "0.9.36"
+dependencies = [
+ "clap",
+ "frame-benchmarking-cli",
+ "futures 0.3.28",
+ "log",
+ "peer-client",
+ "peer-node-core-pvf",
+ "peer-node-metrics",
+ "peer-performance-test",
+ "peer-service",
+ "pyroscope",
+ "sc-cli",
+ "sc-executor",
+ "sc-service",
+ "sc-sysinfo",
+ "sc-tracing",
+ "sp-core",
+ "sp-io",
+ "sp-keyring",
+ "substrate-build-script-utils",
+ "thiserror",
+ "try-runtime-cli",
+]
+
+[[package]]
+name = "peer-client"
+version = "0.9.36"
+dependencies = [
+ "Peer-Runtime",
+ "Peer-Runtime-common",
+ "async-trait",
+ "fp-rpc",
+ "frame-benchmarking",
+ "frame-benchmarking-cli",
+ "frame-system",
+ "frame-system-rpc-runtime-api",
+ "futures 0.3.28",
+ "pallet-transaction-payment",
+ "pallet-transaction-payment-rpc-runtime-api",
+ "peer-core-primitives",
+ "peer-node-core-parachains-inherent",
+ "peer-primitives",
+ "sc-client-api",
+ "sc-consensus",
+ "sc-executor",
+ "sc-service",
+ "sp-api",
+ "sp-authority-discovery",
+ "sp-beefy",
+ "sp-block-builder",
+ "sp-blockchain",
+ "sp-consensus",
+ "sp-consensus-babe",
+ "sp-core",
+ "sp-finality-grandpa",
+ "sp-inherents",
+ "sp-keyring",
+ "sp-mmr-primitives",
+ "sp-offchain",
+ "sp-runtime",
+ "sp-session",
+ "sp-storage",
+ "sp-timestamp",
+ "sp-transaction-pool",
+]
+
+[[package]]
+name = "peer-collator-protocol"
+version = "0.9.36"
+dependencies = [
+ "always-assert",
+ "assert_matches",
+ "bitvec",
+ "env_logger 0.9.3",
+ "fatality",
+ "futures 0.3.28",
+ "futures-timer",
+ "log",
+ "parity-scale-codec",
+ "peer-node-network-protocol",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "sc-network",
+ "sp-core",
+ "sp-keyring",
+ "sp-keystore",
+ "sp-runtime",
+ "thiserror",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-core-primitives"
+version = "0.9.36"
+dependencies = [
+ "parity-scale-codec",
+ "scale-info",
+ "sp-core",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
+name = "peer-dispute-distribution"
+version = "0.9.36"
+dependencies = [
+ "assert_matches",
+ "async-trait",
+ "derive_more",
+ "fatality",
+ "futures 0.3.28",
+ "futures-timer",
+ "indexmap",
+ "lazy_static",
+ "lru",
+ "parity-scale-codec",
+ "peer-erasure-coding",
+ "peer-node-network-protocol",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "sc-keystore",
+ "sc-network",
+ "sp-application-crypto",
+ "sp-keyring",
+ "sp-keystore",
+ "sp-tracing",
+ "thiserror",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-erasure-coding"
+version = "0.9.36"
+dependencies = [
+ "parity-scale-codec",
+ "peer-node-primitives",
+ "peer-primitives",
+ "reed-solomon-novelpoly",
+ "sp-core",
+ "sp-trie",
+ "thiserror",
+]
+
+[[package]]
+name = "peer-gossip-support"
+version = "0.9.36"
+dependencies = [
+ "assert_matches",
+ "async-trait",
+ "futures 0.3.28",
+ "futures-timer",
+ "lazy_static",
+ "peer-node-network-protocol",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "rand 0.8.5",
+ "rand_chacha 0.3.1",
+ "sc-network",
+ "sp-application-crypto",
+ "sp-authority-discovery",
+ "sp-consensus-babe",
+ "sp-core",
+ "sp-keyring",
+ "sp-keystore",
+ "sp-tracing",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-network-bridge"
+version = "0.9.36"
+dependencies = [
+ "always-assert",
+ "assert_matches",
+ "async-trait",
+ "bytes",
+ "fatality",
+ "futures 0.3.28",
+ "futures-timer",
+ "parity-scale-codec",
+ "parking_lot 0.12.1",
+ "peer-node-network-protocol",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-overseer",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "sc-network",
+ "sc-network-common",
+ "sp-consensus",
+ "sp-core",
+ "sp-keyring",
+ "thiserror",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-node-collation-generation"
+version = "0.9.36"
+dependencies = [
+ "futures 0.3.28",
+ "parity-scale-codec",
+ "peer-erasure-coding",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "sp-core",
+ "sp-maybe-compressed-blob",
+ "thiserror",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-node-core-approval-voting"
+version = "0.9.36"
+dependencies = [
+ "assert_matches",
+ "async-trait",
+ "bitvec",
+ "derive_more",
+ "frame-support",
+ "futures 0.3.28",
+ "futures-timer",
+ "kvdb",
+ "kvdb-memorydb",
+ "lru",
+ "merlin",
+ "parity-scale-codec",
+ "parking_lot 0.12.1",
+ "peer-node-jaeger",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-overseer",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "rand_core 0.5.1",
+ "sc-keystore",
+ "schnorrkel",
+ "sp-application-crypto",
+ "sp-consensus",
+ "sp-consensus-babe",
+ "sp-consensus-slots",
+ "sp-core",
+ "sp-keyring",
+ "sp-keystore",
+ "sp-runtime",
+ "thiserror",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-node-core-av-store"
+version = "0.9.36"
+dependencies = [
+ "assert_matches",
+ "bitvec",
+ "env_logger 0.9.3",
+ "futures 0.3.28",
+ "futures-timer",
+ "kvdb",
+ "kvdb-memorydb",
+ "log",
+ "parity-scale-codec",
+ "parking_lot 0.12.1",
+ "peer-erasure-coding",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-overseer",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "sp-core",
+ "sp-keyring",
+ "thiserror",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-node-core-backing"
+version = "0.9.36"
+dependencies = [
+ "assert_matches",
+ "bitvec",
+ "fatality",
+ "futures 0.3.28",
+ "peer-erasure-coding",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "polkadot-statement-table",
+ "sc-keystore",
+ "sp-application-crypto",
+ "sp-core",
+ "sp-keyring",
+ "sp-keystore",
+ "sp-tracing",
+ "thiserror",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-node-core-bitfield-signing"
+version = "0.9.36"
+dependencies = [
+ "futures 0.3.28",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "sp-keystore",
+ "thiserror",
+ "tracing-gum",
+ "wasm-timer",
+]
+
+[[package]]
+name = "peer-node-core-candidate-validation"
+version = "0.9.36"
+dependencies = [
+ "assert_matches",
+ "async-trait",
+ "futures 0.3.28",
+ "futures-timer",
+ "parity-scale-codec",
+ "peer-node-core-pvf",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-parachain",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "sp-core",
+ "sp-keyring",
+ "sp-maybe-compressed-blob",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-node-core-chain-api"
+version = "0.9.36"
+dependencies = [
+ "futures 0.3.28",
+ "maplit",
+ "parity-scale-codec",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "sc-client-api",
+ "sc-consensus-babe",
+ "sp-blockchain",
+ "sp-core",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-node-core-chain-selection"
+version = "0.9.36"
+dependencies = [
+ "assert_matches",
+ "futures 0.3.28",
+ "futures-timer",
+ "kvdb",
+ "kvdb-memorydb",
+ "parity-scale-codec",
+ "parking_lot 0.12.1",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "sp-core",
+ "thiserror",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-node-core-dispute-coordinator"
+version = "0.9.36"
+dependencies = [
+ "assert_matches",
+ "fatality",
+ "futures 0.3.28",
+ "futures-timer",
+ "kvdb",
+ "kvdb-memorydb",
+ "lru",
+ "parity-scale-codec",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "sc-keystore",
+ "sp-application-crypto",
+ "sp-core",
+ "sp-keyring",
+ "sp-keystore",
+ "thiserror",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-node-core-parachains-inherent"
+version = "0.9.36"
+dependencies = [
+ "async-trait",
+ "futures 0.3.28",
+ "futures-timer",
+ "peer-node-subsystem",
+ "peer-overseer",
+ "peer-primitives",
+ "sp-blockchain",
+ "sp-inherents",
+ "sp-runtime",
+ "thiserror",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-node-core-provisioner"
+version = "0.9.36"
+dependencies = [
+ "bitvec",
+ "fatality",
+ "futures 0.3.28",
+ "futures-timer",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "rand 0.8.5",
+ "sp-application-crypto",
+ "sp-keystore",
+ "thiserror",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-node-core-pvf"
+version = "0.9.36"
+dependencies = [
+ "always-assert",
+ "assert_matches",
+ "async-process",
+ "async-std",
+ "cpu-time",
+ "futures 0.3.28",
+ "futures-timer",
+ "hex-literal",
+ "parity-scale-codec",
+ "peer-core-primitives",
+ "peer-node-metrics",
+ "peer-parachain",
+ "pin-project",
+ "rand 0.8.5",
+ "rayon",
+ "sc-executor",
+ "sc-executor-common",
+ "sc-executor-wasmtime",
+ "slotmap",
+ "sp-core",
+ "sp-externalities",
+ "sp-io",
+ "sp-maybe-compressed-blob",
+ "sp-tracing",
+ "sp-wasm-interface",
+ "tempfile",
+ "test-parachain-adder",
+ "test-parachain-halt",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-node-core-pvf-checker"
+version = "0.9.36"
+dependencies = [
+ "futures 0.3.28",
+ "futures-timer",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-overseer",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "sc-keystore",
+ "sp-application-crypto",
+ "sp-core",
+ "sp-keyring",
+ "sp-keystore",
+ "sp-runtime",
+ "thiserror",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-node-core-runtime-api"
+version = "0.9.36"
+dependencies = [
+ "futures 0.3.28",
+ "lru",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-types",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "sp-api",
+ "sp-authority-discovery",
+ "sp-consensus-babe",
+ "sp-core",
+ "sp-keyring",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-node-jaeger"
+version = "0.9.36"
+dependencies = [
+ "lazy_static",
+ "log",
+ "mick-jaeger",
+ "parity-scale-codec",
+ "parking_lot 0.12.1",
+ "peer-node-primitives",
+ "peer-primitives",
+ "sc-network",
+ "sp-core",
+ "thiserror",
+ "tokio",
+]
+
+[[package]]
+name = "peer-node-metrics"
+version = "0.9.36"
+dependencies = [
+ "assert_cmd",
+ "bs58",
+ "futures 0.3.28",
+ "futures-timer",
+ "hyper",
+ "log",
+ "nix 0.24.3",
+ "parity-scale-codec",
+ "peer-primitives",
+ "peer-test-service",
+ "prioritized-metered-channel",
+ "prometheus-parse",
+ "sc-cli",
+ "sc-client-api",
+ "sc-service",
+ "sc-tracing",
+ "sp-keyring",
+ "substrate-prometheus-endpoint",
+ "substrate-test-utils",
+ "tempfile",
+ "tokio",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-node-network-protocol"
+version = "0.9.36"
+dependencies = [
+ "async-trait",
+ "derive_more",
+ "fatality",
+ "futures 0.3.28",
+ "hex",
+ "parity-scale-codec",
+ "peer-node-jaeger",
+ "peer-node-primitives",
+ "peer-primitives",
+ "rand 0.8.5",
+ "rand_chacha 0.3.1",
+ "sc-authority-discovery",
+ "sc-network",
+ "sc-network-common",
+ "strum",
+ "thiserror",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-node-primitives"
+version = "0.9.36"
+dependencies = [
+ "bounded-vec",
+ "futures 0.3.28",
+ "parity-scale-codec",
+ "peer-erasure-coding",
+ "peer-parachain",
+ "peer-primitives",
+ "schnorrkel",
+ "serde",
+ "sp-application-crypto",
+ "sp-consensus-babe",
+ "sp-consensus-vrf",
+ "sp-core",
+ "sp-keystore",
+ "sp-maybe-compressed-blob",
+ "thiserror",
+ "zstd",
+]
+
+[[package]]
+name = "peer-node-subsystem"
+version = "0.9.36"
+dependencies = [
+ "peer-node-jaeger",
+ "peer-node-subsystem-types",
+ "peer-overseer",
+]
+
+[[package]]
+name = "peer-node-subsystem-test-helpers"
+version = "0.9.36"
+dependencies = [
+ "async-trait",
+ "futures 0.3.28",
+ "parking_lot 0.12.1",
+ "peer-node-subsystem",
+ "peer-node-subsystem-util",
+ "peer-overseer",
+ "peer-primitives",
+ "sc-keystore",
+ "sp-application-crypto",
+ "sp-core",
+ "sp-keyring",
+ "sp-keystore",
+]
+
+[[package]]
+name = "peer-node-subsystem-types"
+version = "0.9.36"
+dependencies = [
+ "async-trait",
+ "derive_more",
+ "futures 0.3.28",
+ "orchestra",
+ "peer-node-jaeger",
+ "peer-node-network-protocol",
+ "peer-node-primitives",
+ "peer-primitives",
+ "polkadot-statement-table",
+ "sc-network",
+ "smallvec",
+ "sp-api",
+ "sp-authority-discovery",
+ "sp-consensus-babe",
+ "substrate-prometheus-endpoint",
+ "thiserror",
+]
+
+[[package]]
+name = "peer-node-subsystem-util"
+version = "0.9.36"
+dependencies = [
+ "assert_matches",
+ "async-trait",
+ "derive_more",
+ "env_logger 0.9.3",
+ "fatality",
+ "futures 0.3.28",
+ "itertools",
+ "kvdb",
+ "kvdb-memorydb",
+ "kvdb-shared-tests",
+ "lazy_static",
+ "log",
+ "lru",
+ "parity-db",
+ "parity-scale-codec",
+ "parking_lot 0.11.2",
+ "peer-node-jaeger",
+ "peer-node-metrics",
+ "peer-node-network-protocol",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-overseer",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "pin-project",
+ "prioritized-metered-channel",
+ "rand 0.8.5",
+ "sp-application-crypto",
+ "sp-core",
+ "sp-keystore",
+ "tempfile",
+ "thiserror",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-overseer"
+version = "0.9.36"
+dependencies = [
+ "assert_matches",
+ "async-trait",
+ "femme",
+ "futures 0.3.28",
+ "futures-timer",
+ "lru",
+ "orchestra",
+ "parking_lot 0.12.1",
+ "peer-node-metrics",
+ "peer-node-network-protocol",
+ "peer-node-primitives",
+ "peer-node-subsystem-types",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "prioritized-metered-channel",
+ "sc-client-api",
+ "sp-api",
+ "sp-core",
+ "tikv-jemalloc-ctl",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-parachain"
+version = "0.9.36"
+dependencies = [
+ "derive_more",
+ "frame-support",
+ "parity-scale-codec",
+ "peer-core-primitives",
+ "scale-info",
+ "serde",
+ "sp-core",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
+name = "peer-performance-test"
+version = "0.9.36"
+dependencies = [
+ "Peer-Runtime",
+ "env_logger 0.9.3",
+ "log",
+ "peer-erasure-coding",
+ "peer-node-core-pvf",
+ "peer-node-primitives",
+ "quote",
+ "thiserror",
+]
+
+[[package]]
+name = "peer-primitives"
+version = "0.9.36"
+dependencies = [
+ "bitvec",
+ "hex-literal",
+ "parity-scale-codec",
+ "peer-core-primitives",
+ "peer-parachain",
+ "scale-info",
+ "serde",
+ "sp-api",
+ "sp-application-crypto",
+ "sp-arithmetic",
+ "sp-authority-discovery",
+ "sp-consensus-slots",
+ "sp-core",
+ "sp-inherents",
+ "sp-io",
+ "sp-keystore",
+ "sp-runtime",
+ "sp-staking",
+ "sp-std",
+]
+
+[[package]]
+name = "peer-primitives-test-helpers"
+version = "0.9.36"
+dependencies = [
+ "peer-primitives",
+ "rand 0.8.5",
+ "sp-application-crypto",
+ "sp-core",
+ "sp-keyring",
+ "sp-runtime",
+]
+
+[[package]]
+name = "peer-rpc"
+version = "0.9.36"
+dependencies = [
+ "Peer-Runtime",
+ "beefy-gadget",
+ "beefy-gadget-rpc",
+ "fc-cli",
+ "fc-consensus",
+ "fc-db",
+ "fc-mapping-sync",
+ "fc-rpc",
+ "fc-rpc-core",
+ "fp-consensus",
+ "fp-dynamic-fee",
+ "fp-evm",
+ "fp-rpc",
+ "fp-storage",
+ "futures 0.3.28",
+ "jsonrpsee",
+ "mmr-rpc",
+ "pallet-transaction-payment-rpc",
+ "peer-primitives",
+ "sc-chain-spec",
+ "sc-client-api",
+ "sc-consensus-babe",
+ "sc-consensus-babe-rpc",
+ "sc-consensus-epochs",
+ "sc-finality-grandpa",
+ "sc-finality-grandpa-rpc",
+ "sc-network",
+ "sc-rpc",
+ "sc-service",
+ "sc-sync-state-rpc",
+ "sc-transaction-pool",
+ "sc-transaction-pool-api",
+ "sp-api",
+ "sp-block-builder",
+ "sp-blockchain",
+ "sp-consensus",
+ "sp-consensus-babe",
+ "sp-keystore",
+ "sp-runtime",
+ "substrate-frame-rpc-system",
+ "substrate-state-trie-migration-rpc",
+]
+
+[[package]]
+name = "peer-service"
+version = "0.9.36"
+dependencies = [
+ "Peer-Runtime",
+ "Peer-Runtime-constants",
+ "Peer-Runtime-parachains",
+ "assert_matches",
+ "async-trait",
+ "beefy-gadget",
+ "beefy-gadget-rpc",
+ "env_logger 0.9.3",
+ "fc-cli",
+ "fc-consensus",
+ "fc-db",
+ "fc-mapping-sync",
+ "fc-rpc",
+ "fc-rpc-core",
+ "fp-consensus",
+ "fp-dynamic-fee",
+ "fp-evm",
+ "fp-rpc",
+ "fp-storage",
+ "frame-support",
+ "frame-system-rpc-runtime-api",
+ "futures 0.3.28",
+ "hex-literal",
+ "jsonrpsee",
+ "kvdb",
+ "kvdb-rocksdb",
+ "log",
+ "lru",
+ "mmr-gadget",
+ "mmr-rpc",
+ "pallet-babe",
+ "pallet-ethereum",
+ "pallet-evm",
+ "pallet-im-online",
+ "pallet-staking",
+ "pallet-transaction-payment-rpc",
+ "pallet-transaction-payment-rpc-runtime-api",
+ "parity-db",
+ "peer-availability-bitfield-distribution",
+ "peer-client",
+ "peer-collator-protocol",
+ "peer-dispute-distribution",
+ "peer-gossip-support",
+ "peer-network-bridge",
+ "peer-node-collation-generation",
+ "peer-node-core-approval-voting",
+ "peer-node-core-av-store",
+ "peer-node-core-backing",
+ "peer-node-core-bitfield-signing",
+ "peer-node-core-candidate-validation",
+ "peer-node-core-chain-api",
+ "peer-node-core-chain-selection",
+ "peer-node-core-dispute-coordinator",
+ "peer-node-core-parachains-inherent",
+ "peer-node-core-provisioner",
+ "peer-node-core-pvf-checker",
+ "peer-node-core-runtime-api",
+ "peer-node-network-protocol",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-types",
+ "peer-node-subsystem-util",
+ "peer-overseer",
+ "peer-parachain",
+ "peer-primitives",
+ "peer-rpc",
+ "peer-statement-distribution",
+ "peer-test-client",
+ "polkadot-approval-distribution",
+ "polkadot-availability-distribution",
+ "polkadot-availability-recovery",
+ "sc-authority-discovery",
+ "sc-basic-authorship",
+ "sc-block-builder",
+ "sc-chain-spec",
+ "sc-client-api",
+ "sc-client-db",
+ "sc-consensus",
+ "sc-consensus-babe",
+ "sc-consensus-babe-rpc",
+ "sc-consensus-epochs",
+ "sc-consensus-slots",
+ "sc-executor",
+ "sc-finality-grandpa",
+ "sc-finality-grandpa-rpc",
+ "sc-keystore",
+ "sc-network",
+ "sc-network-common",
+ "sc-network-sync",
+ "sc-offchain",
+ "sc-rpc",
+ "sc-service",
+ "sc-sync-state-rpc",
+ "sc-sysinfo",
+ "sc-telemetry",
+ "sc-transaction-pool",
+ "sc-transaction-pool-api",
+ "serde",
+ "serde_json",
+ "sp-api",
+ "sp-authority-discovery",
+ "sp-authorship",
+ "sp-beefy",
+ "sp-block-builder",
+ "sp-blockchain",
+ "sp-consensus",
+ "sp-consensus-babe",
+ "sp-core",
+ "sp-finality-grandpa",
+ "sp-inherents",
+ "sp-io",
+ "sp-keystore",
+ "sp-mmr-primitives",
+ "sp-offchain",
+ "sp-runtime",
+ "sp-session",
+ "sp-state-machine",
+ "sp-storage",
+ "sp-timestamp",
+ "sp-transaction-pool",
+ "sp-trie",
+ "substrate-frame-rpc-system",
+ "substrate-prometheus-endpoint",
+ "substrate-state-trie-migration-rpc",
+ "tempfile",
+ "thiserror",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-statement-distribution"
+version = "0.9.36"
+dependencies = [
+ "arrayvec 0.5.2",
+ "assert_matches",
+ "fatality",
+ "futures 0.3.28",
+ "futures-timer",
+ "indexmap",
+ "parity-scale-codec",
+ "peer-node-network-protocol",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "sc-keystore",
+ "sc-network",
+ "sp-application-crypto",
+ "sp-authority-discovery",
+ "sp-core",
+ "sp-keyring",
+ "sp-keystore",
+ "sp-staking",
+ "sp-tracing",
+ "thiserror",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-test-client"
+version = "0.9.36"
+dependencies = [
+ "futures 0.3.28",
+ "parity-scale-codec",
+ "peer-node-subsystem",
+ "peer-primitives",
+ "peer-test-runtime",
+ "peer-test-service",
+ "sc-block-builder",
+ "sc-consensus",
+ "sc-service",
+ "sp-api",
+ "sp-blockchain",
+ "sp-consensus",
+ "sp-consensus-babe",
+ "sp-core",
+ "sp-inherents",
+ "sp-keyring",
+ "sp-runtime",
+ "sp-state-machine",
+ "sp-timestamp",
+ "substrate-test-client",
+]
+
+[[package]]
+name = "peer-test-malus"
+version = "0.9.36"
+dependencies = [
+ "assert_matches",
+ "async-trait",
+ "clap",
+ "color-eyre",
+ "futures 0.3.28",
+ "futures-timer",
+ "peer-cli",
+ "peer-erasure-coding",
+ "peer-node-core-backing",
+ "peer-node-core-candidate-validation",
+ "peer-node-core-dispute-coordinator",
+ "peer-node-core-pvf",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-types",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "rand 0.8.5",
+ "sp-core",
+ "sp-keystore",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-test-runtime"
+version = "0.9.36"
+dependencies = [
+ "Peer-Runtime-common",
+ "Peer-Runtime-parachains",
+ "bitvec",
+ "frame-election-provider-support",
+ "frame-executive",
+ "frame-support",
+ "frame-system",
+ "frame-system-rpc-runtime-api",
+ "hex-literal",
+ "log",
+ "pallet-authority-discovery",
+ "pallet-authorship",
+ "pallet-babe",
+ "pallet-balances",
+ "pallet-grandpa",
+ "pallet-indices",
+ "pallet-offences",
+ "pallet-session",
+ "pallet-staking",
+ "pallet-staking-reward-curve",
+ "pallet-sudo",
+ "pallet-timestamp",
+ "pallet-transaction-payment",
+ "pallet-transaction-payment-rpc-runtime-api",
+ "pallet-vesting",
+ "pallet-xcm",
+ "parity-scale-codec",
+ "peer-parachain",
+ "peer-primitives",
+ "rustc-hex",
+ "scale-info",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "smallvec",
+ "sp-api",
+ "sp-authority-discovery",
+ "sp-beefy",
+ "sp-block-builder",
+ "sp-consensus-babe",
+ "sp-core",
+ "sp-inherents",
+ "sp-io",
+ "sp-keyring",
+ "sp-mmr-primitives",
+ "sp-offchain",
+ "sp-runtime",
+ "sp-session",
+ "sp-staking",
+ "sp-std",
+ "sp-transaction-pool",
+ "sp-trie",
+ "sp-version",
+ "substrate-wasm-builder",
+ "test-runtime-constants",
+ "tiny-keccak",
+ "xcm",
+ "xcm-builder",
+ "xcm-executor",
+]
+
+[[package]]
+name = "peer-test-service"
+version = "0.9.36"
+dependencies = [
+ "Peer-Runtime-common",
+ "Peer-Runtime-parachains",
+ "frame-benchmarking",
+ "frame-system",
+ "futures 0.3.28",
+ "hex",
+ "pallet-balances",
+ "pallet-staking",
+ "pallet-transaction-payment",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-overseer",
+ "peer-parachain",
+ "peer-primitives",
+ "peer-rpc",
+ "peer-service",
+ "peer-test-runtime",
+ "rand 0.8.5",
+ "sc-authority-discovery",
+ "sc-chain-spec",
+ "sc-cli",
+ "sc-client-api",
+ "sc-consensus",
+ "sc-consensus-babe",
+ "sc-executor",
+ "sc-finality-grandpa",
+ "sc-network",
+ "sc-network-common",
+ "sc-service",
+ "sc-tracing",
+ "sc-transaction-pool",
+ "serde_json",
+ "sp-arithmetic",
+ "sp-authority-discovery",
+ "sp-blockchain",
+ "sp-consensus",
+ "sp-consensus-babe",
+ "sp-core",
+ "sp-finality-grandpa",
+ "sp-inherents",
+ "sp-keyring",
+ "sp-runtime",
+ "sp-state-machine",
+ "substrate-test-client",
+ "substrate-test-utils",
+ "tempfile",
+ "test-runtime-constants",
+ "tokio",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-voter-bags"
+version = "0.9.36"
+dependencies = [
+ "Peer-Runtime",
+ "clap",
+ "generate-bags",
+ "sp-io",
 ]
 
 [[package]]
@@ -6708,44 +7946,19 @@ dependencies = [
  "env_logger 0.9.3",
  "futures 0.3.28",
  "log",
- "polkadot-node-network-protocol",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
+ "peer-node-network-protocol",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
  "rand 0.8.5",
  "rand_chacha 0.3.1",
  "rand_core 0.5.1",
  "schnorrkel",
  "sp-authority-discovery",
  "sp-core",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-availability-bitfield-distribution"
-version = "0.9.36"
-dependencies = [
- "assert_matches",
- "bitvec",
- "env_logger 0.9.3",
- "futures 0.3.28",
- "log",
- "maplit",
- "polkadot-node-network-protocol",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-primitives",
- "rand 0.8.5",
- "rand_chacha 0.3.1",
- "sp-application-crypto",
- "sp-authority-discovery",
- "sp-core",
- "sp-keyring",
- "sp-keystore",
  "tracing-gum",
 ]
 
@@ -6760,14 +7973,14 @@ dependencies = [
  "futures-timer",
  "lru",
  "parity-scale-codec",
- "polkadot-erasure-coding",
- "polkadot-node-network-protocol",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
+ "peer-erasure-coding",
+ "peer-node-network-protocol",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
  "rand 0.8.5",
  "sc-network",
  "sp-core",
@@ -6790,1048 +8003,19 @@ dependencies = [
  "log",
  "lru",
  "parity-scale-codec",
- "polkadot-erasure-coding",
- "polkadot-node-network-protocol",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
+ "peer-erasure-coding",
+ "peer-node-network-protocol",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
  "rand 0.8.5",
  "sc-network",
  "sp-application-crypto",
  "sp-core",
  "sp-keyring",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-cli"
-version = "0.9.36"
-dependencies = [
- "clap",
- "frame-benchmarking-cli",
- "futures 0.3.28",
- "log",
- "polkadot-client",
- "polkadot-node-core-pvf",
- "polkadot-node-metrics",
- "polkadot-performance-test",
- "polkadot-service",
- "pyroscope",
- "sc-cli",
- "sc-executor",
- "sc-service",
- "sc-sysinfo",
- "sc-tracing",
- "sp-core",
- "sp-io",
- "sp-keyring",
- "substrate-build-script-utils",
- "thiserror",
- "try-runtime-cli",
-]
-
-[[package]]
-name = "polkadot-client"
-version = "0.9.36"
-dependencies = [
- "Peer-Runtime",
- "Peer-Runtime-common",
- "async-trait",
- "fp-rpc",
- "frame-benchmarking",
- "frame-benchmarking-cli",
- "frame-system",
- "frame-system-rpc-runtime-api",
- "futures 0.3.28",
- "pallet-transaction-payment",
- "pallet-transaction-payment-rpc-runtime-api",
- "polkadot-core-primitives",
- "polkadot-node-core-parachains-inherent",
- "polkadot-primitives",
- "sc-client-api",
- "sc-consensus",
- "sc-executor",
- "sc-service",
- "sp-api",
- "sp-authority-discovery",
- "sp-beefy",
- "sp-block-builder",
- "sp-blockchain",
- "sp-consensus",
- "sp-consensus-babe",
- "sp-core",
- "sp-finality-grandpa",
- "sp-inherents",
- "sp-keyring",
- "sp-mmr-primitives",
- "sp-offchain",
- "sp-runtime",
- "sp-session",
- "sp-storage",
- "sp-timestamp",
- "sp-transaction-pool",
-]
-
-[[package]]
-name = "polkadot-collator-protocol"
-version = "0.9.36"
-dependencies = [
- "always-assert",
- "assert_matches",
- "bitvec",
- "env_logger 0.9.3",
- "fatality",
- "futures 0.3.28",
- "futures-timer",
- "log",
- "parity-scale-codec",
- "polkadot-node-network-protocol",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
- "sc-network",
- "sp-core",
- "sp-keyring",
- "sp-keystore",
- "sp-runtime",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-core-primitives"
-version = "0.9.36"
-dependencies = [
- "parity-scale-codec",
- "scale-info",
- "sp-core",
- "sp-runtime",
- "sp-std",
-]
-
-[[package]]
-name = "polkadot-dispute-distribution"
-version = "0.9.36"
-dependencies = [
- "assert_matches",
- "async-trait",
- "derive_more",
- "fatality",
- "futures 0.3.28",
- "futures-timer",
- "indexmap",
- "lazy_static",
- "lru",
- "parity-scale-codec",
- "polkadot-erasure-coding",
- "polkadot-node-network-protocol",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
- "sc-keystore",
- "sc-network",
- "sp-application-crypto",
- "sp-keyring",
- "sp-keystore",
- "sp-tracing",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-erasure-coding"
-version = "0.9.36"
-dependencies = [
- "parity-scale-codec",
- "polkadot-node-primitives",
- "polkadot-primitives",
- "reed-solomon-novelpoly",
- "sp-core",
- "sp-trie",
- "thiserror",
-]
-
-[[package]]
-name = "polkadot-gossip-support"
-version = "0.9.36"
-dependencies = [
- "assert_matches",
- "async-trait",
- "futures 0.3.28",
- "futures-timer",
- "lazy_static",
- "polkadot-node-network-protocol",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-primitives",
- "rand 0.8.5",
- "rand_chacha 0.3.1",
- "sc-network",
- "sp-application-crypto",
- "sp-authority-discovery",
- "sp-consensus-babe",
- "sp-core",
- "sp-keyring",
- "sp-keystore",
- "sp-tracing",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-network-bridge"
-version = "0.9.36"
-dependencies = [
- "always-assert",
- "assert_matches",
- "async-trait",
- "bytes",
- "fatality",
- "futures 0.3.28",
- "futures-timer",
- "parity-scale-codec",
- "parking_lot 0.12.1",
- "polkadot-node-network-protocol",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-overseer",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
- "sc-network",
- "sc-network-common",
- "sp-consensus",
- "sp-core",
- "sp-keyring",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-node-collation-generation"
-version = "0.9.36"
-dependencies = [
- "futures 0.3.28",
- "parity-scale-codec",
- "polkadot-erasure-coding",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
- "sp-core",
- "sp-maybe-compressed-blob",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-node-core-approval-voting"
-version = "0.9.36"
-dependencies = [
- "assert_matches",
- "async-trait",
- "bitvec",
- "derive_more",
- "frame-support",
- "futures 0.3.28",
- "futures-timer",
- "kvdb",
- "kvdb-memorydb",
- "lru",
- "merlin",
- "parity-scale-codec",
- "parking_lot 0.12.1",
- "polkadot-node-jaeger",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-overseer",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
- "rand_core 0.5.1",
- "sc-keystore",
- "schnorrkel",
- "sp-application-crypto",
- "sp-consensus",
- "sp-consensus-babe",
- "sp-consensus-slots",
- "sp-core",
- "sp-keyring",
- "sp-keystore",
- "sp-runtime",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-node-core-av-store"
-version = "0.9.36"
-dependencies = [
- "assert_matches",
- "bitvec",
- "env_logger 0.9.3",
- "futures 0.3.28",
- "futures-timer",
- "kvdb",
- "kvdb-memorydb",
- "log",
- "parity-scale-codec",
- "parking_lot 0.12.1",
- "polkadot-erasure-coding",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-overseer",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
- "sp-core",
- "sp-keyring",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-node-core-backing"
-version = "0.9.36"
-dependencies = [
- "assert_matches",
- "bitvec",
- "fatality",
- "futures 0.3.28",
- "polkadot-erasure-coding",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
- "polkadot-statement-table",
- "sc-keystore",
- "sp-application-crypto",
- "sp-core",
- "sp-keyring",
- "sp-keystore",
- "sp-tracing",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-node-core-bitfield-signing"
-version = "0.9.36"
-dependencies = [
- "futures 0.3.28",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
- "sp-keystore",
- "thiserror",
- "tracing-gum",
- "wasm-timer",
-]
-
-[[package]]
-name = "polkadot-node-core-candidate-validation"
-version = "0.9.36"
-dependencies = [
- "assert_matches",
- "async-trait",
- "futures 0.3.28",
- "futures-timer",
- "parity-scale-codec",
- "polkadot-node-core-pvf",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-parachain",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
- "sp-core",
- "sp-keyring",
- "sp-maybe-compressed-blob",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-node-core-chain-api"
-version = "0.9.36"
-dependencies = [
- "futures 0.3.28",
- "maplit",
- "parity-scale-codec",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-primitives",
- "sc-client-api",
- "sc-consensus-babe",
- "sp-blockchain",
- "sp-core",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-node-core-chain-selection"
-version = "0.9.36"
-dependencies = [
- "assert_matches",
- "futures 0.3.28",
- "futures-timer",
- "kvdb",
- "kvdb-memorydb",
- "parity-scale-codec",
- "parking_lot 0.12.1",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-primitives",
- "sp-core",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-node-core-dispute-coordinator"
-version = "0.9.36"
-dependencies = [
- "assert_matches",
- "fatality",
- "futures 0.3.28",
- "futures-timer",
- "kvdb",
- "kvdb-memorydb",
- "lru",
- "parity-scale-codec",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
- "sc-keystore",
- "sp-application-crypto",
- "sp-core",
- "sp-keyring",
- "sp-keystore",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-node-core-parachains-inherent"
-version = "0.9.36"
-dependencies = [
- "async-trait",
- "futures 0.3.28",
- "futures-timer",
- "polkadot-node-subsystem",
- "polkadot-overseer",
- "polkadot-primitives",
- "sp-blockchain",
- "sp-inherents",
- "sp-runtime",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-node-core-provisioner"
-version = "0.9.36"
-dependencies = [
- "bitvec",
- "fatality",
- "futures 0.3.28",
- "futures-timer",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
- "rand 0.8.5",
- "sp-application-crypto",
- "sp-keystore",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-node-core-pvf"
-version = "0.9.36"
-dependencies = [
- "always-assert",
- "assert_matches",
- "async-process",
- "async-std",
- "cpu-time",
- "futures 0.3.28",
- "futures-timer",
- "hex-literal",
- "parity-scale-codec",
- "pin-project",
- "polkadot-core-primitives",
- "polkadot-node-metrics",
- "polkadot-parachain",
- "rand 0.8.5",
- "rayon",
- "sc-executor",
- "sc-executor-common",
- "sc-executor-wasmtime",
- "slotmap",
- "sp-core",
- "sp-externalities",
- "sp-io",
- "sp-maybe-compressed-blob",
- "sp-tracing",
- "sp-wasm-interface",
- "tempfile",
- "test-parachain-adder",
- "test-parachain-halt",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-node-core-pvf-checker"
-version = "0.9.36"
-dependencies = [
- "futures 0.3.28",
- "futures-timer",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-overseer",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
- "sc-keystore",
- "sp-application-crypto",
- "sp-core",
- "sp-keyring",
- "sp-keystore",
- "sp-runtime",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-node-core-runtime-api"
-version = "0.9.36"
-dependencies = [
- "futures 0.3.28",
- "lru",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-types",
- "polkadot-node-subsystem-util",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
- "sp-api",
- "sp-authority-discovery",
- "sp-consensus-babe",
- "sp-core",
- "sp-keyring",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-node-jaeger"
-version = "0.9.36"
-dependencies = [
- "lazy_static",
- "log",
- "mick-jaeger",
- "parity-scale-codec",
- "parking_lot 0.12.1",
- "polkadot-node-primitives",
- "polkadot-primitives",
- "sc-network",
- "sp-core",
- "thiserror",
- "tokio",
-]
-
-[[package]]
-name = "polkadot-node-metrics"
-version = "0.9.36"
-dependencies = [
- "assert_cmd",
- "bs58",
- "futures 0.3.28",
- "futures-timer",
- "hyper",
- "log",
- "nix 0.24.3",
- "parity-scale-codec",
- "polkadot-primitives",
- "polkadot-test-service",
- "prioritized-metered-channel",
- "prometheus-parse",
- "sc-cli",
- "sc-client-api",
- "sc-service",
- "sc-tracing",
- "sp-keyring",
- "substrate-prometheus-endpoint",
- "substrate-test-utils",
- "tempfile",
- "tokio",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-node-network-protocol"
-version = "0.9.36"
-dependencies = [
- "async-trait",
- "derive_more",
- "fatality",
- "futures 0.3.28",
- "hex",
- "parity-scale-codec",
- "polkadot-node-jaeger",
- "polkadot-node-primitives",
- "polkadot-primitives",
- "rand 0.8.5",
- "rand_chacha 0.3.1",
- "sc-authority-discovery",
- "sc-network",
- "sc-network-common",
- "strum",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-node-primitives"
-version = "0.9.36"
-dependencies = [
- "bounded-vec",
- "futures 0.3.28",
- "parity-scale-codec",
- "polkadot-erasure-coding",
- "polkadot-parachain",
- "polkadot-primitives",
- "schnorrkel",
- "serde",
- "sp-application-crypto",
- "sp-consensus-babe",
- "sp-consensus-vrf",
- "sp-core",
- "sp-keystore",
- "sp-maybe-compressed-blob",
- "thiserror",
- "zstd",
-]
-
-[[package]]
-name = "polkadot-node-subsystem"
-version = "0.9.36"
-dependencies = [
- "polkadot-node-jaeger",
- "polkadot-node-subsystem-types",
- "polkadot-overseer",
-]
-
-[[package]]
-name = "polkadot-node-subsystem-test-helpers"
-version = "0.9.36"
-dependencies = [
- "async-trait",
- "futures 0.3.28",
- "parking_lot 0.12.1",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-util",
- "polkadot-overseer",
- "polkadot-primitives",
- "sc-keystore",
- "sp-application-crypto",
- "sp-core",
- "sp-keyring",
- "sp-keystore",
-]
-
-[[package]]
-name = "polkadot-node-subsystem-types"
-version = "0.9.36"
-dependencies = [
- "async-trait",
- "derive_more",
- "futures 0.3.28",
- "orchestra",
- "polkadot-node-jaeger",
- "polkadot-node-network-protocol",
- "polkadot-node-primitives",
- "polkadot-primitives",
- "polkadot-statement-table",
- "sc-network",
- "smallvec",
- "sp-api",
- "sp-authority-discovery",
- "sp-consensus-babe",
- "substrate-prometheus-endpoint",
- "thiserror",
-]
-
-[[package]]
-name = "polkadot-node-subsystem-util"
-version = "0.9.36"
-dependencies = [
- "assert_matches",
- "async-trait",
- "derive_more",
- "env_logger 0.9.3",
- "fatality",
- "futures 0.3.28",
- "itertools",
- "kvdb",
- "kvdb-memorydb",
- "kvdb-shared-tests",
- "lazy_static",
- "log",
- "lru",
- "parity-db",
- "parity-scale-codec",
- "parking_lot 0.11.2",
- "pin-project",
- "polkadot-node-jaeger",
- "polkadot-node-metrics",
- "polkadot-node-network-protocol",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-overseer",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
- "prioritized-metered-channel",
- "rand 0.8.5",
- "sp-application-crypto",
- "sp-core",
- "sp-keystore",
- "tempfile",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-overseer"
-version = "0.9.36"
-dependencies = [
- "assert_matches",
- "async-trait",
- "femme",
- "futures 0.3.28",
- "futures-timer",
- "lru",
- "orchestra",
- "parking_lot 0.12.1",
- "polkadot-node-metrics",
- "polkadot-node-network-protocol",
- "polkadot-node-primitives",
- "polkadot-node-subsystem-types",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
- "prioritized-metered-channel",
- "sc-client-api",
- "sp-api",
- "sp-core",
- "tikv-jemalloc-ctl",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-parachain"
-version = "0.9.36"
-dependencies = [
- "derive_more",
- "frame-support",
- "parity-scale-codec",
- "polkadot-core-primitives",
- "scale-info",
- "serde",
- "sp-core",
- "sp-runtime",
- "sp-std",
-]
-
-[[package]]
-name = "polkadot-performance-test"
-version = "0.9.36"
-dependencies = [
- "Peer-Runtime",
- "env_logger 0.9.3",
- "log",
- "polkadot-erasure-coding",
- "polkadot-node-core-pvf",
- "polkadot-node-primitives",
- "quote",
- "thiserror",
-]
-
-[[package]]
-name = "polkadot-primitives"
-version = "0.9.36"
-dependencies = [
- "bitvec",
- "hex-literal",
- "parity-scale-codec",
- "polkadot-core-primitives",
- "polkadot-parachain",
- "scale-info",
- "serde",
- "sp-api",
- "sp-application-crypto",
- "sp-arithmetic",
- "sp-authority-discovery",
- "sp-consensus-slots",
- "sp-core",
- "sp-inherents",
- "sp-io",
- "sp-keystore",
- "sp-runtime",
- "sp-staking",
- "sp-std",
-]
-
-[[package]]
-name = "polkadot-primitives-test-helpers"
-version = "0.9.36"
-dependencies = [
- "polkadot-primitives",
- "rand 0.8.5",
- "sp-application-crypto",
- "sp-core",
- "sp-keyring",
- "sp-runtime",
-]
-
-[[package]]
-name = "polkadot-rpc"
-version = "0.9.36"
-dependencies = [
- "Peer-Runtime",
- "beefy-gadget",
- "beefy-gadget-rpc",
- "fc-cli",
- "fc-consensus",
- "fc-db",
- "fc-mapping-sync",
- "fc-rpc",
- "fc-rpc-core",
- "fp-consensus",
- "fp-dynamic-fee",
- "fp-evm",
- "fp-rpc",
- "fp-storage",
- "futures 0.3.28",
- "jsonrpsee",
- "mmr-rpc",
- "pallet-transaction-payment-rpc",
- "polkadot-primitives",
- "sc-chain-spec",
- "sc-client-api",
- "sc-consensus-babe",
- "sc-consensus-babe-rpc",
- "sc-consensus-epochs",
- "sc-finality-grandpa",
- "sc-finality-grandpa-rpc",
- "sc-network",
- "sc-rpc",
- "sc-service",
- "sc-sync-state-rpc",
- "sc-transaction-pool",
- "sc-transaction-pool-api",
- "sp-api",
- "sp-block-builder",
- "sp-blockchain",
- "sp-consensus",
- "sp-consensus-babe",
- "sp-keystore",
- "sp-runtime",
- "substrate-frame-rpc-system",
- "substrate-state-trie-migration-rpc",
-]
-
-[[package]]
-name = "polkadot-service"
-version = "0.9.36"
-dependencies = [
- "Peer-Runtime",
- "Peer-Runtime-constants",
- "Peer-Runtime-parachains",
- "assert_matches",
- "async-trait",
- "beefy-gadget",
- "beefy-gadget-rpc",
- "env_logger 0.9.3",
- "fc-cli",
- "fc-consensus",
- "fc-db",
- "fc-mapping-sync",
- "fc-rpc",
- "fc-rpc-core",
- "fp-consensus",
- "fp-dynamic-fee",
- "fp-evm",
- "fp-rpc",
- "fp-storage",
- "frame-support",
- "frame-system-rpc-runtime-api",
- "futures 0.3.28",
- "hex-literal",
- "jsonrpsee",
- "kvdb",
- "kvdb-rocksdb",
- "log",
- "lru",
- "mmr-gadget",
- "mmr-rpc",
- "pallet-babe",
- "pallet-ethereum",
- "pallet-evm",
- "pallet-im-online",
- "pallet-staking",
- "pallet-transaction-payment-rpc",
- "pallet-transaction-payment-rpc-runtime-api",
- "parity-db",
- "polkadot-approval-distribution",
- "polkadot-availability-bitfield-distribution",
- "polkadot-availability-distribution",
- "polkadot-availability-recovery",
- "polkadot-client",
- "polkadot-collator-protocol",
- "polkadot-dispute-distribution",
- "polkadot-gossip-support",
- "polkadot-network-bridge",
- "polkadot-node-collation-generation",
- "polkadot-node-core-approval-voting",
- "polkadot-node-core-av-store",
- "polkadot-node-core-backing",
- "polkadot-node-core-bitfield-signing",
- "polkadot-node-core-candidate-validation",
- "polkadot-node-core-chain-api",
- "polkadot-node-core-chain-selection",
- "polkadot-node-core-dispute-coordinator",
- "polkadot-node-core-parachains-inherent",
- "polkadot-node-core-provisioner",
- "polkadot-node-core-pvf-checker",
- "polkadot-node-core-runtime-api",
- "polkadot-node-network-protocol",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-types",
- "polkadot-node-subsystem-util",
- "polkadot-overseer",
- "polkadot-parachain",
- "polkadot-primitives",
- "polkadot-rpc",
- "polkadot-statement-distribution",
- "polkadot-test-client",
- "sc-authority-discovery",
- "sc-basic-authorship",
- "sc-block-builder",
- "sc-chain-spec",
- "sc-client-api",
- "sc-client-db",
- "sc-consensus",
- "sc-consensus-babe",
- "sc-consensus-babe-rpc",
- "sc-consensus-epochs",
- "sc-consensus-slots",
- "sc-executor",
- "sc-finality-grandpa",
- "sc-finality-grandpa-rpc",
- "sc-keystore",
- "sc-network",
- "sc-network-common",
- "sc-network-sync",
- "sc-offchain",
- "sc-rpc",
- "sc-service",
- "sc-sync-state-rpc",
- "sc-sysinfo",
- "sc-telemetry",
- "sc-transaction-pool",
- "sc-transaction-pool-api",
- "serde",
- "serde_json",
- "sp-api",
- "sp-authority-discovery",
- "sp-authorship",
- "sp-beefy",
- "sp-block-builder",
- "sp-blockchain",
- "sp-consensus",
- "sp-consensus-babe",
- "sp-core",
- "sp-finality-grandpa",
- "sp-inherents",
- "sp-io",
- "sp-keystore",
- "sp-mmr-primitives",
- "sp-offchain",
- "sp-runtime",
- "sp-session",
- "sp-state-machine",
- "sp-storage",
- "sp-timestamp",
- "sp-transaction-pool",
- "sp-trie",
- "substrate-frame-rpc-system",
- "substrate-prometheus-endpoint",
- "substrate-state-trie-migration-rpc",
- "tempfile",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-statement-distribution"
-version = "0.9.36"
-dependencies = [
- "arrayvec 0.5.2",
- "assert_matches",
- "fatality",
- "futures 0.3.28",
- "futures-timer",
- "indexmap",
- "parity-scale-codec",
- "polkadot-node-network-protocol",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-util",
- "polkadot-primitives",
- "polkadot-primitives-test-helpers",
- "sc-keystore",
- "sc-network",
- "sp-application-crypto",
- "sp-authority-discovery",
- "sp-core",
- "sp-keyring",
- "sp-keystore",
- "sp-staking",
- "sp-tracing",
  "thiserror",
  "tracing-gum",
 ]
@@ -7841,192 +8025,8 @@ name = "polkadot-statement-table"
 version = "0.9.36"
 dependencies = [
  "parity-scale-codec",
- "polkadot-primitives",
+ "peer-primitives",
  "sp-core",
-]
-
-[[package]]
-name = "polkadot-test-client"
-version = "0.9.36"
-dependencies = [
- "futures 0.3.28",
- "parity-scale-codec",
- "polkadot-node-subsystem",
- "polkadot-primitives",
- "polkadot-test-runtime",
- "polkadot-test-service",
- "sc-block-builder",
- "sc-consensus",
- "sc-service",
- "sp-api",
- "sp-blockchain",
- "sp-consensus",
- "sp-consensus-babe",
- "sp-core",
- "sp-inherents",
- "sp-keyring",
- "sp-runtime",
- "sp-state-machine",
- "sp-timestamp",
- "substrate-test-client",
-]
-
-[[package]]
-name = "polkadot-test-malus"
-version = "0.9.36"
-dependencies = [
- "assert_matches",
- "async-trait",
- "clap",
- "color-eyre",
- "futures 0.3.28",
- "futures-timer",
- "polkadot-cli",
- "polkadot-erasure-coding",
- "polkadot-node-core-backing",
- "polkadot-node-core-candidate-validation",
- "polkadot-node-core-dispute-coordinator",
- "polkadot-node-core-pvf",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-node-subsystem-test-helpers",
- "polkadot-node-subsystem-types",
- "polkadot-node-subsystem-util",
- "polkadot-primitives",
- "rand 0.8.5",
- "sp-core",
- "sp-keystore",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-test-runtime"
-version = "0.9.36"
-dependencies = [
- "Peer-Runtime-common",
- "Peer-Runtime-parachains",
- "bitvec",
- "frame-election-provider-support",
- "frame-executive",
- "frame-support",
- "frame-system",
- "frame-system-rpc-runtime-api",
- "hex-literal",
- "log",
- "pallet-authority-discovery",
- "pallet-authorship",
- "pallet-babe",
- "pallet-balances",
- "pallet-grandpa",
- "pallet-indices",
- "pallet-offences",
- "pallet-session",
- "pallet-staking",
- "pallet-staking-reward-curve",
- "pallet-sudo",
- "pallet-timestamp",
- "pallet-transaction-payment",
- "pallet-transaction-payment-rpc-runtime-api",
- "pallet-vesting",
- "pallet-xcm",
- "parity-scale-codec",
- "polkadot-parachain",
- "polkadot-primitives",
- "rustc-hex",
- "scale-info",
- "serde",
- "serde_derive",
- "serde_json",
- "smallvec",
- "sp-api",
- "sp-authority-discovery",
- "sp-beefy",
- "sp-block-builder",
- "sp-consensus-babe",
- "sp-core",
- "sp-inherents",
- "sp-io",
- "sp-keyring",
- "sp-mmr-primitives",
- "sp-offchain",
- "sp-runtime",
- "sp-session",
- "sp-staking",
- "sp-std",
- "sp-transaction-pool",
- "sp-trie",
- "sp-version",
- "substrate-wasm-builder",
- "test-runtime-constants",
- "tiny-keccak",
- "xcm",
- "xcm-builder",
- "xcm-executor",
-]
-
-[[package]]
-name = "polkadot-test-service"
-version = "0.9.36"
-dependencies = [
- "Peer-Runtime-common",
- "Peer-Runtime-parachains",
- "frame-benchmarking",
- "frame-system",
- "futures 0.3.28",
- "hex",
- "pallet-balances",
- "pallet-staking",
- "pallet-transaction-payment",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-overseer",
- "polkadot-parachain",
- "polkadot-primitives",
- "polkadot-rpc",
- "polkadot-service",
- "polkadot-test-runtime",
- "rand 0.8.5",
- "sc-authority-discovery",
- "sc-chain-spec",
- "sc-cli",
- "sc-client-api",
- "sc-consensus",
- "sc-consensus-babe",
- "sc-executor",
- "sc-finality-grandpa",
- "sc-network",
- "sc-network-common",
- "sc-service",
- "sc-tracing",
- "sc-transaction-pool",
- "serde_json",
- "sp-arithmetic",
- "sp-authority-discovery",
- "sp-blockchain",
- "sp-consensus",
- "sp-consensus-babe",
- "sp-core",
- "sp-finality-grandpa",
- "sp-inherents",
- "sp-keyring",
- "sp-runtime",
- "sp-state-machine",
- "substrate-test-client",
- "substrate-test-utils",
- "tempfile",
- "test-runtime-constants",
- "tokio",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-voter-bags"
-version = "0.9.36"
-dependencies = [
- "Peer-Runtime",
- "clap",
- "generate-bags",
- "sp-io",
 ]
 
 [[package]]
@@ -11252,7 +11252,7 @@ dependencies = [
  "pallet-transaction-payment",
  "parity-scale-codec",
  "paste",
- "polkadot-core-primitives",
+ "peer-core-primitives",
  "sc-transaction-pool-api",
  "serde",
  "serde_json",
@@ -11790,7 +11790,7 @@ version = "0.9.36"
 dependencies = [
  "dlmalloc",
  "parity-scale-codec",
- "polkadot-parachain",
+ "peer-parachain",
  "sp-io",
  "sp-std",
  "substrate-wasm-builder",
@@ -11806,14 +11806,14 @@ dependencies = [
  "futures-timer",
  "log",
  "parity-scale-codec",
- "polkadot-cli",
- "polkadot-node-core-pvf",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-parachain",
- "polkadot-primitives",
- "polkadot-service",
- "polkadot-test-service",
+ "peer-cli",
+ "peer-node-core-pvf",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-parachain",
+ "peer-primitives",
+ "peer-service",
+ "peer-test-service",
  "sc-cli",
  "sc-service",
  "sp-core",
@@ -11837,7 +11837,7 @@ dependencies = [
  "dlmalloc",
  "log",
  "parity-scale-codec",
- "polkadot-parachain",
+ "peer-parachain",
  "sp-io",
  "sp-std",
  "substrate-wasm-builder",
@@ -11853,14 +11853,14 @@ dependencies = [
  "futures-timer",
  "log",
  "parity-scale-codec",
- "polkadot-cli",
- "polkadot-node-core-pvf",
- "polkadot-node-primitives",
- "polkadot-node-subsystem",
- "polkadot-parachain",
- "polkadot-primitives",
- "polkadot-service",
- "polkadot-test-service",
+ "peer-cli",
+ "peer-node-core-pvf",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-parachain",
+ "peer-primitives",
+ "peer-service",
+ "peer-test-service",
  "sc-cli",
  "sc-service",
  "sp-core",
@@ -11887,7 +11887,7 @@ version = "0.9.36"
 dependencies = [
  "Peer-Runtime-common",
  "frame-support",
- "polkadot-primitives",
+ "peer-primitives",
  "smallvec",
  "sp-core",
  "sp-runtime",
@@ -12224,8 +12224,8 @@ dependencies = [
 name = "tracing-gum"
 version = "0.9.36"
 dependencies = [
- "polkadot-node-jaeger",
- "polkadot-primitives",
+ "peer-node-jaeger",
+ "peer-primitives",
  "tracing",
  "tracing-gum-proc-macro",
 ]
@@ -13448,7 +13448,7 @@ dependencies = [
  "pallet-transaction-payment",
  "pallet-xcm",
  "parity-scale-codec",
- "polkadot-parachain",
+ "peer-parachain",
  "scale-info",
  "sp-arithmetic",
  "sp-core",
@@ -13484,9 +13484,9 @@ dependencies = [
  "frame-system",
  "futures 0.3.28",
  "pallet-xcm",
- "polkadot-test-client",
- "polkadot-test-runtime",
- "polkadot-test-service",
+ "peer-test-client",
+ "peer-test-runtime",
+ "peer-test-service",
  "sp-consensus",
  "sp-keyring",
  "sp-runtime",
@@ -13514,8 +13514,8 @@ dependencies = [
  "frame-support",
  "parity-scale-codec",
  "paste",
- "polkadot-core-primitives",
- "polkadot-parachain",
+ "peer-core-primitives",
+ "peer-parachain",
  "sp-io",
  "sp-std",
  "xcm",
@@ -13532,8 +13532,8 @@ dependencies = [
  "pallet-balances",
  "pallet-xcm",
  "parity-scale-codec",
- "polkadot-core-primitives",
- "polkadot-parachain",
+ "peer-core-primitives",
+ "peer-parachain",
  "scale-info",
  "sp-core",
  "sp-io",
@@ -13556,8 +13556,8 @@ dependencies = [
  "pallet-balances",
  "pallet-xcm",
  "parity-scale-codec",
- "polkadot-core-primitives",
- "polkadot-parachain",
+ "peer-core-primitives",
+ "peer-parachain",
  "scale-info",
  "sp-core",
  "sp-io",

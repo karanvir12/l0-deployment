@@ -24,7 +24,7 @@
 
 use std::{fmt, sync::Arc};
 
-pub use polkadot_primitives::v2::{BlockNumber, Hash};
+pub use peer_primitives::v2::{BlockNumber, Hash};
 use smallvec::SmallVec;
 
 pub mod errors;
@@ -34,7 +34,7 @@ mod runtime_client;
 pub use runtime_client::RuntimeApiSubsystemClient;
 
 pub use jaeger::*;
-pub use polkadot_node_jaeger as jaeger;
+pub use peer_node_jaeger as jaeger;
 
 /// How many slots are stack-reserved for active leaves updates
 ///

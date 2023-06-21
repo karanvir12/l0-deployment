@@ -21,12 +21,12 @@
 
 use futures::{channel::oneshot, future::BoxFuture, prelude::*, stream::FuturesUnordered};
 
-use polkadot_node_subsystem::{
+use peer_node_subsystem::{
 	messages::{CandidateValidationMessage, PreCheckOutcome, PvfCheckerMessage, RuntimeApiMessage},
 	overseer, ActiveLeavesUpdate, FromOrchestra, OverseerSignal, SpawnedSubsystem, SubsystemError,
 	SubsystemResult, SubsystemSender,
 };
-use polkadot_primitives::v2::{
+use peer_primitives::v2::{
 	BlockNumber, Hash, PvfCheckStatement, SessionIndex, ValidationCodeHash, ValidatorId,
 	ValidatorIndex,
 };
@@ -70,7 +70,7 @@ impl<Context> PvfCheckerSubsystem {
 
 			SpawnedSubsystem { name: "pvf-checker-subsystem", future }
 		} else {
-			polkadot_overseer::DummySubsystem.start(ctx)
+			peer_overseer::DummySubsystem.start(ctx)
 		}
 	}
 }
@@ -425,7 +425,7 @@ async fn check_signing_credentials(
 		},
 	};
 
-	polkadot_node_subsystem_util::signing_key_and_index(&validators, keystore)
+	peer_node_subsystem_util::signing_key_and_index(&validators, keystore)
 		.await
 		.map(|(validator_key, validator_index)| SigningCredentials {
 			validator_key,
@@ -476,7 +476,7 @@ async fn sign_and_submit_pvf_check_statement(
 		subject: validation_code_hash,
 		validator_index: credentials.validator_index,
 	};
-	let signature = match polkadot_node_subsystem_util::sign(
+	let signature = match peer_node_subsystem_util::sign(
 		keystore,
 		&credentials.validator_key,
 		&stmt.signing_payload(),

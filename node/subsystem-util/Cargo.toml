@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-node-subsystem-util"
+name = "peer-node-subsystem-util"
 description = "Subsystem traits and message definitions"
 version.workspace = true
 authors.workspace = true
@@ -19,13 +19,13 @@ gum = { package = "tracing-gum", path = "../gum" }
 derive_more = "0.99.17"
 lru = "0.8.0"
 
-polkadot-node-subsystem = {path = "../subsystem" }
-polkadot-node-jaeger = { path = "../jaeger" }
-polkadot-node-metrics = { path = "../metrics" }
-polkadot-node-network-protocol = { path = "../network/protocol" }
-polkadot-primitives = { path = "../../primitives" }
-polkadot-node-primitives = { path = "../primitives" }
-polkadot-overseer = { path = "../overseer" }
+peer-node-subsystem = {path = "../subsystem" }
+peer-node-jaeger = { path = "../jaeger" }
+peer-node-metrics = { path = "../metrics" }
+peer-node-network-protocol = { path = "../network/protocol" }
+peer-primitives = { path = "../../primitives" }
+peer-node-primitives = { path = "../primitives" }
+peer-overseer = { path = "../overseer" }
 metered = { package = "prioritized-metered-channel", version = "0.2.0" }
 
 sp-core = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
@@ -40,9 +40,9 @@ assert_matches = "1.4.0"
 env_logger = "0.9.0"
 futures = { version = "0.3.21", features = ["thread-pool"] }
 log = "0.4.17"
-polkadot-node-subsystem-test-helpers = { path = "../subsystem-test-helpers" }
+peer-node-subsystem-test-helpers = { path = "../subsystem-test-helpers" }
 lazy_static = "1.4.0"
-polkadot-primitives-test-helpers = { path = "../../primitives/test-helpers" }
+peer-primitives-test-helpers = { path = "../../primitives/test-helpers" }
 kvdb-shared-tests = "0.11.0"
 tempfile = "3.1.0"
 kvdb-memorydb = "0.13.0"

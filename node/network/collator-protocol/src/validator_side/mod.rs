@@ -32,7 +32,7 @@ use std::{
 
 use sp_keystore::SyncCryptoStorePtr;
 
-use polkadot_node_network_protocol::{
+use peer_node_network_protocol::{
 	self as net_protocol,
 	peer_set::PeerSet,
 	request_response as req_res,
@@ -43,8 +43,8 @@ use polkadot_node_network_protocol::{
 	},
 	v1 as protocol_v1, OurView, PeerId, UnifiedReputationChange as Rep, Versioned, View,
 };
-use polkadot_node_primitives::{PoV, SignedFullStatement};
-use polkadot_node_subsystem::{
+use peer_node_primitives::{PoV, SignedFullStatement};
+use peer_node_subsystem::{
 	jaeger,
 	messages::{
 		CandidateBackingMessage, CollatorProtocolMessage, IfDisconnected, NetworkBridgeEvent,
@@ -52,8 +52,8 @@ use polkadot_node_subsystem::{
 	},
 	overseer, FromOrchestra, OverseerSignal, PerLeafSpan, SubsystemSender,
 };
-use polkadot_node_subsystem_util::metrics::{self, prometheus};
-use polkadot_primitives::v2::{CandidateReceipt, CollatorId, Hash, Id as ParaId};
+use peer_node_subsystem_util::metrics::{self, prometheus};
+use peer_primitives::v2::{CandidateReceipt, CollatorId, Hash, Id as ParaId};
 
 use crate::error::Result;
 
@@ -371,19 +371,19 @@ impl ActiveParas {
 		new_relay_parents: impl IntoIterator<Item = Hash>,
 	) {
 		for relay_parent in new_relay_parents {
-			let mv = polkadot_node_subsystem_util::request_validators(relay_parent, sender)
+			let mv = peer_node_subsystem_util::request_validators(relay_parent, sender)
 				.await
 				.await
 				.ok()
 				.and_then(|x| x.ok());
 
-			let mg = polkadot_node_subsystem_util::request_validator_groups(relay_parent, sender)
+			let mg = peer_node_subsystem_util::request_validator_groups(relay_parent, sender)
 				.await
 				.await
 				.ok()
 				.and_then(|x| x.ok());
 
-			let mc = polkadot_node_subsystem_util::request_availability_cores(relay_parent, sender)
+			let mc = peer_node_subsystem_util::request_availability_cores(relay_parent, sender)
 				.await
 				.await
 				.ok()
@@ -403,10 +403,10 @@ impl ActiveParas {
 			};
 
 			let para_now =
-				match polkadot_node_subsystem_util::signing_key_and_index(&validators, keystore)
+				match peer_node_subsystem_util::signing_key_and_index(&validators, keystore)
 					.await
 					.and_then(|(_, index)| {
-						polkadot_node_subsystem_util::find_validator_group(&groups, index)
+						peer_node_subsystem_util::find_validator_group(&groups, index)
 					}) {
 					Some(group) => {
 						let core_now = rotation_info.core_for_group(group, cores.len());

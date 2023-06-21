@@ -25,7 +25,7 @@
 use error::{log_error, FatalResult, JfyiErrorResult};
 use parity_scale_codec::Encode;
 
-use polkadot_node_network_protocol::{
+use peer_node_network_protocol::{
 	self as net_protocol,
 	grid_topology::{GridNeighbors, RequiredRouting, SessionBoundGridTopologyStorage},
 	peer_set::{IsAuthority, PeerSet},
@@ -33,10 +33,10 @@ use polkadot_node_network_protocol::{
 	v1::{self as protocol_v1, StatementMetadata},
 	IfDisconnected, PeerId, UnifiedReputationChange as Rep, Versioned, View,
 };
-use polkadot_node_primitives::{SignedFullStatement, Statement, UncheckedSignedFullStatement};
-use polkadot_node_subsystem_util::{self as util, rand, MIN_GOSSIP_PEERS};
+use peer_node_primitives::{SignedFullStatement, Statement, UncheckedSignedFullStatement};
+use peer_node_subsystem_util::{self as util, rand, MIN_GOSSIP_PEERS};
 
-use polkadot_node_subsystem::{
+use peer_node_subsystem::{
 	jaeger,
 	messages::{
 		CandidateBackingMessage, NetworkBridgeEvent, NetworkBridgeTxMessage,
@@ -45,7 +45,7 @@ use polkadot_node_subsystem::{
 	overseer, ActiveLeavesUpdate, FromOrchestra, OverseerSignal, PerLeafSpan, SpawnedSubsystem,
 	SubsystemError,
 };
-use polkadot_primitives::v2::{
+use peer_primitives::v2::{
 	AuthorityDiscoveryId, CandidateHash, CommittedCandidateReceipt, CompactStatement, Hash,
 	IndexedVec, SignedStatement, SigningContext, UncheckedSignedStatement, ValidatorId,
 	ValidatorIndex, ValidatorSignature,

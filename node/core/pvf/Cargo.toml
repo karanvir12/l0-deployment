@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-node-core-pvf"
+name = "peer-node-core-pvf"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -25,9 +25,9 @@ rayon = "1.5.1"
 
 parity-scale-codec = { version = "3.1.5", default-features = false, features = ["derive"] }
 
-polkadot-parachain = { path = "../../../parachain" }
-polkadot-core-primitives = { path = "../../../core-primitives" }
-polkadot-node-metrics = { path = "../../metrics"}
+peer-parachain = { path = "../../../parachain" }
+peer-core-primitives = { path = "../../../core-primitives" }
+peer-node-metrics = { path = "../../metrics"}
 
 sc-executor = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sc-executor-wasmtime = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }

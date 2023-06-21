@@ -15,7 +15,7 @@
 // along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
 
 use async_trait::async_trait;
-use polkadot_primitives::{
+use peer_primitives::{
 	runtime_api::ParachainHost,
 	v2::{
 		Block, BlockId, BlockNumber, CandidateCommitments, CandidateEvent, CandidateHash,
@@ -157,7 +157,7 @@ pub trait RuntimeApiSubsystemClient {
 		&self,
 		at: Hash,
 		index: SessionIndex,
-	) -> Result<Option<polkadot_primitives::v2::OldV1SessionInfo>, ApiError>;
+	) -> Result<Option<peer_primitives::v2::OldV1SessionInfo>, ApiError>;
 
 	/// Submits a PVF pre-checking statement into the transaction pool.
 	///
@@ -370,7 +370,7 @@ where
 		&self,
 		at: Hash,
 		index: SessionIndex,
-	) -> Result<Option<polkadot_primitives::v2::OldV1SessionInfo>, ApiError> {
+	) -> Result<Option<peer_primitives::v2::OldV1SessionInfo>, ApiError> {
 		#[allow(deprecated)]
 		self.runtime_api().session_info_before_version_2(&BlockId::Hash(at), index)
 	}

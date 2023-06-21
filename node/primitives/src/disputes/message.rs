@@ -24,7 +24,7 @@ use thiserror::Error;
 use parity_scale_codec::{Decode, Encode};
 
 use super::{InvalidDisputeVote, SignedDisputeStatement, ValidDisputeVote};
-use polkadot_primitives::v2::{
+use peer_primitives::v2::{
 	CandidateReceipt, DisputeStatement, SessionIndex, SessionInfo, ValidatorIndex,
 };
 

@@ -23,7 +23,7 @@ use sp_runtime::traits::{Block as BlockT, Header as _, NumberFor};
 use crate::HeaderProvider;
 
 #[cfg(feature = "full-node")]
-use polkadot_primitives::v2::{Block, Hash};
+use peer_primitives::v2::{Block, Hash};
 
 /// Returns the block hash of the block at the given `target_number` by walking
 /// backwards from the given `current_header`.
@@ -219,7 +219,7 @@ pub(crate) fn hard_forks() -> Vec<grandpa::AuthoritySetHardFork<Block>> {
 mod tests {
 	use consensus_common::BlockOrigin;
 	use grandpa::VotingRule;
-	use polkadot_test_client::{
+	use peer_test_client::{
 		ClientBlockImportExt, DefaultTestClientBuilderExt, InitPolkadotBlockBuilder,
 		TestClientBuilder, TestClientBuilderExt,
 	};

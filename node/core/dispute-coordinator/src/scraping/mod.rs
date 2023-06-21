@@ -19,13 +19,13 @@ use std::num::NonZeroUsize;
 use futures::channel::oneshot;
 use lru::LruCache;
 
-use polkadot_node_primitives::{DISPUTE_CANDIDATE_LIFETIME_AFTER_FINALIZATION, MAX_FINALITY_LAG};
-use polkadot_node_subsystem::{
+use peer_node_primitives::{DISPUTE_CANDIDATE_LIFETIME_AFTER_FINALIZATION, MAX_FINALITY_LAG};
+use peer_node_subsystem::{
 	messages::ChainApiMessage, overseer, ActivatedLeaf, ActiveLeavesUpdate, ChainApiError,
 	SubsystemSender,
 };
-use polkadot_node_subsystem_util::runtime::{get_candidate_events, get_on_chain_votes};
-use polkadot_primitives::v2::{
+use peer_node_subsystem_util::runtime::{get_candidate_events, get_on_chain_votes};
+use peer_primitives::v2::{
 	BlockNumber, CandidateEvent, CandidateHash, Hash, ScrapedOnChainVotes,
 };
 

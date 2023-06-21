@@ -15,8 +15,8 @@
 // along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
 
 use log::info;
-use polkadot_node_core_pvf::sp_maybe_compressed_blob;
-use polkadot_performance_test::{
+use peer_node_core_pvf::sp_maybe_compressed_blob;
+use peer_performance_test::{
 	measure_erasure_coding, measure_pvf_prepare, PerfCheckError, ERASURE_CODING_N_VALIDATORS,
 	ERASURE_CODING_TIME_LIMIT, PVF_PREPARE_TIME_LIMIT, VALIDATION_CODE_BOMB_LIMIT,
 };
@@ -26,7 +26,7 @@ pub fn host_perf_check() -> Result<(), PerfCheckError> {
 	let pvf_prepare_time_limit = time_limit_from_baseline(PVF_PREPARE_TIME_LIMIT);
 	let erasure_coding_time_limit = time_limit_from_baseline(ERASURE_CODING_TIME_LIMIT);
 	let wasm_code =
-		polkadot_performance_test::WASM_BINARY.ok_or(PerfCheckError::WasmBinaryMissing)?;
+		peer_performance_test::WASM_BINARY.ok_or(PerfCheckError::WasmBinaryMissing)?;
 
 	// Decompress the code before running checks.
 	let code = sp_maybe_compressed_blob::decompress(wasm_code, VALIDATION_CODE_BOMB_LIMIT)

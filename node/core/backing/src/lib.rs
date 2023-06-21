@@ -30,11 +30,11 @@ use futures::{
 };
 
 use error::{Error, FatalResult};
-use polkadot_node_primitives::{
+use peer_node_primitives::{
 	AvailableData, InvalidCandidate, PoV, SignedFullStatement, Statement, ValidationResult,
 	BACKING_EXECUTION_TIMEOUT,
 };
-use polkadot_node_subsystem::{
+use peer_node_subsystem::{
 	jaeger,
 	messages::{
 		AvailabilityDistributionMessage, AvailabilityStoreMessage, CandidateBackingMessage,
@@ -44,11 +44,11 @@ use polkadot_node_subsystem::{
 	overseer, ActiveLeavesUpdate, FromOrchestra, OverseerSignal, PerLeafSpan, SpawnedSubsystem,
 	Stage, SubsystemError,
 };
-use polkadot_node_subsystem_util::{
+use peer_node_subsystem_util::{
 	self as util, request_from_runtime, request_session_index_for_child, request_validator_groups,
 	request_validators, Validator,
 };
-use polkadot_primitives::v2::{
+use peer_primitives::v2::{
 	BackedCandidate, CandidateCommitments, CandidateHash, CandidateReceipt, CollatorId,
 	CommittedCandidateReceipt, CoreIndex, CoreState, Hash, Id as ParaId, SigningContext,
 	ValidatorId, ValidatorIndex, ValidatorSignature, ValidityAttestation,
@@ -587,7 +587,7 @@ async fn make_pov_available(
 	n_validators: usize,
 	pov: Arc<PoV>,
 	candidate_hash: CandidateHash,
-	validation_data: polkadot_primitives::v2::PersistedValidationData,
+	validation_data: peer_primitives::v2::PersistedValidationData,
 	expected_erasure_root: Hash,
 	span: Option<&jaeger::Span>,
 ) -> Result<Result<(), InvalidErasureRoot>, Error> {

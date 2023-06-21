@@ -16,8 +16,8 @@
 
 use crate::{Client, FullBackend};
 use parity_scale_codec::{Decode, Encode};
-use polkadot_primitives::v2::{Block, InherentData as ParachainsInherentData};
-use polkadot_test_runtime::{GetLastTimestamp, UncheckedExtrinsic};
+use peer_primitives::v2::{Block, InherentData as ParachainsInherentData};
+use peer_test_runtime::{GetLastTimestamp, UncheckedExtrinsic};
 use sc_block_builder::{BlockBuilder, BlockBuilderProvider};
 use sp_api::ProvideRuntimeApi;
 use sp_consensus_babe::{
@@ -61,7 +61,7 @@ impl InitPolkadotBlockBuilder for Client {
 
 		// `MinimumPeriod` is a storage parameter type that requires externalities to access the value.
 		let minimum_period = BasicExternalities::new_empty()
-			.execute_with(|| polkadot_test_runtime::MinimumPeriod::get());
+			.execute_with(|| peer_test_runtime::MinimumPeriod::get());
 
 		let timestamp = if last_timestamp == 0 {
 			std::time::SystemTime::now()
@@ -74,7 +74,7 @@ impl InitPolkadotBlockBuilder for Client {
 
 		// `SlotDuration` is a storage parameter type that requires externalities to access the value.
 		let slot_duration = BasicExternalities::new_empty()
-			.execute_with(|| polkadot_test_runtime::SlotDuration::get());
+			.execute_with(|| peer_test_runtime::SlotDuration::get());
 
 		let slot = (timestamp / slot_duration).into();
 
@@ -110,7 +110,7 @@ impl InitPolkadotBlockBuilder for Client {
 
 		inherent_data
 			.put_data(
-				polkadot_primitives::v2::PARACHAINS_INHERENT_IDENTIFIER,
+				peer_primitives::v2::PARACHAINS_INHERENT_IDENTIFIER,
 				&parachains_inherent_data,
 			)
 			.expect("Put parachains inherent data");

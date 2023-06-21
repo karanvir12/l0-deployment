@@ -16,10 +16,10 @@
 
 //! `V1` database for the dispute coordinator.
 
-use polkadot_node_primitives::DisputeStatus;
-use polkadot_node_subsystem::{SubsystemError, SubsystemResult};
-use polkadot_node_subsystem_util::database::{DBTransaction, Database};
-use polkadot_primitives::v2::{
+use peer_node_primitives::DisputeStatus;
+use peer_node_subsystem::{SubsystemError, SubsystemResult};
+use peer_node_subsystem_util::database::{DBTransaction, Database};
+use peer_primitives::v2::{
 	CandidateHash, CandidateReceipt, Hash, InvalidDisputeStatementKind, SessionIndex,
 	ValidDisputeStatementKind, ValidatorIndex, ValidatorSignature,
 };
@@ -222,9 +222,9 @@ pub struct CandidateVotes {
 	pub invalid: Vec<(InvalidDisputeStatementKind, ValidatorIndex, ValidatorSignature)>,
 }
 
-impl From<CandidateVotes> for polkadot_node_primitives::CandidateVotes {
-	fn from(db_votes: CandidateVotes) -> polkadot_node_primitives::CandidateVotes {
-		polkadot_node_primitives::CandidateVotes {
+impl From<CandidateVotes> for peer_node_primitives::CandidateVotes {
+	fn from(db_votes: CandidateVotes) -> peer_node_primitives::CandidateVotes {
+		peer_node_primitives::CandidateVotes {
 			candidate_receipt: db_votes.candidate_receipt,
 			valid: db_votes.valid.into_iter().map(|(kind, i, sig)| (i, (kind, sig))).collect(),
 			invalid: db_votes.invalid.into_iter().map(|(kind, i, sig)| (i, (kind, sig))).collect(),
@@ -232,8 +232,8 @@ impl From<CandidateVotes> for polkadot_node_primitives::CandidateVotes {
 	}
 }
 
-impl From<polkadot_node_primitives::CandidateVotes> for CandidateVotes {
-	fn from(primitive_votes: polkadot_node_primitives::CandidateVotes) -> CandidateVotes {
+impl From<peer_node_primitives::CandidateVotes> for CandidateVotes {
+	fn from(primitive_votes: peer_node_primitives::CandidateVotes) -> CandidateVotes {
 		CandidateVotes {
 			candidate_receipt: primitive_votes.candidate_receipt,
 			valid: primitive_votes
@@ -372,12 +372,12 @@ mod tests {
 
 	use super::*;
 	use ::test_helpers::{dummy_candidate_receipt, dummy_hash};
-	use polkadot_node_primitives::DISPUTE_WINDOW;
-	use polkadot_primitives::v2::{Hash, Id as ParaId};
+	use peer_node_primitives::DISPUTE_WINDOW;
+	use peer_primitives::v2::{Hash, Id as ParaId};
 
 	fn make_db() -> DbBackend {
 		let db = kvdb_memorydb::create(1);
-		let db = polkadot_node_subsystem_util::database::kvdb_impl::DbAdapter::new(db, &[0]);
+		let db = peer_node_subsystem_util::database::kvdb_impl::DbAdapter::new(db, &[0]);
 		let store = Arc::new(db);
 		let config = ColumnConfiguration { col_dispute_data: 0, col_session_data: 1 };
 		DbBackend::new(store, config, Metrics::default())

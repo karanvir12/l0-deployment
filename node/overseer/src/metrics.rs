@@ -17,7 +17,7 @@
 //! Prometheus metrics related to the overseer and its channels.
 
 use super::*;
-pub use polkadot_node_metrics::metrics::{self, prometheus, Metrics as MetricsTrait};
+pub use peer_node_metrics::metrics::{self, prometheus, Metrics as MetricsTrait};
 
 use memory_stats::MemoryAllocationSnapshot;
 

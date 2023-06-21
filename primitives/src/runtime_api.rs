@@ -112,8 +112,8 @@
 
 use crate::v2;
 use parity_scale_codec::{Decode, Encode};
-use polkadot_core_primitives as pcp;
-use polkadot_parachain::primitives as ppp;
+use peer_core_primitives as pcp;
+use peer_parachain::primitives as ppp;
 use sp_staking;
 use sp_std::{collections::btree_map::BTreeMap, prelude::*};
 

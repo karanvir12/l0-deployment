@@ -29,7 +29,7 @@ pub enum Error {
 	SubstrateTracing(#[from] sc_tracing::logging::Error),
 
 	#[error(transparent)]
-	PerfCheck(#[from] polkadot_performance_test::PerfCheckError),
+	PerfCheck(#[from] peer_performance_test::PerfCheckError),
 
 	#[cfg(not(feature = "pyroscope"))]
 	#[error("Binary was not compiled with `--feature=pyroscope`")]

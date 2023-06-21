@@ -21,7 +21,7 @@ use crate::{
 };
 use lru::LruCache;
 use orchestra::{FromOrchestra, SpawnedSubsystem, Subsystem, SubsystemContext};
-use polkadot_node_subsystem_types::{errors::SubsystemError, messages::*};
+use peer_node_subsystem_types::{errors::SubsystemError, messages::*};
 /// A dummy subsystem that implements [`Subsystem`] for all
 /// types of messages. Used for tests or as a placeholder.
 #[derive(Clone, Copy, Debug)]

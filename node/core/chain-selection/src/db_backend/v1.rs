@@ -37,11 +37,11 @@ use crate::{
 	Error,
 };
 
-use polkadot_node_primitives::BlockWeight;
-use polkadot_primitives::v2::{BlockNumber, Hash};
+use peer_node_primitives::BlockWeight;
+use peer_primitives::v2::{BlockNumber, Hash};
 
 use parity_scale_codec::{Decode, Encode};
-use polkadot_node_subsystem_util::database::{DBTransaction, Database};
+use peer_node_subsystem_util::database::{DBTransaction, Database};
 
 use std::sync::Arc;
 
@@ -401,7 +401,7 @@ mod tests {
 	#[cfg(test)]
 	fn test_db() -> Arc<dyn Database> {
 		let db = kvdb_memorydb::create(1);
-		let db = polkadot_node_subsystem_util::database::kvdb_impl::DbAdapter::new(db, &[0]);
+		let db = peer_node_subsystem_util::database::kvdb_impl::DbAdapter::new(db, &[0]);
 		Arc::new(db)
 	}
 

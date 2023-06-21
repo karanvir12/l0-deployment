@@ -21,23 +21,23 @@
 #![warn(missing_docs)]
 
 use futures::{channel::oneshot, FutureExt as _};
-use polkadot_node_network_protocol::{
+use peer_node_network_protocol::{
 	self as net_protocol,
 	grid_topology::{RandomRouting, RequiredRouting, SessionGridTopologies, SessionGridTopology},
 	peer_set::MAX_NOTIFICATION_SIZE,
 	v1 as protocol_v1, PeerId, UnifiedReputationChange as Rep, Versioned, View,
 };
-use polkadot_node_primitives::approval::{
+use peer_node_primitives::approval::{
 	AssignmentCert, BlockApprovalMeta, IndirectAssignmentCert, IndirectSignedApprovalVote,
 };
-use polkadot_node_subsystem::{
+use peer_node_subsystem::{
 	messages::{
 		ApprovalCheckResult, ApprovalDistributionMessage, ApprovalVotingMessage,
 		AssignmentCheckResult, NetworkBridgeEvent, NetworkBridgeTxMessage,
 	},
 	overseer, ActiveLeavesUpdate, FromOrchestra, OverseerSignal, SpawnedSubsystem, SubsystemError,
 };
-use polkadot_primitives::v2::{
+use peer_primitives::v2::{
 	BlockNumber, CandidateIndex, Hash, SessionIndex, ValidatorIndex, ValidatorSignature,
 };
 use rand::{CryptoRng, Rng, SeedableRng};

@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-node-core-backing"
+name = "peer-node-core-backing"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -7,11 +7,11 @@ edition.workspace = true
 [dependencies]
 futures = "0.3.21"
 sp-keystore = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
-polkadot-primitives = { path = "../../../primitives" }
-polkadot-node-primitives = { path = "../../primitives" }
-polkadot-node-subsystem = {path = "../../subsystem" }
-polkadot-node-subsystem-util = { path = "../../subsystem-util" }
-erasure-coding = { package = "polkadot-erasure-coding", path = "../../../erasure-coding" }
+peer-primitives = { path = "../../../primitives" }
+peer-node-primitives = { path = "../../primitives" }
+peer-node-subsystem = {path = "../../subsystem" }
+peer-node-subsystem-util = { path = "../../subsystem-util" }
+erasure-coding = { package = "peer-erasure-coding", path = "../../../erasure-coding" }
 statement-table = { package = "polkadot-statement-table", path = "../../../statement-table" }
 bitvec = { version = "1.0.0", default-features = false, features = ["alloc"] }
 gum = { package = "tracing-gum", path = "../../gum" }
@@ -26,5 +26,5 @@ sc-keystore = { git = "https://github.com/karanvir12/substrate36.git", branch = 
 sp-tracing = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 futures = { version = "0.3.21", features = ["thread-pool"] }
 assert_matches = "1.4.0"
-polkadot-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
-test-helpers = { package = "polkadot-primitives-test-helpers", path = "../../../primitives/test-helpers" }
+peer-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
+test-helpers = { package = "peer-primitives-test-helpers", path = "../../../primitives/test-helpers" }

@@ -16,7 +16,7 @@
 
 //! Primitive types used on the node-side.
 //!
-//! Unlike the `polkadot-primitives` crate, these primitives are only used on the node-side,
+//! Unlike the `peer-primitives` crate, these primitives are only used on the node-side,
 //! not shared between the node and the runtime. This crate builds on top of the primitives defined
 //! there.
 
@@ -29,7 +29,7 @@ use futures::Future;
 use parity_scale_codec::{Decode, Encode, Error as CodecError, Input};
 use serde::{de, Deserialize, Deserializer, Serialize, Serializer};
 
-use polkadot_primitives::v2::{
+use peer_primitives::v2::{
 	BlakeTwo256, BlockNumber, CandidateCommitments, CandidateHash, CollatorPair,
 	CommittedCandidateReceipt, CompactStatement, EncodeAs, Hash, HashT, HeadData, Id as ParaId,
 	OutboundHrmpMessage, PersistedValidationData, SessionIndex, Signed, UncheckedSigned,
@@ -39,7 +39,7 @@ pub use sp_consensus_babe::{
 	AllowedSlots as BabeAllowedSlots, BabeEpochConfiguration, Epoch as BabeEpoch,
 };
 
-pub use polkadot_parachain::primitives::BlockData;
+pub use peer_parachain::primitives::BlockData;
 
 pub mod approval;
 
@@ -312,7 +312,7 @@ impl MaybeCompressedPoV {
 /// - contains a proof of validity.
 #[derive(Clone, Encode, Decode)]
 #[cfg(not(target_os = "unknown"))]
-pub struct Collation<BlockNumber = polkadot_primitives::v2::BlockNumber> {
+pub struct Collation<BlockNumber = peer_primitives::v2::BlockNumber> {
 	/// Messages destined to be interpreted by the Relay chain itself.
 	pub upward_messages: Vec<UpwardMessage>,
 	/// The horizontal messages sent by the parachain.

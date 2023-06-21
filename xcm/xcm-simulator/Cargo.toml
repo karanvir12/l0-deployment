@@ -15,6 +15,6 @@ sp-std = { git = "https://github.com/karanvir12/substrate36.git", branch = "relp
 
 xcm = { path = "../" }
 xcm-executor = { path = "../xcm-executor" }
-polkadot-core-primitives = { path = "../../core-primitives"}
-polkadot-parachain = { path = "../../parachain" }
+peer-core-primitives = { path = "../../core-primitives"}
+peer-parachain = { path = "../../parachain" }
 Peer-Runtime-parachains = { path = "../../runtime/parachains" }

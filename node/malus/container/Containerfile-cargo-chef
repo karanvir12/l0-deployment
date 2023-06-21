@@ -25,7 +25,7 @@ COPY substrate/  /usr/src/polkadot-malus/substrate/
 
 WORKDIR /usr/src/polkadot-malus/polkadot
 
-RUN cargo build -p polkadot-test-malus --release
+RUN cargo build -p peer-test-malus --release
 RUN cp -v /usr/src/polkadot-malus/polkadot/target/release/malus /usr/local/bin
 
 # check if executable works in this container
@@ -122,7 +122,7 @@ RUN export PATH="$PATH:$HOME/.cargo/bin" && \
     rustup toolchain install nightly && \
     rustup target add wasm32-unknown-unknown --toolchain nightly && \
     rustup default stable
-RUN cargo build -p polkadot-test-malus --release
+RUN cargo build -p peer-test-malus --release
 
 
 FROM debian:buster-slim as runtime

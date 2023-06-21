@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-node-core-candidate-validation"
+name = "peer-node-core-candidate-validation"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -13,19 +13,19 @@ gum = { package = "tracing-gum", path = "../../gum" }
 sp-maybe-compressed-blob = { package = "sp-maybe-compressed-blob", git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 parity-scale-codec = { version = "3.1.5", default-features = false, features = ["bit-vec", "derive"] }
 
-polkadot-primitives = { path = "../../../primitives" }
-polkadot-parachain = { path = "../../../parachain" }
-polkadot-node-primitives = { path = "../../primitives" }
-polkadot-node-subsystem = {path = "../../subsystem" }
-polkadot-node-subsystem-util = { path = "../../subsystem-util" }
+peer-primitives = { path = "../../../primitives" }
+peer-parachain = { path = "../../../parachain" }
+peer-node-primitives = { path = "../../primitives" }
+peer-node-subsystem = {path = "../../subsystem" }
+peer-node-subsystem-util = { path = "../../subsystem-util" }
 
 [target.'cfg(not(any(target_os = "android", target_os = "unknown")))'.dependencies]
-polkadot-node-core-pvf = { path = "../pvf" }
+peer-node-core-pvf = { path = "../pvf" }
 
 [dev-dependencies]
 sp-keyring = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 futures = { version = "0.3.21", features = ["thread-pool"] }
 assert_matches = "1.4.0"
-polkadot-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
+peer-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
 sp-core = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
-test-helpers = { package = "polkadot-primitives-test-helpers", path = "../../../primitives/test-helpers" }
+test-helpers = { package = "peer-primitives-test-helpers", path = "../../../primitives/test-helpers" }

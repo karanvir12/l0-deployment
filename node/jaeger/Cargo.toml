@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-node-jaeger"
+name = "peer-node-jaeger"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -9,8 +9,8 @@ description = "Polkadot Jaeger primitives, but equally useful for Grafana/Tempo"
 mick-jaeger = "0.1.8"
 lazy_static = "1.4"
 parking_lot = "0.12.0"
-polkadot-primitives = { path = "../../primitives" }
-polkadot-node-primitives = { path = "../primitives" }
+peer-primitives = { path = "../../primitives" }
+peer-node-primitives = { path = "../primitives" }
 sc-network = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sp-core = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 thiserror = "1.0.31"

@@ -20,13 +20,13 @@
 
 use crate::{error::GetOnchainDisputesError, metrics, LOG_TARGET};
 use futures::channel::oneshot;
-use polkadot_node_primitives::{dispute_is_inactive, CandidateVotes, DisputeStatus, Timestamp};
-use polkadot_node_subsystem::{
+use peer_node_primitives::{dispute_is_inactive, CandidateVotes, DisputeStatus, Timestamp};
+use peer_node_subsystem::{
 	errors::RuntimeApiError,
 	messages::{DisputeCoordinatorMessage, RuntimeApiMessage, RuntimeApiRequest},
 	overseer, ActivatedLeaf,
 };
-use polkadot_primitives::v2::{
+use peer_primitives::v2::{
 	supermajority_threshold, CandidateHash, DisputeState, DisputeStatement, DisputeStatementSet,
 	Hash, MultiDisputeStatementSet, SessionIndex, ValidatorIndex,
 };

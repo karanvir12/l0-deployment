@@ -18,7 +18,7 @@ use std::collections::{HashMap, HashSet};
 
 use futures::{channel::mpsc, future::RemoteHandle, Future, FutureExt, SinkExt};
 
-use polkadot_node_network_protocol::{
+use peer_node_network_protocol::{
 	request_response::{
 		outgoing::RequestError,
 		v1::{DisputeRequest, DisputeResponse},
@@ -26,9 +26,9 @@ use polkadot_node_network_protocol::{
 	},
 	IfDisconnected,
 };
-use polkadot_node_subsystem::{messages::NetworkBridgeTxMessage, overseer};
-use polkadot_node_subsystem_util::{metrics, runtime::RuntimeInfo};
-use polkadot_primitives::v2::{
+use peer_node_subsystem::{messages::NetworkBridgeTxMessage, overseer};
+use peer_node_subsystem_util::{metrics, runtime::RuntimeInfo};
+use peer_primitives::v2::{
 	AuthorityDiscoveryId, CandidateHash, Hash, SessionIndex, ValidatorIndex,
 };
 

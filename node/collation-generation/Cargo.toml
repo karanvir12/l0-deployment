@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-node-collation-generation"
+name = "peer-node-collation-generation"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -7,16 +7,16 @@ edition.workspace = true
 [dependencies]
 futures = "0.3.21"
 gum = { package = "tracing-gum", path = "../gum" }
-polkadot-erasure-coding = { path = "../../erasure-coding" }
-polkadot-node-primitives = { path = "../primitives" }
-polkadot-node-subsystem = { path = "../subsystem" }
-polkadot-node-subsystem-util = { path = "../subsystem-util" }
-polkadot-primitives = { path = "../../primitives" }
+peer-erasure-coding = { path = "../../erasure-coding" }
+peer-node-primitives = { path = "../primitives" }
+peer-node-subsystem = { path = "../subsystem" }
+peer-node-subsystem-util = { path = "../subsystem-util" }
+peer-primitives = { path = "../../primitives" }
 sp-core = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sp-maybe-compressed-blob  = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 thiserror = "1.0.31"
 parity-scale-codec = { version = "3.1.5", default-features = false, features = ["bit-vec", "derive"] }
 
 [dev-dependencies]
-polkadot-node-subsystem-test-helpers = { path = "../subsystem-test-helpers" }
-test-helpers = { package = "polkadot-primitives-test-helpers", path = "../../primitives/test-helpers" }
+peer-node-subsystem-test-helpers = { path = "../subsystem-test-helpers" }
+test-helpers = { package = "peer-primitives-test-helpers", path = "../../primitives/test-helpers" }

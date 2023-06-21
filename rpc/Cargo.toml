@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-rpc"
+name = "peer-rpc"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -7,7 +7,7 @@ edition.workspace = true
 [dependencies]
 jsonrpsee = { version = "0.16.2", features = ["server"] }
 futures = { version = "0.3.21", features = [ "compat" ] }
-polkadot-primitives = { path = "../primitives" }
+peer-primitives = { path = "../primitives" }
 sc-client-api = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sp-blockchain = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sp-keystore = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }

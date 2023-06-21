@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-node-core-runtime-api"
+name = "peer-node-core-runtime-api"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -11,10 +11,10 @@ lru = "0.8"
 
 sp-consensus-babe = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
-polkadot-primitives = { path = "../../../primitives" }
-polkadot-node-subsystem = { path = "../../subsystem" }
-polkadot-node-subsystem-types = { path = "../../subsystem-types" }
-polkadot-node-subsystem-util = { path = "../../subsystem-util" }
+peer-primitives = { path = "../../../primitives" }
+peer-node-subsystem = { path = "../../subsystem" }
+peer-node-subsystem-types = { path = "../../subsystem-types" }
+peer-node-subsystem-util = { path = "../../subsystem-util" }
 
 [dev-dependencies]
 sp-api = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
@@ -22,6 +22,6 @@ sp-authority-discovery = { git = "https://github.com/karanvir12/substrate36.git"
 sp-core = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sp-keyring = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 futures = { version = "0.3.21", features = ["thread-pool"] }
-polkadot-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
-polkadot-node-primitives = { path = "../../primitives" }
-test-helpers = { package = "polkadot-primitives-test-helpers", path = "../../../primitives/test-helpers" }
+peer-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
+peer-node-primitives = { path = "../../primitives" }
+test-helpers = { package = "peer-primitives-test-helpers", path = "../../../primitives/test-helpers" }

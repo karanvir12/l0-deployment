@@ -20,7 +20,7 @@ pallet-transaction-payment = { git = "https://github.com/karanvir12/substrate36.
 log = { version = "0.4.17", default-features = false }
 
 # Polkadot dependencies
-polkadot-parachain = { path = "../../parachain", default-features = false }
+peer-parachain = { path = "../../parachain", default-features = false }
 
 [dev-dependencies]
 sp-core = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
@@ -44,6 +44,6 @@ std = [
 	"sp-io/std",
 	"sp-runtime/std",
 	"frame-support/std",
-	"polkadot-parachain/std",
+	"peer-parachain/std",
 	"pallet-transaction-payment/std",
 ]

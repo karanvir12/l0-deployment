@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-overseer"
+name = "peer-overseer"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -10,11 +10,11 @@ sp-api = { git = "https://github.com/karanvir12/substrate36.git", branch = "relp
 futures = "0.3.21"
 futures-timer = "3.0.2"
 parking_lot = "0.12.0"
-polkadot-node-network-protocol = { path = "../network/protocol" }
-polkadot-node-primitives = { path = "../primitives" }
-polkadot-node-subsystem-types = { path = "../subsystem-types" }
-polkadot-node-metrics = { path = "../metrics" }
-polkadot-primitives = { path = "../../primitives" }
+peer-node-network-protocol = { path = "../network/protocol" }
+peer-node-primitives = { path = "../primitives" }
+peer-node-subsystem-types = { path = "../subsystem-types" }
+peer-node-metrics = { path = "../metrics" }
+peer-primitives = { path = "../../primitives" }
 orchestra = "0.0.2"
 gum = { package = "tracing-gum", path = "../gum" }
 lru = "0.8"
@@ -29,7 +29,7 @@ sp-core = { git = "https://github.com/karanvir12/substrate36.git", branch = "rel
 futures = { version = "0.3.21", features = ["thread-pool"] }
 femme = "2.2.1"
 assert_matches = "1.4.0"
-test-helpers = { package = "polkadot-primitives-test-helpers", path = "../../primitives/test-helpers" }
+test-helpers = { package = "peer-primitives-test-helpers", path = "../../primitives/test-helpers" }
 
 [features]
 default = []

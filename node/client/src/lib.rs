@@ -19,7 +19,7 @@
 //! Provides the [`AbstractClient`] trait that is a super trait that combines all the traits the client implements.
 //! There is also the [`Client`] enum that combines all the different clients into one common structure.
 
-use polkadot_primitives::{
+use peer_primitives::{
 	runtime_api::ParachainHost,
 	v2::{AccountId, Balance, Block, BlockNumber, Hash, Header, Nonce},
 };

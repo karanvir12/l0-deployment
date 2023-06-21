@@ -20,7 +20,7 @@ use mock::{
 	like_with_balances, AccountId, Balance, Balances, BaseXcmWeight, System, XcmConfig,
 	CENTS,
 };
-use polkadot_parachain::primitives::Id as ParaId;
+use peer_parachain::primitives::Id as ParaId;
 use sp_runtime::traits::AccountIdConversion;
 use xcm::latest::prelude::*;
 use xcm_executor::XcmExecutor;

@@ -5,11 +5,11 @@ authors.workspace = true
 edition.workspace = true
 
 [dependencies]
-polkadot-node-primitives = { path = "../../primitives" }
-polkadot-node-network-protocol = { path = "../protocol" }
-polkadot-node-subsystem = { path = "../../subsystem" }
-polkadot-node-subsystem-util = { path = "../../subsystem-util" }
-polkadot-primitives = { path = "../../../primitives" }
+peer-node-primitives = { path = "../../primitives" }
+peer-node-network-protocol = { path = "../protocol" }
+peer-node-subsystem = { path = "../../subsystem" }
+peer-node-subsystem-util = { path = "../../subsystem-util" }
+peer-primitives = { path = "../../../primitives" }
 rand = "0.8"
 
 futures = "0.3.21"
@@ -19,9 +19,9 @@ gum = { package = "tracing-gum", path = "../../gum" }
 sp-authority-discovery = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sp-core = { git = "https://github.com/karanvir12/substrate36.git", features = ["std"] , branch = "relpeer" }
 
-polkadot-node-subsystem-util = { path = "../../subsystem-util" }
-polkadot-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
-polkadot-primitives-test-helpers = { path = "../../../primitives/test-helpers" }
+peer-node-subsystem-util = { path = "../../subsystem-util" }
+peer-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
+peer-primitives-test-helpers = { path = "../../../primitives/test-helpers" }
 
 assert_matches = "1.4.0"
 schnorrkel = { version = "0.9.1", default-features = false }

@@ -18,10 +18,10 @@
 
 use parity_scale_codec::{Decode, Encode};
 
-use polkadot_node_primitives::{
+use peer_node_primitives::{
 	AvailableData, DisputeMessage, ErasureChunk, PoV, Proof, UncheckedDisputeMessage,
 };
-use polkadot_primitives::v2::{
+use peer_primitives::v2::{
 	CandidateHash, CandidateReceipt, CommittedCandidateReceipt, Hash, Id as ParaId, ValidatorIndex,
 };
 

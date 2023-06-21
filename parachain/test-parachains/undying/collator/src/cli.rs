@@ -121,7 +121,7 @@ impl SubstrateCli for Cli {
 	}
 
 	fn native_runtime_version(
-		_spec: &Box<dyn polkadot_service::ChainSpec>,
+		_spec: &Box<dyn peer_service::ChainSpec>,
 	) -> &'static RuntimeVersion {
 	
 	}

@@ -22,7 +22,7 @@ use std::sync::Arc;
 
 use fc_mapping_sync::MappingSyncWorker;
 use jsonrpsee::RpcModule;
-use polkadot_primitives::v2::{AccountId, Balance, Block, BlockNumber, Hash, Nonce};
+use peer_primitives::v2::{AccountId, Balance, Block, BlockNumber, Hash, Nonce};
 use sc_client_api::AuxStore;
 use sc_consensus_babe::{BabeConfiguration, Epoch};
 use sc_finality_grandpa::FinalityProofProvider;

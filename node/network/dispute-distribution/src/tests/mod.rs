@@ -35,18 +35,18 @@ use parity_scale_codec::{Decode, Encode};
 
 use sc_network::config::RequestResponseConfig;
 
-use polkadot_node_network_protocol::{
+use peer_node_network_protocol::{
 	request_response::{v1::DisputeRequest, IncomingRequest, ReqProtocolNames},
 	PeerId,
 };
 use sp_keyring::Sr25519Keyring;
 
-use polkadot_node_network_protocol::{
+use peer_node_network_protocol::{
 	request_response::{v1::DisputeResponse, Recipient, Requests},
 	IfDisconnected,
 };
-use polkadot_node_primitives::{CandidateVotes, DisputeStatus, UncheckedDisputeMessage};
-use polkadot_node_subsystem::{
+use peer_node_primitives::{CandidateVotes, DisputeStatus, UncheckedDisputeMessage};
+use peer_node_subsystem::{
 	messages::{
 		AllMessages, DisputeCoordinatorMessage, DisputeDistributionMessage, ImportStatementsResult,
 		NetworkBridgeTxMessage, RuntimeApiMessage, RuntimeApiRequest,
@@ -56,7 +56,7 @@ use polkadot_node_subsystem::{
 use polkadot_node_subsystem_test_helpers::{
 	mock::make_ferdie_keystore, subsystem_test_harness, TestSubsystemContextHandle,
 };
-use polkadot_primitives::v2::{
+use peer_primitives::v2::{
 	AuthorityDiscoveryId, CandidateHash, CandidateReceipt, Hash, SessionIndex, SessionInfo,
 };
 

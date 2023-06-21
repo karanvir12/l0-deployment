@@ -16,10 +16,10 @@
 
 //! Collator for the adder test parachain.
 
-use polkadot_cli::{Error, Result};
-use polkadot_node_primitives::CollationGenerationConfig;
-use polkadot_node_subsystem::messages::{CollationGenerationMessage, CollatorProtocolMessage};
-use polkadot_primitives::v2::Id as ParaId;
+use peer_cli::{Error, Result};
+use peer_node_primitives::CollationGenerationConfig;
+use peer_node_subsystem::messages::{CollationGenerationMessage, CollatorProtocolMessage};
+use peer_primitives::v2::Id as ParaId;
 use sc_cli::{Error as SubstrateCliError, SubstrateCli};
 use sp_core::hexdisplay::HexDisplay;
 use test_parachain_adder_collator::Collator;
@@ -56,15 +56,15 @@ fn main() -> Result<()> {
 			runner.run_node_until_exit(|config| async move {
 				let collator = Collator::new();
 
-				let full_node = polkadot_service::build_full(
+				let full_node = peer_service::build_full(
 					config,
-					polkadot_service::IsCollator::Yes(collator.collator_key()),
+					peer_service::IsCollator::Yes(collator.collator_key()),
 					None,
 					false,
 					None,
 					None,
 					false,
-					polkadot_service::RealOverseerGen,
+					peer_service::RealOverseerGen,
 					None,
 					None,
 					None,

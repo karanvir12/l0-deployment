@@ -25,12 +25,12 @@ use futures::channel::oneshot;
 
 use sc_network::multiaddr::{self, Multiaddr};
 
-pub use polkadot_node_network_protocol::authority_discovery::AuthorityDiscovery;
-use polkadot_node_network_protocol::{
+pub use peer_node_network_protocol::authority_discovery::AuthorityDiscovery;
+use peer_node_network_protocol::{
 	peer_set::{PeerSet, PeerSetProtocolNames, PerPeerSet},
 	PeerId,
 };
-use polkadot_primitives::v2::AuthorityDiscoveryId;
+use peer_primitives::v2::AuthorityDiscoveryId;
 
 const LOG_TARGET: &str = "parachain::validator-discovery";
 
@@ -169,11 +169,11 @@ mod tests {
 
 	use async_trait::async_trait;
 	use futures::stream::BoxStream;
-	use polkadot_node_network_protocol::{
+	use peer_node_network_protocol::{
 		request_response::{outgoing::Requests, ReqProtocolNames},
 		PeerId,
 	};
-	use polkadot_primitives::v2::Hash;
+	use peer_primitives::v2::Hash;
 	use sc_network::{Event as NetworkEvent, IfDisconnected, ProtocolName};
 	use sp_keyring::Sr25519Keyring;
 	use std::collections::{HashMap, HashSet};

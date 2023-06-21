@@ -21,16 +21,16 @@ use futures::{
 	SinkExt,
 };
 
-use polkadot_node_network_protocol::{
+use peer_node_network_protocol::{
 	request_response::{
 		v1::{StatementFetchingRequest, StatementFetchingResponse},
 		OutgoingRequest, Recipient, Requests,
 	},
 	PeerId, UnifiedReputationChange,
 };
-use polkadot_node_subsystem::{Span, Stage};
-use polkadot_node_subsystem_util::TimeoutExt;
-use polkadot_primitives::v2::{CandidateHash, CommittedCandidateReceipt, Hash};
+use peer_node_subsystem::{Span, Stage};
+use peer_node_subsystem_util::TimeoutExt;
+use peer_primitives::v2::{CandidateHash, CommittedCandidateReceipt, Hash};
 
 use crate::{metrics::Metrics, COST_WRONG_HASH, LOG_TARGET};
 

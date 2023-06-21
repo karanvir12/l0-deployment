@@ -22,6 +22,6 @@ xcm-simulator = { path = "../" }
 xcm-executor = { path = "../../xcm-executor" }
 xcm-builder = { path = "../../xcm-builder" }
 pallet-xcm = { path = "../../pallet-xcm" }
-polkadot-core-primitives = { path = "../../../core-primitives" }
+peer-core-primitives = { path = "../../../core-primitives" }
 Peer-Runtime-parachains = { path = "../../../runtime/parachains" }
-polkadot-parachain = { path = "../../../parachain" }
+peer-parachain = { path = "../../../parachain" }

@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-dispute-distribution"
+name = "peer-dispute-distribution"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -10,12 +10,12 @@ futures-timer = "3.0.2"
 gum = { package = "tracing-gum", path = "../../gum" }
 derive_more = "0.99.17"
 parity-scale-codec = { version = "3.1.5", features = ["std"] }
-polkadot-primitives = { path = "../../../primitives" }
-polkadot-erasure-coding = { path = "../../../erasure-coding" }
-polkadot-node-subsystem = {path = "../../subsystem" }
-polkadot-node-network-protocol = { path = "../../network/protocol" }
-polkadot-node-subsystem-util = { path = "../../subsystem-util" }
-polkadot-node-primitives = { path = "../../primitives" }
+peer-primitives = { path = "../../../primitives" }
+peer-erasure-coding = { path = "../../../erasure-coding" }
+peer-node-subsystem = {path = "../../subsystem" }
+peer-node-network-protocol = { path = "../../network/protocol" }
+peer-node-subsystem-util = { path = "../../subsystem-util" }
+peer-node-primitives = { path = "../../primitives" }
 sc-network = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sp-application-crypto = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sp-keystore = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
@@ -26,11 +26,11 @@ indexmap = "1.9.1"
 
 [dev-dependencies]
 async-trait = "0.1.57"
-polkadot-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
+peer-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
 sp-keyring = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sp-tracing = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sc-keystore = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 futures-timer = "3.0.2"
 assert_matches = "1.4.0"
 lazy_static = "1.4.0"
-polkadot-primitives-test-helpers = { path = "../../../primitives/test-helpers" }
+peer-primitives-test-helpers = { path = "../../../primitives/test-helpers" }

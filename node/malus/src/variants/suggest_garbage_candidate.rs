@@ -22,7 +22,7 @@
 
 #![allow(missing_docs)]
 
-use polkadot_cli::{
+use peer_cli::{
 	prepared_overseer_builder,
 	service::{
 		AuthorityDiscoveryApi, AuxStore, BabeApi, Block, Error, HeaderBackend, Overseer,
@@ -31,11 +31,11 @@ use polkadot_cli::{
 	},
 	Cli,
 };
-use polkadot_node_core_candidate_validation::find_validation_data;
-use polkadot_node_primitives::{AvailableData, BlockData, PoV};
-use polkadot_primitives::v2::CandidateDescriptor;
+use peer_node_core_candidate_validation::find_validation_data;
+use peer_node_primitives::{AvailableData, BlockData, PoV};
+use peer_primitives::v2::CandidateDescriptor;
 
-use polkadot_node_subsystem_util::request_validators;
+use peer_node_subsystem_util::request_validators;
 use sp_core::traits::SpawnNamed;
 
 use rand::distributions::{Bernoulli, Distribution};
@@ -52,8 +52,8 @@ use crate::{
 
 // Import extra types relevant to the particular
 // subsystem.
-use polkadot_node_subsystem::{messages::CandidateBackingMessage, SpawnGlue};
-use polkadot_primitives::v2::CandidateReceipt;
+use peer_node_subsystem::{messages::CandidateBackingMessage, SpawnGlue};
+use peer_primitives::v2::CandidateReceipt;
 
 use std::sync::Arc;
 
@@ -166,11 +166,11 @@ where
 					};
 
 					let (collator_id, collator_signature) = {
-						use polkadot_primitives::v2::CollatorPair;
+						use peer_primitives::v2::CollatorPair;
 						use sp_core::crypto::Pair;
 
 						let collator_pair = CollatorPair::generate().0;
-						let signature_payload = polkadot_primitives::v2::collator_signature_payload(
+						let signature_payload = peer_primitives::v2::collator_signature_payload(
 							&relay_parent,
 							&candidate.descriptor().para_id,
 							&validation_data_hash,

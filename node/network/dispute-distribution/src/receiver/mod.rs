@@ -30,7 +30,7 @@ use futures::{
 };
 
 use gum::CandidateHash;
-use polkadot_node_network_protocol::{
+use peer_node_network_protocol::{
 	authority_discovery::AuthorityDiscovery,
 	request_response::{
 		incoming::{self, OutgoingResponse, OutgoingResponseSender},
@@ -39,12 +39,12 @@ use polkadot_node_network_protocol::{
 	},
 	PeerId, UnifiedReputationChange as Rep,
 };
-use polkadot_node_primitives::DISPUTE_WINDOW;
-use polkadot_node_subsystem::{
+use peer_node_primitives::DISPUTE_WINDOW;
+use peer_node_subsystem::{
 	messages::{DisputeCoordinatorMessage, ImportStatementsResult},
 	overseer,
 };
-use polkadot_node_subsystem_util::{runtime, runtime::RuntimeInfo};
+use peer_node_subsystem_util::{runtime, runtime::RuntimeInfo};
 
 use crate::{
 	metrics::{FAILED, SUCCEEDED},

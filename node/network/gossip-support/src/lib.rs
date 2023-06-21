@@ -39,19 +39,19 @@ use sc_network::Multiaddr;
 use sp_application_crypto::{AppKey, ByteArray};
 use sp_keystore::{CryptoStore, SyncCryptoStorePtr};
 
-use polkadot_node_network_protocol::{
+use peer_node_network_protocol::{
 	authority_discovery::AuthorityDiscovery, peer_set::PeerSet, GossipSupportNetworkMessage,
 	PeerId, Versioned,
 };
-use polkadot_node_subsystem::{
+use peer_node_subsystem::{
 	messages::{
 		GossipSupportMessage, NetworkBridgeEvent, NetworkBridgeRxMessage, NetworkBridgeTxMessage,
 		RuntimeApiMessage, RuntimeApiRequest,
 	},
 	overseer, ActiveLeavesUpdate, FromOrchestra, OverseerSignal, SpawnedSubsystem, SubsystemError,
 };
-use polkadot_node_subsystem_util as util;
-use polkadot_primitives::v2::{
+use peer_node_subsystem_util as util;
+use peer_primitives::v2::{
 	AuthorityDiscoveryId, Hash, SessionIndex, SessionInfo, ValidatorIndex,
 };
 

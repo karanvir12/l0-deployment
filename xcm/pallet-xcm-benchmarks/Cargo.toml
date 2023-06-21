@@ -31,7 +31,7 @@ xcm = { path = ".." }
 pallet-xcm = { path = "../pallet-xcm" }
 Peer-Runtime-common = { path = "../../runtime/common" }
 
-polkadot-primitives = { path = "../../primitives" }
+peer-primitives = { path = "../../primitives" }
 
 [features]
 default = ["std"]

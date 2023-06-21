@@ -1,5 +1,5 @@
-use polkadot_node_subsystem::SubsystemError;
-pub(crate) use polkadot_overseer::OverseerError;
+use peer_node_subsystem::SubsystemError;
+pub(crate) use peer_overseer::OverseerError;
 
 #[fatality::fatality(splitable)]
 pub(crate) enum Error {

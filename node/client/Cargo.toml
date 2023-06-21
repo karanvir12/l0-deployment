@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-client"
+name = "peer-client"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -45,10 +45,10 @@ fp-rpc = { path = "../../evm-primitives/rpc" }
 Peer-Runtime = { path = "../../runtime/polkadot", optional = true }
 
 
-polkadot-core-primitives = { path = "../../core-primitives" }
-polkadot-primitives = { path = "../../primitives" }
+peer-core-primitives = { path = "../../core-primitives" }
+peer-primitives = { path = "../../primitives" }
 
-polkadot-node-core-parachains-inherent = { path = "../core/parachains-inherent" }
+peer-node-core-parachains-inherent = { path = "../core/parachains-inherent" }
 Peer-Runtime-common = { path = "../../runtime/common" }
 
 [features]

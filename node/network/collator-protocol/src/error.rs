@@ -17,10 +17,10 @@
 
 //! Error handling related code and Error/Result definitions.
 
-use polkadot_node_network_protocol::request_response::incoming;
-use polkadot_node_primitives::UncheckedSignedFullStatement;
-use polkadot_node_subsystem::errors::SubsystemError;
-use polkadot_node_subsystem_util::runtime;
+use peer_node_network_protocol::request_response::incoming;
+use peer_node_primitives::UncheckedSignedFullStatement;
+use peer_node_subsystem::errors::SubsystemError;
+use peer_node_subsystem_util::runtime;
 
 use crate::LOG_TARGET;
 

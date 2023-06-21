@@ -17,7 +17,7 @@
 //! Various implementations for `ShouldExecute`.
 
 use frame_support::{ensure, traits::Contains};
-use polkadot_parachain::primitives::IsSystem;
+use peer_parachain::primitives::IsSystem;
 use sp_std::{marker::PhantomData, result::Result};
 use xcm::latest::{
 	Instruction::*, Junction, Junctions, MultiLocation, Weight, WeightLimit::*, Xcm,

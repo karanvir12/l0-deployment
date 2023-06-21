@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-node-core-pvf-checker"
+name = "peer-node-core-pvf-checker"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -9,11 +9,11 @@ futures = "0.3.21"
 thiserror = "1.0.31"
 gum = { package = "tracing-gum", path = "../../gum" }
 
-polkadot-node-primitives = { path = "../../primitives" }
-polkadot-node-subsystem = { path = "../../subsystem" }
-polkadot-primitives = { path = "../../../primitives" }
-polkadot-node-subsystem-util = { path = "../../subsystem-util" }
-polkadot-overseer = { path = "../../overseer" }
+peer-node-primitives = { path = "../../primitives" }
+peer-node-subsystem = { path = "../../subsystem" }
+peer-primitives = { path = "../../../primitives" }
+peer-node-subsystem-util = { path = "../../subsystem-util" }
+peer-overseer = { path = "../../overseer" }
 
 sp-keystore = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
@@ -22,7 +22,7 @@ sp-core = { git = "https://github.com/karanvir12/substrate36.git", branch = "rel
 sp-runtime = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sc-keystore = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sp-keyring = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
-polkadot-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers"}
-test-helpers = { package = "polkadot-primitives-test-helpers", path = "../../../primitives/test-helpers" }
+peer-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers"}
+test-helpers = { package = "peer-primitives-test-helpers", path = "../../../primitives/test-helpers" }
 sp-application-crypto = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 futures-timer = "3.0.2"

@@ -23,8 +23,8 @@ pub use frame_support::{traits::Get, weights::Weight};
 pub use sp_io::TestExternalities;
 pub use sp_std::{cell::RefCell, collections::vec_deque::VecDeque, marker::PhantomData};
 
-pub use polkadot_core_primitives::BlockNumber as RelayBlockNumber;
-pub use polkadot_parachain::primitives::{
+pub use peer_core_primitives::BlockNumber as RelayBlockNumber;
+pub use peer_parachain::primitives::{
 	DmpMessageHandler as DmpMessageHandlerT, Id as ParaId, XcmpMessageFormat,
 	XcmpMessageHandler as XcmpMessageHandlerT,
 };

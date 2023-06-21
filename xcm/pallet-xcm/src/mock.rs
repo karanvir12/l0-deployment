@@ -15,7 +15,7 @@
 // along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
 
 use frame_support::{construct_runtime, parameter_types, traits::Everything};
-use polkadot_parachain::primitives::Id as ParaId;
+use peer_parachain::primitives::Id as ParaId;
 use Peer_Runtime_parachains::origin;
 use sp_core::H256;
 use sp_runtime::{testing::Header, traits::IdentityLookup, AccountId32};

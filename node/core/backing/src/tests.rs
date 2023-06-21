@@ -21,8 +21,8 @@ use ::test_helpers::{
 };
 use assert_matches::assert_matches;
 use futures::{future, Future};
-use polkadot_node_primitives::{BlockData, InvalidCandidate};
-use polkadot_node_subsystem::{
+use peer_node_primitives::{BlockData, InvalidCandidate};
+use peer_node_subsystem::{
 	messages::{
 		AllMessages, CollatorProtocolMessage, RuntimeApiMessage, RuntimeApiRequest,
 		ValidationFailed,
@@ -30,7 +30,7 @@ use polkadot_node_subsystem::{
 	ActivatedLeaf, ActiveLeavesUpdate, FromOrchestra, LeafStatus, OverseerSignal,
 };
 use polkadot_node_subsystem_test_helpers as test_helpers;
-use polkadot_primitives::v2::{
+use peer_primitives::v2::{
 	CandidateDescriptor, CollatorId, GroupRotationInfo, HeadData, PersistedValidationData,
 	ScheduledCore,
 };

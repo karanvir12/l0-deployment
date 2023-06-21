@@ -36,20 +36,20 @@ mod tests;
 use {
 	grandpa::{self, FinalityProofProvider as GrandpaFinalityProofProvider},
 	gum::info,
-	polkadot_node_core_approval_voting::{
+	peer_node_core_approval_voting::{
 		self as approval_voting_subsystem, Config as ApprovalVotingConfig,
 	},
-	polkadot_node_core_av_store::Config as AvailabilityConfig,
-	polkadot_node_core_av_store::Error as AvailabilityError,
-	polkadot_node_core_candidate_validation::Config as CandidateValidationConfig,
-	polkadot_node_core_chain_selection::{
+	peer_node_core_av_store::Config as AvailabilityConfig,
+	peer_node_core_av_store::Error as AvailabilityError,
+	peer_node_core_candidate_validation::Config as CandidateValidationConfig,
+	peer_node_core_chain_selection::{
 		self as chain_selection_subsystem, Config as ChainSelectionConfig,
 	},
-	polkadot_node_core_dispute_coordinator::Config as DisputeCoordinatorConfig,
-	polkadot_node_network_protocol::{
+	peer_node_core_dispute_coordinator::Config as DisputeCoordinatorConfig,
+	peer_node_network_protocol::{
 		peer_set::PeerSetProtocolNames, request_response::ReqProtocolNames,
 	},
-	polkadot_overseer::BlockInfo,
+	peer_overseer::BlockInfo,
 	sc_client_api::BlockBackend,
 	sp_core::traits::SpawnNamed,
 	sp_trie::PrefixedMemoryDB,
@@ -59,14 +59,14 @@ use std::sync::Mutex;
 use std::path::PathBuf;
 use sc_client_api::BlockchainEvents;
 use service::BasePath;
-use polkadot_node_subsystem_util::database::Database;
+use peer_node_subsystem_util::database::Database;
 
 use Peer_Runtime::RuntimeApi as RuntimeApiPolka;
 mod rpc;
 #[cfg(feature = "full-node")]
 pub use {
-	polkadot_overseer::{Handle, Overseer, OverseerConnector, OverseerHandle},
-	polkadot_primitives::runtime_api::ParachainHost,
+	peer_overseer::{Handle, Overseer, OverseerConnector, OverseerHandle},
+	peer_primitives::runtime_api::ParachainHost,
 	relay_chain_selection::SelectRelayChain,
 	sc_client_api::AuxStore,
 	sp_authority_discovery::AuthorityDiscoveryApi,
@@ -110,7 +110,7 @@ impl sc_executor::NativeExecutionDispatch for ExecutorDispatchStruct {
 
 use fc_rpc_core::types::FeeHistoryCacheLimit;
 #[cfg(feature = "full-node")]
-use polkadot_node_subsystem::jaeger;
+use peer_node_subsystem::jaeger;
 
 use fc_rpc_core::types::FilterPool;
 use std::{sync::Arc, time::Duration};
@@ -127,17 +127,17 @@ use telemetry::{Telemetry, TelemetryWorkerHandle};
 
 
 #[cfg(feature = "polkadot-native")]
-pub use polkadot_client::PolkadotExecutorDispatch;
+pub use peer_client::PolkadotExecutorDispatch;
 
 pub use chain_spec::{ PolkadotChainSpec};
 pub use consensus_common::{block_validation::Chain, Proposal, SelectChain};
 use mmr_gadget::MmrGadget;
 #[cfg(feature = "full-node")]
-pub use polkadot_client::{
+pub use peer_client::{
 	AbstractClient, Client, ClientHandle, ExecuteWithClient, FullBackend, FullClient,
 	RuntimeApiCollection,
 };
-pub use polkadot_primitives::v2::{Block, BlockId, BlockNumber, CollatorPair, Hash, Id as ParaId};
+pub use peer_primitives::v2::{Block, BlockId, BlockNumber, CollatorPair, Hash, Id as ParaId};
 pub use sc_client_api::{Backend, CallExecutor, ExecutionStrategy};
 pub use sc_consensus::{BlockImport, LongestChain};
 use sc_executor::NativeElseWasmExecutor;
@@ -259,7 +259,7 @@ pub enum Error {
 	Consensus(#[from] consensus_common::Error),
 
 	#[error("Failed to create an overseer")]
-	Overseer(#[from] polkadot_overseer::SubsystemError),
+	Overseer(#[from] peer_overseer::SubsystemError),
 
 	#[error(transparent)]
 	Prometheus(#[from] prometheus_endpoint::PrometheusError),
@@ -268,7 +268,7 @@ pub enum Error {
 	Telemetry(#[from] telemetry::Error),
 
 	#[error(transparent)]
-	Jaeger(#[from] polkadot_node_subsystem::jaeger::JaegerError),
+	Jaeger(#[from] peer_node_subsystem::jaeger::JaegerError),
 
 	#[cfg(feature = "full-node")]
 	#[error(transparent)]
@@ -473,9 +473,9 @@ fn new_partial<RuntimeApi, ExecutorDispatch, ChainSelection>(
 		sc_transaction_pool::FullPool<Block, FullClient<RuntimeApi, ExecutorDispatch>>,
 		(
 			// impl Fn(
-			// 	polkadot_rpc::DenyUnsafe,
-			// 	polkadot_rpc::SubscriptionTaskExecutor,
-			// ) -> Result<polkadot_rpc::RpcExtension, SubstrateServiceError>,
+			// 	peer_rpc::DenyUnsafe,
+			// 	peer_rpc::SubscriptionTaskExecutor,
+			// ) -> Result<peer_rpc::RpcExtension, SubstrateServiceError>,
 			(
 				// babe::BabeBlockImport<
 				// 	Block,
@@ -585,7 +585,7 @@ where
 		}
 	};
 	let prometheus_registry = config.prometheus_registry().cloned();
-	let overrides = polkadot_rpc::overrides_handle(client.clone());
+	let overrides = peer_rpc::overrides_handle(client.clone());
 	let block_data_cache = Arc::new(fc_rpc::EthBlockDataCacheTask::new(
 		task_manager.spawn_handle(),
 		overrides.clone(),
@@ -665,9 +665,9 @@ where
 		
 
 	// 	move |deny_unsafe,
-	// 	      subscription_executor: polkadot_rpc::SubscriptionTaskExecutor|
-	// 	      -> Result<polkadot_rpc::RpcExtension, service::Error> {
-	// 		let deps = polkadot_rpc::FullDeps {
+	// 	      subscription_executor: peer_rpc::SubscriptionTaskExecutor|
+	// 	      -> Result<peer_rpc::RpcExtension, service::Error> {
+	// 		let deps = peer_rpc::FullDeps {
 	// 			client: client.clone(),
 	// 			pool: transaction_pool.clone(),
 	// 			graph: pool.pool().clone(),
@@ -685,26 +685,26 @@ where
 	// 			execute_gas_limit_multiplier: execute_gas_limit_multiplier.clone(),
 	// 			fee_history_cache:fee_history_cache.clone(),
 	// 			fee_history_cache_limit:fee_history_cache_limit.clone(),
-	// 			babe: polkadot_rpc::BabeDeps {
+	// 			babe: peer_rpc::BabeDeps {
 	// 				babe_config: babe_config.clone(),
 	// 				shared_epoch_changes: shared_epoch_changes.clone(),
 	// 				keystore: keystore.clone(),
 	// 			},
-	// 			grandpa: polkadot_rpc::GrandpaDeps {
+	// 			grandpa: peer_rpc::GrandpaDeps {
 	// 				shared_voter_state: shared_voter_state.clone(),
 	// 				shared_authority_set: shared_authority_set.clone(),
 	// 				justification_stream: justification_stream.clone(),
 	// 				subscription_executor: subscription_executor.clone(),
 	// 				finality_provider: finality_proof_provider.clone(),
 	// 			},
-	// 			beefy: polkadot_rpc::BeefyDeps {
+	// 			beefy: peer_rpc::BeefyDeps {
 	// 				beefy_finality_proof_stream: beefy_rpc_links.from_voter_justif_stream.clone(),
 	// 				beefy_best_block_stream: beefy_rpc_links.from_voter_best_beefy_stream.clone(),
 	// 				subscription_executor,
 	// 			},
 	// 		};
 
-	// 		polkadot_rpc::create_full(deps, backend.clone()).map_err(Into::into)
+	// 		peer_rpc::create_full(deps, backend.clone()).map_err(Into::into)
 	// 	}
 	// };
 	let import_queue = babe::import_queue(
@@ -888,7 +888,7 @@ where
 	PolkadotExecutorDispatch: NativeExecutionDispatch + 'static,
 	OverseerGenerator: OverseerGen,
 {
-	use polkadot_node_network_protocol::request_response::IncomingRequest;
+	use peer_node_network_protocol::request_response::IncomingRequest;
 
 	let is_offchain_indexing_enabled = config.offchain_worker.indexing_enabled;
 	let role = config.role.clone();
@@ -940,7 +940,7 @@ where
 
 	let select_chain = if requires_overseer_for_chain_sel {
 		let metrics =
-			polkadot_node_subsystem_util::metrics::Metrics::register(prometheus_registry.as_ref())?;
+			peer_node_subsystem_util::metrics::Metrics::register(prometheus_registry.as_ref())?;
 
 		SelectRelayChain::new_with_overseer(
 			basics.backend.clone(),
@@ -1006,7 +1006,7 @@ where
 		PeerSetProtocolNames::new(genesis_hash, config.chain_spec.fork_id());
 
 	{
-		use polkadot_network_bridge::{peer_sets_info, IsAuthority};
+		use peer_network_bridge::{peer_sets_info, IsAuthority};
 		let is_authority = if role.is_authority() { IsAuthority::Yes } else { IsAuthority::No };
 		config
 			.network
@@ -1120,7 +1120,7 @@ where
 	let filter_pool: Option<FilterPool> = Some(Arc::new(Mutex::new(BTreeMap::new())));
 	let execute_gas_limit_multiplier  = 1000;
 	let fee_history_cache: FeeHistoryCache = Arc::new(Mutex::new(BTreeMap::new()));
-	let overrides = polkadot_rpc::overrides_handle(client.clone());
+	let overrides = peer_rpc::overrides_handle(client.clone());
 	let prometheus_registry = config.prometheus_registry().cloned();
 	let block_data_cache = Arc::new(fc_rpc::EthBlockDataCacheTask::new(
 		task_manager.spawn_handle(),
@@ -1172,9 +1172,9 @@ where
 			fee_history_cache.clone(),
 			fee_history_cache_limit,
 		);
-		Box::new(move |deny_unsafe,  subscription_executor: polkadot_rpc::SubscriptionTaskExecutor|
+		Box::new(move |deny_unsafe,  subscription_executor: peer_rpc::SubscriptionTaskExecutor|
 			{
-			let deps = polkadot_rpc::FullDeps {
+			let deps = peer_rpc::FullDeps {
 				client: client.clone(),
 				pool: transaction_pool.clone(),
 				select_chain: select_chain.clone(),
@@ -1192,26 +1192,26 @@ where
 				filter_pool: filter_pool.clone(),
 				network: network.clone(),
 				deny_unsafe,
-				babe: polkadot_rpc::BabeDeps {
+				babe: peer_rpc::BabeDeps {
 					babe_config: babe_config.clone(),
 					shared_epoch_changes: shared_epoch_changes.clone(),
 					keystore: keystore.clone(),
 				},
-				grandpa: polkadot_rpc::GrandpaDeps {
+				grandpa: peer_rpc::GrandpaDeps {
 					shared_voter_state: voter_state.clone(),
 					shared_authority_set: shared_authority_set.clone(),
 					justification_stream: justification_stream.clone(),
 					subscription_executor: subscription_executor.clone(),
 					finality_provider: finality_proof_provider.clone(),
 				},
-				beefy: polkadot_rpc::BeefyDeps {
+				beefy: peer_rpc::BeefyDeps {
 					beefy_finality_proof_stream: beefy_rpc_links.from_voter_justif_stream.clone(),
 					beefy_best_block_stream: beefy_rpc_links.from_voter_best_beefy_stream.clone(),
 					subscription_executor: subscription_executor.clone(),
 				},
 			};
 
-			polkadot_rpc::create_full(deps,subscription_task_executor.clone(), backend.clone()).map_err(Into::into)
+			peer_rpc::create_full(deps,subscription_task_executor.clone(), backend.clone()).map_err(Into::into)
 		})
 	};
 	
@@ -1396,7 +1396,7 @@ where
 				Box::pin(async move {
 					use futures::{pin_mut, select, FutureExt};
 
-					let forward = polkadot_overseer::forward_events(overseer_client, handle);
+					let forward = peer_overseer::forward_events(overseer_client, handle);
 
 					let forward = forward.fuse();
 					let overseer_fut = overseer.run().fuse();
@@ -1448,7 +1448,7 @@ where
 
 				async move {
 					let parachain =
-						polkadot_node_core_parachains_inherent::ParachainsInherentDataProvider::new(
+						peer_node_core_parachains_inherent::ParachainsInherentDataProvider::new(
 							client_clone,
 							overseer_handle,
 							parent,
@@ -1785,7 +1785,7 @@ impl ExecuteWithClient for RevertConsensus {
 		<Api as sp_api::ApiExt<Block>>::StateBackend: sp_api::StateBackend<BlakeTwo256>,
 		Backend: sc_client_api::Backend<Block> + 'static,
 		Backend::State: sp_api::StateBackend<BlakeTwo256>,
-		Api: polkadot_client::RuntimeApiCollection<StateBackend = Backend::State>,
+		Api: peer_client::RuntimeApiCollection<StateBackend = Backend::State>,
 		Client: AbstractClient<Block, Backend, Api = Api> + 'static,
 	{
 		// Revert consensus-related components.

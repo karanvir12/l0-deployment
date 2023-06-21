@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-performance-test"
+name = "peer-performance-test"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -10,9 +10,9 @@ quote = "1.0.20"
 env_logger = "0.9"
 log = "0.4"
 
-polkadot-node-core-pvf = { path = "../../core/pvf" }
-polkadot-erasure-coding = { path = "../../../erasure-coding" }
-polkadot-node-primitives = { path = "../../primitives" }
+peer-node-core-pvf = { path = "../../core/pvf" }
+peer-erasure-coding = { path = "../../../erasure-coding" }
+peer-node-primitives = { path = "../../primitives" }
 
 Peer-Runtime = { path = "../../../runtime/polkadot" }
 

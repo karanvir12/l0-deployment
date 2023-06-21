@@ -16,7 +16,7 @@
 
 //! Code related to benchmarking a [`crate::Client`].
 
-use polkadot_primitives::v2::{AccountId, Balance};
+use peer_primitives::v2::{AccountId, Balance};
 use sp_core::{Pair, H256};
 use sp_keyring::Sr25519Keyring;
 use sp_runtime::OpaqueExtrinsic;
@@ -178,7 +178,7 @@ impl BenchmarkCallSigner<Peer_Runtime::RuntimeCall, sp_core::sr25519::Pair>
 		runtime::UncheckedExtrinsic::new_signed(
 			call,
 			sp_runtime::AccountId32::from(acc.public()).into(),
-			polkadot_core_primitives::Signature::Sr25519(signature.clone()),
+			peer_core_primitives::Signature::Sr25519(signature.clone()),
 			extra,
 		)
 		.into()
@@ -232,7 +232,7 @@ impl BenchmarkCallSigner< _runtime::RuntimeCall, sp_core::sr25519::Pair>
 		runtime::UncheckedExtrinsic::new_signed(
 			call,
 			sp_runtime::AccountId32::from(acc.public()).into(),
-			polkadot_core_primitives::Signature::Sr25519(signature.clone()),
+			peer_core_primitives::Signature::Sr25519(signature.clone()),
 			extra,
 		)
 		.into()
@@ -245,7 +245,7 @@ impl BenchmarkCallSigner< _runtime::RuntimeCall, sp_core::sr25519::Pair>
 ///
 /// Not to be used outside of benchmarking since it returns mocked values.
 pub fn benchmark_inherent_data(
-	header: polkadot_core_primitives::Header,
+	header: peer_core_primitives::Header,
 ) -> std::result::Result<sp_inherents::InherentData, sp_inherents::Error> {
 	use sp_inherents::InherentDataProvider;
 	let mut inherent_data = sp_inherents::InherentData::new();
@@ -255,14 +255,14 @@ pub fn benchmark_inherent_data(
 	let timestamp = sp_timestamp::InherentDataProvider::new(d.into());
 	futures::executor::block_on(timestamp.provide_inherent_data(&mut inherent_data))?;
 
-	let para_data = polkadot_primitives::v2::InherentData {
+	let para_data = peer_primitives::v2::InherentData {
 		bitfields: Vec::new(),
 		backed_candidates: Vec::new(),
 		disputes: Vec::new(),
 		parent_header: header,
 	};
 
-	inherent_data.put_data(polkadot_primitives::v2::PARACHAINS_INHERENT_IDENTIFIER, &para_data)?;
+	inherent_data.put_data(peer_primitives::v2::PARACHAINS_INHERENT_IDENTIFIER, &para_data)?;
 
 	Ok(inherent_data)
 }

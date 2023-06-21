@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-cli"
+name = "peer-cli"
 description = "Polkadot Relay-chain Client Node"
 version.workspace = true
 authors.workspace = true
@@ -20,10 +20,10 @@ thiserror = "1.0.31"
 futures = "0.3.21"
 pyro = { package = "pyroscope", version = "0.3.1", optional = true }
 
-service = { package = "polkadot-service", path = "../node/service", default-features = false, optional = true }
-polkadot-client = { path = "../node/client", optional = true }
-polkadot-node-core-pvf = { path = "../node/core/pvf", optional = true }
-polkadot-performance-test = { path = "../node/test/performance-test", optional = true }
+service = { package = "peer-service", path = "../node/service", default-features = false, optional = true }
+peer-client = { path = "../node/client", optional = true }
+peer-node-core-pvf = { path = "../node/core/pvf", optional = true }
+peer-performance-test = { path = "../node/test/performance-test", optional = true }
 
 sp-core = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sp-io = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer"}
@@ -32,7 +32,7 @@ frame-benchmarking-cli = { git = "https://github.com/karanvir12/substrate36.git"
 try-runtime-cli = { git = "https://github.com/karanvir12/substrate36.git", optional = true , branch = "relpeer" }
 sc-cli = { git = "https://github.com/karanvir12/substrate36.git", optional = true , branch = "relpeer" }
 sc-service = { git = "https://github.com/karanvir12/substrate36.git", optional = true , branch = "relpeer" }
-polkadot-node-metrics = { path = "../node/metrics" }
+peer-node-metrics = { path = "../node/metrics" }
 sc-tracing = { git = "https://github.com/karanvir12/substrate36.git", optional = true , branch = "relpeer" }
 sc-sysinfo = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sc-executor = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
@@ -50,19 +50,19 @@ cli = [
 	"sc-tracing",
 	"frame-benchmarking-cli",
 	"try-runtime-cli",
-	"polkadot-client",
-	"polkadot-node-core-pvf",
+	"peer-client",
+	"peer-node-core-pvf",
 ]
 runtime-benchmarks = [
 	"service/runtime-benchmarks",
-	"polkadot-node-metrics/runtime-benchmarks",
-	"polkadot-performance-test?/runtime-benchmarks"
+	"peer-node-metrics/runtime-benchmarks",
+	"peer-performance-test?/runtime-benchmarks"
 ]
 full-node = ["service/full-node"]
 try-runtime = ["service/try-runtime", "try-runtime-cli/try-runtime"]
 fast-runtime = ["service/fast-runtime"]
 pyroscope = ["pyro"]
-hostperfcheck = ["polkadot-performance-test"]
+hostperfcheck = ["peer-performance-test"]
 
 # Configure the native runtimes to use. Polkadot is enabled by default.
 #
@@ -71,4 +71,4 @@ polkadot-native = ["service/polkadot-native"]
 
 
 malus = ["full-node", "service/malus"]
-runtime-metrics = ["service/runtime-metrics", "polkadot-node-metrics/runtime-metrics"]
+runtime-metrics = ["service/runtime-metrics", "peer-node-metrics/runtime-metrics"]

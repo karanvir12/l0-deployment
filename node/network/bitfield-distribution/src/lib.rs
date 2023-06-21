@@ -24,20 +24,20 @@
 
 use futures::{channel::oneshot, FutureExt};
 
-use polkadot_node_network_protocol::{
+use peer_node_network_protocol::{
 	self as net_protocol,
 	grid_topology::{
 		GridNeighbors, RandomRouting, RequiredRouting, SessionBoundGridTopologyStorage,
 	},
 	v1 as protocol_v1, OurView, PeerId, UnifiedReputationChange as Rep, Versioned, View,
 };
-use polkadot_node_subsystem::{
+use peer_node_subsystem::{
 	jaeger, messages::*, overseer, ActiveLeavesUpdate, FromOrchestra, OverseerSignal, PerLeafSpan,
 	SpawnedSubsystem, SubsystemError, SubsystemResult,
 };
-use polkadot_node_subsystem_util::{self as util};
+use peer_node_subsystem_util::{self as util};
 
-use polkadot_primitives::v2::{Hash, SignedAvailabilityBitfield, SigningContext, ValidatorId};
+use peer_primitives::v2::{Hash, SignedAvailabilityBitfield, SigningContext, ValidatorId};
 use rand::{CryptoRng, Rng, SeedableRng};
 use std::collections::{HashMap, HashSet};
 

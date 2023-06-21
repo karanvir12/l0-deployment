@@ -19,7 +19,7 @@ repository = "https://github.com/paritytech/polkadot.git"
 version = "0.9.36"
 
 [dependencies]
-polkadot-cli = { path = "cli", features = [  ]  }
+peer-cli = { path = "cli", features = [  ]  }
 color-eyre = { version = "0.6.1", default-features = false }
 tikv-jemallocator = "0.5.0"
 
@@ -29,7 +29,7 @@ nix = "0.24.1"
 tempfile = "3.2.0"
 tokio = "1.22.0"
 substrate-rpc-client = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
-polkadot-core-primitives = { path = "core-primitives" }
+peer-core-primitives = { path = "core-primitives" }
  
 [workspace]
 members = [
@@ -192,11 +192,11 @@ debug-assertions = true
 overflow-checks = true
 
 [features]
-runtime-benchmarks= [ "polkadot-cli/runtime-benchmarks" ]
-try-runtime = [ "polkadot-cli/try-runtime" ]
-fast-runtime = [ "polkadot-cli/fast-runtime" ]
-runtime-metrics = [ "polkadot-cli/runtime-metrics" ]
-pyroscope = ["polkadot-cli/pyroscope"]
+runtime-benchmarks= [ "peer-cli/runtime-benchmarks" ]
+try-runtime = [ "peer-cli/try-runtime" ]
+fast-runtime = [ "peer-cli/fast-runtime" ]
+runtime-metrics = [ "peer-cli/runtime-metrics" ]
+pyroscope = ["peer-cli/pyroscope"]
 
 # Configuration for building a .deb package - for use with `cargo-deb`
 [package.metadata.deb]

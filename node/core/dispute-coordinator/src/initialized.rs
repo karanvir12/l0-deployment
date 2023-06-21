@@ -25,21 +25,21 @@ use futures::{
 
 use sc_keystore::LocalKeystore;
 
-use polkadot_node_primitives::{
+use peer_node_primitives::{
 	disputes::ValidCandidateVotes, CandidateVotes, DisputeMessage, DisputeMessageCheckError,
 	DisputeStatus, SignedDisputeStatement, Timestamp,
 };
-use polkadot_node_subsystem::{
+use peer_node_subsystem::{
 	messages::{
 		ApprovalVotingMessage, BlockDescription, DisputeCoordinatorMessage,
 		DisputeDistributionMessage, ImportStatementsResult,
 	},
 	overseer, ActivatedLeaf, ActiveLeavesUpdate, FromOrchestra, OverseerSignal,
 };
-use polkadot_node_subsystem_util::rolling_session_window::{
+use peer_node_subsystem_util::rolling_session_window::{
 	RollingSessionWindow, SessionWindowUpdate, SessionsUnavailable,
 };
-use polkadot_primitives::v2::{
+use peer_primitives::v2::{
 	BlockNumber, CandidateHash, CandidateReceipt, CompactStatement, DisputeStatement,
 	DisputeStatementSet, Hash, ScrapedOnChainVotes, SessionIndex, SessionInfo,
 	ValidDisputeStatementKind, ValidatorId, ValidatorIndex,

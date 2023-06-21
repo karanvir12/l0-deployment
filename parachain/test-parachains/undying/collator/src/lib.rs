@@ -19,11 +19,11 @@
 use futures::channel::oneshot;
 use futures_timer::Delay;
 use parity_scale_codec::{Decode, Encode};
-use polkadot_node_primitives::{
+use peer_node_primitives::{
 	maybe_compress_pov, Collation, CollationResult, CollationSecondedSignal, CollatorFn,
 	MaybeCompressedPoV, PoV, Statement,
 };
-use polkadot_primitives::v2::{CollatorId, CollatorPair, Hash};
+use peer_primitives::v2::{CollatorId, CollatorPair, Hash};
 use sp_core::Pair;
 use std::{
 	collections::HashMap,
@@ -329,8 +329,8 @@ use sp_core::traits::SpawnNamed;
 mod tests {
 	use super::*;
 	use futures::executor::block_on;
-	use polkadot_parachain::primitives::{ValidationParams, ValidationResult};
-	use polkadot_primitives::v2::{Hash, PersistedValidationData};
+	use peer_parachain::primitives::{ValidationParams, ValidationResult};
+	use peer_primitives::v2::{Hash, PersistedValidationData};
 
 	#[test]
 	fn collator_works() {
@@ -354,7 +354,7 @@ mod tests {
 	}
 
 	fn validate_collation(collator: &Collator, parent_head: HeadData, collation: Collation) {
-		use polkadot_node_core_pvf::testing::validate_candidate;
+		use peer_node_core_pvf::testing::validate_candidate;
 
 		let block_data = match collation.proof_of_validity {
 			MaybeCompressedPoV::Raw(pov) => pov.block_data,

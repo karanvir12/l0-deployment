@@ -20,9 +20,9 @@
 use fatality::Nested;
 
 use gum::CandidateHash;
-use polkadot_node_network_protocol::{request_response::incoming, PeerId};
-use polkadot_node_subsystem_util::runtime;
-use polkadot_primitives::v2::AuthorityDiscoveryId;
+use peer_node_network_protocol::{request_response::incoming, PeerId};
+use peer_node_subsystem_util::runtime;
+use peer_primitives::v2::AuthorityDiscoveryId;
 
 use crate::LOG_TARGET;
 

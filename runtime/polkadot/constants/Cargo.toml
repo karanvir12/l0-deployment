@@ -8,7 +8,7 @@ edition.workspace = true
 smallvec = "1.8.0"
 
 frame-support = { git = "https://github.com/karanvir12/substrate36.git", default-features = false , branch = "relpeer" }
-primitives = { package = "polkadot-primitives", path = "../../../primitives", default-features = false }
+primitives = { package = "peer-primitives", path = "../../../primitives", default-features = false }
 runtime-common = { package = "Peer-Runtime-common", path = "../../common", default-features = false }
 sp-runtime = { git = "https://github.com/karanvir12/substrate36.git", default-features = false , branch = "relpeer" }
 sp-weights = { git = "https://github.com/karanvir12/substrate36.git", default-features = false , branch = "relpeer" }

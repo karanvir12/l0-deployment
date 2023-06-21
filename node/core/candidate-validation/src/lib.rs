@@ -23,13 +23,13 @@
 #![deny(unused_crate_dependencies, unused_results)]
 #![warn(missing_docs)]
 
-use polkadot_node_core_pvf::{
+use peer_node_core_pvf::{
 	InvalidCandidate as WasmInvalidCandidate, PrepareError, Pvf, ValidationError, ValidationHost,
 };
-use polkadot_node_primitives::{
+use peer_node_primitives::{
 	BlockData, InvalidCandidate, PoV, ValidationResult, POV_BOMB_LIMIT, VALIDATION_CODE_BOMB_LIMIT,
 };
-use polkadot_node_subsystem::{
+use peer_node_subsystem::{
 	errors::RuntimeApiError,
 	messages::{
 		CandidateValidationMessage, PreCheckOutcome, RuntimeApiMessage, RuntimeApiRequest,
@@ -38,8 +38,8 @@ use polkadot_node_subsystem::{
 	overseer, FromOrchestra, OverseerSignal, SpawnedSubsystem, SubsystemError, SubsystemResult,
 	SubsystemSender,
 };
-use polkadot_parachain::primitives::{ValidationParams, ValidationResult as WasmValidationResult};
-use polkadot_primitives::v2::{
+use peer_parachain::primitives::{ValidationParams, ValidationResult as WasmValidationResult};
+use peer_primitives::v2::{
 	CandidateCommitments, CandidateDescriptor, CandidateReceipt, Hash, OccupiedCoreAssumption,
 	PersistedValidationData, ValidationCode, ValidationCodeHash,
 };
@@ -81,7 +81,7 @@ pub struct CandidateValidationSubsystem {
 	#[allow(missing_docs)]
 	pub metrics: Metrics,
 	#[allow(missing_docs)]
-	pub pvf_metrics: polkadot_node_core_pvf::Metrics,
+	pub pvf_metrics: peer_node_core_pvf::Metrics,
 	config: Config,
 }
 
@@ -93,7 +93,7 @@ impl CandidateValidationSubsystem {
 	pub fn with_config(
 		config: Config,
 		metrics: Metrics,
-		pvf_metrics: polkadot_node_core_pvf::Metrics,
+		pvf_metrics: peer_node_core_pvf::Metrics,
 	) -> Self {
 		CandidateValidationSubsystem { config, metrics, pvf_metrics }
 	}
@@ -119,12 +119,12 @@ impl<Context> CandidateValidationSubsystem {
 async fn run<Context>(
 	mut ctx: Context,
 	metrics: Metrics,
-	pvf_metrics: polkadot_node_core_pvf::Metrics,
+	pvf_metrics: peer_node_core_pvf::Metrics,
 	cache_path: PathBuf,
 	program_path: PathBuf,
 ) -> SubsystemResult<()> {
-	let (validation_host, task) = polkadot_node_core_pvf::start(
-		polkadot_node_core_pvf::Config::new(cache_path, program_path),
+	let (validation_host, task) = peer_node_core_pvf::start(
+		peer_node_core_pvf::Config::new(cache_path, program_path),
 		pvf_metrics,
 	);
 	ctx.spawn_blocking("pvf-validation-host", task.boxed())?;
@@ -650,7 +650,7 @@ impl ValidationBackend for ValidationHost {
 		timeout: Duration,
 		encoded_params: Vec<u8>,
 	) -> Result<WasmValidationResult, ValidationError> {
-		let priority = polkadot_node_core_pvf::Priority::Normal;
+		let priority = peer_node_core_pvf::Priority::Normal;
 
 		let (tx, rx) = oneshot::channel();
 		if let Err(err) = self.execute_pvf(pvf, timeout, encoded_params, priority, tx).await {

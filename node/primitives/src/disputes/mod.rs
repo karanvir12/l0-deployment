@@ -25,7 +25,7 @@ use sp_application_crypto::AppKey;
 use sp_keystore::{CryptoStore, Error as KeystoreError, SyncCryptoStorePtr};
 
 use super::{Statement, UncheckedSignedFullStatement};
-use polkadot_primitives::v2::{
+use peer_primitives::v2::{
 	CandidateHash, CandidateReceipt, DisputeStatement, InvalidDisputeStatementKind, SessionIndex,
 	SigningContext, ValidDisputeStatementKind, ValidatorId, ValidatorIndex, ValidatorSignature,
 };

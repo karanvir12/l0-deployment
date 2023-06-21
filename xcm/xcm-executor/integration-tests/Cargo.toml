@@ -10,9 +10,9 @@ frame-support = { git = "https://github.com/karanvir12/substrate36.git", default
 frame-system = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 futures = "0.3.21"
 pallet-xcm = { path = "../../pallet-xcm" }
-polkadot-test-client = { path = "../../../node/test/client" }
-polkadot-test-runtime = { path = "../../../runtime/test-runtime" }
-polkadot-test-service = { path = "../../../node/test/service" }
+peer-test-client = { path = "../../../node/test/client" }
+peer-test-runtime = { path = "../../../runtime/test-runtime" }
+peer-test-service = { path = "../../../node/test/service" }
 sp-consensus = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sp-keyring = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 sp-runtime = { git = "https://github.com/karanvir12/substrate36.git", default-features = false , branch = "relpeer" }

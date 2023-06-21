@@ -95,20 +95,20 @@ impl SubstrateCli for Cli {
 		let id = if id.is_empty() { "" } else { id };
 		Ok(match id {
 			"-staging" =>
-				Box::new(polkadot_service::chain_spec::_staging_testnet_config()?),
+				Box::new(peer_service::chain_spec::_staging_testnet_config()?),
 			"-local" =>
-				Box::new(polkadot_service::chain_spec::_local_testnet_config()?),
-			"" => Box::new(polkadot_service::chain_spec::_config()?),
+				Box::new(peer_service::chain_spec::_local_testnet_config()?),
+			"" => Box::new(peer_service::chain_spec::_config()?),
 			path => {
 				let path = std::path::PathBuf::from(path);
-				Box::new(polkadot_service::ChainSpec::from_json_file(path)?)
+				Box::new(peer_service::ChainSpec::from_json_file(path)?)
 			},
 		})
 	}
 
 	fn native_runtime_version(
-		_spec: &Box<dyn polkadot_service::ChainSpec>,
+		_spec: &Box<dyn peer_service::ChainSpec>,
 	) -> &'static RuntimeVersion {
-		&polkadot_service::_runtime::VERSION
+		&peer_service::_runtime::VERSION
 	}
 }

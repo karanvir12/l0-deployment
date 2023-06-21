@@ -16,10 +16,10 @@
 
 use async_std::sync::Mutex;
 use parity_scale_codec::Encode as _;
-use polkadot_node_core_pvf::{
+use peer_node_core_pvf::{
 	start, Config, InvalidCandidate, Metrics, Pvf, ValidationError, ValidationHost,
 };
-use polkadot_parachain::primitives::{BlockData, ValidationParams, ValidationResult};
+use peer_parachain::primitives::{BlockData, ValidationParams, ValidationResult};
 use std::time::Duration;
 
 mod adder;
@@ -68,7 +68,7 @@ impl TestHost {
 				Pvf::from_code(code.into()),
 				TEST_EXECUTION_TIMEOUT,
 				params.encode(),
-				polkadot_node_core_pvf::Priority::Normal,
+				peer_node_core_pvf::Priority::Normal,
 				result_tx,
 			)
 			.await

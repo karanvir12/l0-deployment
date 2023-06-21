@@ -17,11 +17,11 @@
 use super::{relay_chain_selection::*, *};
 
 use futures::channel::oneshot::Receiver;
-use polkadot_node_primitives::approval::{VRFOutput, VRFProof};
-use polkadot_node_subsystem::messages::{AllMessages, BlockDescription};
+use peer_node_primitives::approval::{VRFOutput, VRFProof};
+use peer_node_subsystem::messages::{AllMessages, BlockDescription};
 use polkadot_node_subsystem_test_helpers as test_helpers;
-use polkadot_node_subsystem_util::TimeoutExt;
-use polkadot_test_client::Sr25519Keyring;
+use peer_node_subsystem_util::TimeoutExt;
+use peer_test_client::Sr25519Keyring;
 use sp_consensus_babe::{
 	digests::{CompatibleDigestItem, PreDigest, SecondaryVRFPreDigest},
 	Transcript,
@@ -36,14 +36,14 @@ use assert_matches::assert_matches;
 use std::{sync::Arc, time::Duration};
 
 use futures::{channel::oneshot, prelude::*};
-use polkadot_node_subsystem::messages::{
+use peer_node_subsystem::messages::{
 	ApprovalVotingMessage, ChainSelectionMessage, DisputeCoordinatorMessage,
 	HighestApprovedAncestorBlock,
 };
-use polkadot_primitives::v2::{Block, BlockNumber, Hash, Header};
+use peer_primitives::v2::{Block, BlockNumber, Hash, Header};
 
 use polkadot_node_subsystem_test_helpers::TestSubsystemSender;
-use polkadot_overseer::{SubsystemContext, SubsystemSender};
+use peer_overseer::{SubsystemContext, SubsystemSender};
 
 type VirtualOverseer = test_helpers::TestSubsystemContextHandle<ApprovalVotingMessage>;
 
