@@ -47,7 +47,7 @@ fn get_exec_name() -> Option<String> {
 
 impl SubstrateCli for Cli {
 	fn impl_name() -> String {
-		"Parity Polkadot".into()
+		"Peer".into()
 	}
 
 	fn impl_version() -> String {
@@ -71,28 +71,28 @@ impl SubstrateCli for Cli {
 	}
 
 	fn executable_name() -> String {
-		"polkadot".into()
+		"peer".into()
 	}
 
 	fn load_spec(&self, id: &str) -> std::result::Result<Box<dyn sc_service::ChainSpec>, String> {
 		let id = if id == "" {
 			let n = get_exec_name().unwrap_or_default();
-			["polkadot", "versi"]
+			["peer", "versi"]
 				.iter()
 				.cloned()
 				.find(|&chain| n.starts_with(chain))
-				.unwrap_or("polkadot")
+				.unwrap_or("peer")
 		} else {
 			id
 		};
 		Ok(match id {
-			"polkadot" => Box::new(service::chain_spec::polkadot_config()?),
+			"peer" => Box::new(service::chain_spec::polkadot_config()?),
 			#[cfg(feature = "polkadot-native")]
-			"polkadot-dev" | "dev" => Box::new(service::chain_spec::polkadot_development_config()?),
+			"peer-dev" | "dev" => Box::new(service::chain_spec::polkadot_development_config()?),
 			#[cfg(feature = "polkadot-native")]
-			"polkadot-local" => Box::new(service::chain_spec::polkadot_local_testnet_config()?),
+			"peer-local" => Box::new(service::chain_spec::polkadot_local_testnet_config()?),
 			#[cfg(feature = "polkadot-native")]
-			"polkadot-staging" => Box::new(service::chain_spec::polkadot_staging_testnet_config()?),
+			"peer-staging" => Box::new(service::chain_spec::polkadot_staging_testnet_config()?),
 		
 		
 		

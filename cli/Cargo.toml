@@ -25,20 +25,20 @@ polkadot-client = { path = "../node/client", optional = true }
 polkadot-node-core-pvf = { path = "../node/core/pvf", optional = true }
 polkadot-performance-test = { path = "../node/test/performance-test", optional = true }
 
-sp-core = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-io = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-keyring = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-frame-benchmarking-cli = { git = "https://github.com/paritytech/substrate", optional = true , branch = "polkadot-v0.9.36" }
-try-runtime-cli = { git = "https://github.com/paritytech/substrate", optional = true , branch = "polkadot-v0.9.36" }
-sc-cli = { git = "https://github.com/paritytech/substrate", optional = true , branch = "polkadot-v0.9.36" }
-sc-service = { git = "https://github.com/paritytech/substrate", optional = true , branch = "polkadot-v0.9.36" }
+sp-core = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-io = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer"}
+sp-keyring = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+frame-benchmarking-cli = { git = "https://github.com/karanvir12/substrate36.git", optional = true , branch = "relpeer" }
+try-runtime-cli = { git = "https://github.com/karanvir12/substrate36.git", optional = true , branch = "relpeer" }
+sc-cli = { git = "https://github.com/karanvir12/substrate36.git", optional = true , branch = "relpeer" }
+sc-service = { git = "https://github.com/karanvir12/substrate36.git", optional = true , branch = "relpeer" }
 polkadot-node-metrics = { path = "../node/metrics" }
-sc-tracing = { git = "https://github.com/paritytech/substrate", optional = true , branch = "polkadot-v0.9.36" }
-sc-sysinfo = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-executor = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
+sc-tracing = { git = "https://github.com/karanvir12/substrate36.git", optional = true , branch = "relpeer" }
+sc-sysinfo = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-executor = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
 [build-dependencies]
-substrate-build-script-utils = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
+substrate-build-script-utils = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
 [features]
 default = ["db", "cli", "hostperfcheck", "full-node", "polkadot-native"]

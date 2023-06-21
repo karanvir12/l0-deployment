@@ -1,9 +1,9 @@
 [[bin]]
-name = "polkadot"
+name = "peer"
 path = "src/main.rs"
 
 [package]
-name = "polkadot"
+name = "peer"
 description = "Implementation of a `https://polkadot.network` node in Rust based on the Substrate framework."
 license = "GPL-3.0-only"
 rust-version = "1.64.0" # workspace properties
@@ -13,7 +13,7 @@ edition.workspace = true
 version.workspace = true
 
 [workspace.package]
-authors = ["Parity Technologies <admin@parity.io>"]
+authors = ["Peer Inc <admin@peer.io>"]
 edition = "2021"
 repository = "https://github.com/paritytech/polkadot.git"
 version = "0.9.36"
@@ -28,7 +28,7 @@ assert_cmd = "2.0.4"
 nix = "0.24.1"
 tempfile = "3.2.0"
 tokio = "1.22.0"
-substrate-rpc-client = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
+substrate-rpc-client = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 polkadot-core-primitives = { path = "core-primitives" }
  
 [workspace]
@@ -109,6 +109,7 @@ members = [
 	"utils/staking-miner",
 	"utils/remote-ext-tests/bags-list",
 	"utils/generate-bags",
+	"sub-tokens",
 ]
 
 [badges]

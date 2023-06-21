@@ -150,10 +150,10 @@ include!(concat!(env!("OUT_DIR"), "/wasm_binary.rs"));
 /// Runtime version (Polkadot).
 #[sp_version::runtime_version]
 pub const VERSION: RuntimeVersion = RuntimeVersion {
-	spec_name: create_runtime_str!("polkadot"),
-	impl_name: create_runtime_str!("parity-polkadot"),
+	spec_name: create_runtime_str!("peer"),
+	impl_name: create_runtime_str!("peer-node"),
 	authoring_version: 0,
-	spec_version: 9364,
+	spec_version: 100,
 	impl_version: 0,
 	#[cfg(not(feature = "disable-runtime-api"))]
 	apis: RUNTIME_API_VERSIONS,
@@ -678,7 +678,7 @@ pallet_staking_reward_curve::build! {
 
 parameter_types! {
 	// Six sessions in an era (24 hours).
-	pub const SessionsPerEra: SessionIndex = prod_or_fast!(1, 1);
+	pub const SessionsPerEra: SessionIndex = prod_or_fast!(8, 8);
 
 	// 28 eras for unbonding (28 days).
 	pub BondingDuration: sp_staking::EraIndex = prod_or_fast!(
@@ -801,12 +801,12 @@ impl pallet_identity::Config for Runtime {
 }
 
 parameter_types! {
-	pub LaunchPeriod: BlockNumber = prod_or_fast!(2 * MINUTES, 1, "DOT_LAUNCH_PERIOD");
-	pub VotingPeriod: BlockNumber = prod_or_fast!(1 * MINUTES, 1 * MINUTES, "DOT_VOTING_PERIOD");
+	pub LaunchPeriod: BlockNumber = prod_or_fast!(7 * DAYS , 7 * DAYS, "DOT_LAUNCH_PERIOD");
+	pub VotingPeriod: BlockNumber = prod_or_fast!(7 * DAYS, 7 * DAYS , "DOT_VOTING_PERIOD");
 	pub FastTrackVotingPeriod: BlockNumber = prod_or_fast!(1 * MINUTES, 1 * MINUTES, "DOT_FAST_TRACK_VOTING_PERIOD");
 	pub const MinimumDeposit: Balance = 100 * DOLLARS;
-	pub EnactmentPeriod: BlockNumber = prod_or_fast!(1 * MINUTES, 1, "DOT_ENACTMENT_PERIOD");
-	pub CooloffPeriod: BlockNumber = prod_or_fast!(1 * MINUTES, 1, "DOT_COOLOFF_PERIOD");
+	pub EnactmentPeriod: BlockNumber = prod_or_fast!(7 * DAYS,7 * DAYS, "DOT_ENACTMENT_PERIOD");
+	pub CooloffPeriod: BlockNumber = prod_or_fast!(7 * DAYS , 7 * DAYS, "DOT_COOLOFF_PERIOD");
 	pub const InstantAllowed: bool = true;
 	pub const MaxVotes: u32 = 100;
 	pub const MaxProposals: u32 = 100;
@@ -901,6 +901,7 @@ parameter_types! {
 	pub const VotingBondFactor: Balance = deposit(0, 32);
 	/// Weekly council elections; scaling up to monthly eventually.
 	pub TermDuration: BlockNumber = prod_or_fast!(7 * DAYS, 2 * MINUTES, "DOT_TERM_DURATION");
+
 	/// 13 members initially, to be increased to 23 eventually.
 	pub const DesiredMembers: u32 = 13;
 	pub const DesiredRunnersUp: u32 = 20;
@@ -1624,7 +1625,7 @@ impl paras_registrar::Config for Runtime {
 
 parameter_types! {
 	// 12 weeks = 3 months per lease period -> 8 lease periods ~ 2 years
-	pub const LeasePeriod: BlockNumber = 8 * MINUTES;
+	pub const LeasePeriod: BlockNumber = 28 * DAYS;
 	// Polkadot Genesis was on May 26, 2020.
 	// Target Parachain Onboarding Date: Dec 15, 2021.
 	// Difference is 568 days.

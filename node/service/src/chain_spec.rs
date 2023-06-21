@@ -44,9 +44,9 @@ use telemetry::TelemetryEndpoints;
 
 
 #[cfg(feature = "polkadot-native")]
-const POLKADOT_STAGING_TELEMETRY_URL: &str = "wss://telemetry.polkadot.io/submit/";
+const POLKADOT_STAGING_TELEMETRY_URL: &str = "wss://telemetry.peer.io/submit/";
 
-const DEFAULT_PROTOCOL_ID: &str = "dot";
+const DEFAULT_PROTOCOL_ID: &str = "Peer";
 
 /// Node `ChainSpec` extensions.
 ///
@@ -135,6 +135,7 @@ fn default_parachains_host_configuration(
 pub fn polkadot_chain_spec_properties() -> serde_json::map::Map<String, serde_json::Value> {
 	serde_json::json!({
 		"tokenDecimals": 18,
+		"tokenSymbol":"PEER",
 	})
 	.as_object()
 	.expect("Map given; qed")
@@ -144,12 +145,12 @@ pub fn polkadot_chain_spec_properties() -> serde_json::map::Map<String, serde_js
 // Polkadot staging testnet config.
 #[cfg(feature = "polkadot-native")]
 pub fn polkadot_staging_testnet_config() -> Result<PolkadotChainSpec, String> {
-	let wasm_binary = polkadot::WASM_BINARY.ok_or("Polkadot development wasm not available")?;
+	let wasm_binary = polkadot::WASM_BINARY.ok_or("Peer development wasm not available")?;
 	let boot_nodes = vec![];
 
 	Ok(PolkadotChainSpec::from_genesis(
-		"Polkadot Staging Testnet",
-		"polkadot_staging_testnet",
+		"Peer Staging Testnet",
+		"peer_staging_testnet",
 		ChainType::Live,
 		move || polkadot_staging_testnet_config_genesis(wasm_binary, 100),
 		boot_nodes,
@@ -461,6 +462,8 @@ pub fn polkadot_testnet_genesis(
 		phragmen_election: Default::default(),
 		democracy: polkadot::DemocracyConfig::default(),
 		council: polkadot::CouncilConfig { members: vec![], phantom: Default::default() },
+		//council: polkadot::CouncilConfig ::default(),
+
 		technical_committee: polkadot::TechnicalCommitteeConfig {
 			members: vec![],
 			phantom: Default::default(),

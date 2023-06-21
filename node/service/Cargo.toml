@@ -7,64 +7,64 @@ edition.workspace = true
 
 [dependencies]
 # Substrate Client
-sc-authority-discovery = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-babe = { package = "sc-consensus-babe", git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-beefy-primitives = { git = "https://github.com/paritytech/substrate", package = "sp-beefy" , branch = "polkadot-v0.9.36" }
-beefy-gadget = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-frame-support = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-grandpa = { package = "sc-finality-grandpa", git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-mmr-gadget = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-mmr-primitives = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-block-builder = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-chain-spec = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-client-api = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-client-db = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-consensus = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-consensus-slots = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-executor = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-network = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-network-common = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-network-sync = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-transaction-pool = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-sync-state-rpc = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-keystore = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-basic-authorship = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-offchain = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-sysinfo = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-service = { package = "sc-service", git = "https://github.com/paritytech/substrate", default-features = false , branch = "polkadot-v0.9.36" }
-telemetry = { package = "sc-telemetry", git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
+sc-authority-discovery = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+babe = { package = "sc-consensus-babe", git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+beefy-primitives = { git = "https://github.com/karanvir12/substrate36.git" , package="sp-beefy",branch = "relpeer" }
+beefy-gadget = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+frame-support = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+grandpa = { package = "sc-finality-grandpa", git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+mmr-gadget = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-mmr-primitives = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-block-builder = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-chain-spec = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-client-api = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-client-db = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-consensus = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-consensus-slots = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-executor = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-network = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-network-common = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-network-sync = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-transaction-pool = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-sync-state-rpc = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-keystore = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-basic-authorship = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-offchain = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-sysinfo = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+service = { package = "sc-service", git = "https://github.com/karanvir12/substrate36.git", default-features = false , branch = "relpeer" }
+telemetry = { package = "sc-telemetry", git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
 # Substrate Primitives
-sp-authority-discovery = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-authorship = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-consensus_common = { package = "sp-consensus", git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-grandpa_primitives = { package = "sp-finality-grandpa", git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-inherents = { package = "sp-inherents", git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-api = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-block-builder = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-blockchain = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-core = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-io = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-keystore = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-offchain = { package = "sp-offchain", git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-runtime = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-session = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-storage = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-transaction-pool = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-trie = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-timestamp = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-consensus-babe = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sp-state-machine = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
+sp-authority-discovery = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-authorship = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+consensus_common = { package = "sp-consensus", git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+grandpa_primitives = { package = "sp-finality-grandpa", git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+inherents = { package = "sp-inherents", git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-api = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-block-builder = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-blockchain = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-core = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-io = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-keystore = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-offchain = { package = "sp-offchain", git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-runtime = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-session = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-storage = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-transaction-pool = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-trie = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-timestamp = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-consensus-babe = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sp-state-machine = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
 # Substrate Pallets
-pallet-babe = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-pallet-im-online = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-pallet-staking = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-pallet-transaction-payment-rpc-runtime-api = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
+pallet-babe = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+pallet-im-online = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+pallet-staking = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+pallet-transaction-payment-rpc-runtime-api = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
 # Substrate Other
-frame-system-rpc-runtime-api = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-prometheus-endpoint = { package = "substrate-prometheus-endpoint", git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
+frame-system-rpc-runtime-api = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+prometheus-endpoint = { package = "substrate-prometheus-endpoint", git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
 # External Crates
 futures = "0.3.21"
@@ -125,17 +125,17 @@ polkadot-statement-distribution = { path = "../network/statement-distribution", 
 
 # RPC
 jsonrpsee = { version = "0.16.2", features = ["server"] }
-sc-rpc = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-consensus-babe-rpc = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-consensus-epochs = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-sc-finality-grandpa-rpc = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
+sc-rpc = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-consensus-babe-rpc = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-consensus-epochs = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+sc-finality-grandpa-rpc = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
-txpool-api = { package = "sc-transaction-pool-api", git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-frame-rpc-system = { package = "substrate-frame-rpc-system", git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-mmr-rpc = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-beefy-gadget-rpc = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-substrate-state-trie-migration-rpc = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
-pallet-transaction-payment-rpc = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.36" }
+txpool-api = { package = "sc-transaction-pool-api", git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+frame-rpc-system = { package = "substrate-frame-rpc-system", git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+mmr-rpc = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+beefy-gadget-rpc = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+substrate-state-trie-migration-rpc = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
+pallet-transaction-payment-rpc = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
 # polkadot-runtime = { version = "3.0.0-dev", path = "../runtime/polkadot" }
 
