@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-availability-distribution"
+name = "peer-availability-distribution"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true

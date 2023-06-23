@@ -1,18 +1,18 @@
 // Copyright 2021 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 //! A [`SelectChain`] implementation designed for relay chains.
 //!
@@ -46,7 +46,7 @@ use peer_node_subsystem::messages::{
 use peer_node_subsystem_util::metrics::{self, prometheus};
 use peer_overseer::{AllMessages, Handle};
 use peer_primitives::v2::{
-	Block as PolkadotBlock, BlockNumber, Hash, Header as PolkadotHeader,
+	Block as peerBlock, BlockNumber, Hash, Header as peerHeader,
 };
 use std::sync::Arc;
 
@@ -76,7 +76,7 @@ impl metrics::Metrics for Metrics {
 			approval_checking_finality_lag: prometheus::register(
 				prometheus::Gauge::with_opts(
 					prometheus::Opts::new(
-						"polkadot_parachain_approval_checking_finality_lag",
+						"peer_parachain_approval_checking_finality_lag",
 						"How far behind the head of the chain the Approval Checking protocol wants to vote",
 					)
 				)?,
@@ -85,7 +85,7 @@ impl metrics::Metrics for Metrics {
 			disputes_finality_lag: prometheus::register(
 				prometheus::Gauge::with_opts(
 					prometheus::Opts::new(
-						"polkadot_parachain_disputes_finality_lag",
+						"peer_parachain_disputes_finality_lag",
 						"How far behind the head of the chain the Disputes protocol wants to vote",
 					)
 				)?,
@@ -114,14 +114,14 @@ impl Metrics {
 /// Determines whether the chain is a relay chain
 /// and hence has to take approval votes and disputes
 /// into account.
-enum IsDisputesAwareWithOverseer<B: sc_client_api::Backend<PolkadotBlock>> {
+enum IsDisputesAwareWithOverseer<B: sc_client_api::Backend<peerBlock>> {
 	Yes(SelectRelayChainInner<B, Handle>),
 	No,
 }
 
 impl<B> Clone for IsDisputesAwareWithOverseer<B>
 where
-	B: sc_client_api::Backend<PolkadotBlock>,
+	B: sc_client_api::Backend<peerBlock>,
 	SelectRelayChainInner<B, Handle>: Clone,
 {
 	fn clone(&self) -> Self {
@@ -133,14 +133,14 @@ where
 }
 
 /// A chain-selection implementation which provides safety for relay chains.
-pub struct SelectRelayChain<B: sc_client_api::Backend<PolkadotBlock>> {
-	longest_chain: sc_consensus::LongestChain<B, PolkadotBlock>,
+pub struct SelectRelayChain<B: sc_client_api::Backend<peerBlock>> {
+	longest_chain: sc_consensus::LongestChain<B, peerBlock>,
 	selection: IsDisputesAwareWithOverseer<B>,
 }
 
 impl<B> Clone for SelectRelayChain<B>
 where
-	B: sc_client_api::Backend<PolkadotBlock>,
+	B: sc_client_api::Backend<peerBlock>,
 	SelectRelayChainInner<B, Handle>: Clone,
 {
 	fn clone(&self) -> Self {
@@ -150,7 +150,7 @@ where
 
 impl<B> SelectRelayChain<B>
 where
-	B: sc_client_api::Backend<PolkadotBlock> + 'static,
+	B: sc_client_api::Backend<peerBlock> + 'static,
 {
 	/// Use the plain longest chain algorithm exclusively.
 	pub fn new_longest_chain(backend: Arc<B>) -> Self {
@@ -176,15 +176,15 @@ where
 	}
 
 	/// Allow access to the inner chain, for usage during the node setup.
-	pub fn as_longest_chain(&self) -> &sc_consensus::LongestChain<B, PolkadotBlock> {
+	pub fn as_longest_chain(&self) -> &sc_consensus::LongestChain<B, peerBlock> {
 		&self.longest_chain
 	}
 }
 
 #[async_trait::async_trait]
-impl<B> SelectChain<PolkadotBlock> for SelectRelayChain<B>
+impl<B> SelectChain<peerBlock> for SelectRelayChain<B>
 where
-	B: sc_client_api::Backend<PolkadotBlock> + 'static,
+	B: sc_client_api::Backend<peerBlock> + 'static,
 {
 	async fn leaves(&self) -> Result<Vec<Hash>, ConsensusError> {
 		match self.selection {
@@ -193,7 +193,7 @@ where
 		}
 	}
 
-	async fn best_chain(&self) -> Result<PolkadotHeader, ConsensusError> {
+	async fn best_chain(&self) -> Result<peerHeader, ConsensusError> {
 		match self.selection {
 			IsDisputesAwareWithOverseer::Yes(ref selection) => selection.best_chain().await,
 			IsDisputesAwareWithOverseer::No => self.longest_chain.best_chain().await,
@@ -232,7 +232,7 @@ pub struct SelectRelayChainInner<B, OH> {
 
 impl<B, OH> SelectRelayChainInner<B, OH>
 where
-	B: HeaderProviderProvider<PolkadotBlock>,
+	B: HeaderProviderProvider<peerBlock>,
 	OH: OverseerHandleT,
 {
 	/// Create a new [`SelectRelayChainInner`] wrapping the given chain backend
@@ -241,7 +241,7 @@ where
 		SelectRelayChainInner { backend, overseer, metrics }
 	}
 
-	fn block_header(&self, hash: Hash) -> Result<PolkadotHeader, ConsensusError> {
+	fn block_header(&self, hash: Hash) -> Result<peerHeader, ConsensusError> {
 		match HeaderProvider::header(self.backend.header_provider(), hash) {
 			Ok(Some(header)) => Ok(header),
 			Ok(None) =>
@@ -268,7 +268,7 @@ where
 
 impl<B, OH> Clone for SelectRelayChainInner<B, OH>
 where
-	B: HeaderProviderProvider<PolkadotBlock> + Send + Sync,
+	B: HeaderProviderProvider<peerBlock> + Send + Sync,
 	OH: OverseerHandleT,
 {
 	fn clone(&self) -> Self {
@@ -315,7 +315,7 @@ impl OverseerHandleT for Handle {
 
 impl<B, OH> SelectRelayChainInner<B, OH>
 where
-	B: HeaderProviderProvider<PolkadotBlock>,
+	B: HeaderProviderProvider<peerBlock>,
 	OH: OverseerHandleT,
 {
 	/// Get all leaves of the chain, i.e. block hashes that are suitable to
@@ -339,7 +339,7 @@ where
 	}
 
 	/// Among all leaves, pick the one which is the best chain to build upon.
-	async fn best_chain(&self) -> Result<PolkadotHeader, ConsensusError> {
+	async fn best_chain(&self) -> Result<peerHeader, ConsensusError> {
 		// The Chain Selection subsystem is supposed to treat the finalized
 		// block as the best leaf in the case that there are no viable
 		// leaves, so this should not happen in practice.

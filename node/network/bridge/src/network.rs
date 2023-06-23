@@ -1,18 +1,18 @@
 // Copyright 2020-2021 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 use std::{collections::HashSet, sync::Arc};
 
@@ -83,7 +83,7 @@ pub(crate) fn send_message<M>(
 #[async_trait]
 pub trait Network: Clone + Send + 'static {
 	/// Get a stream of all events occurring on the network. This may include events unrelated
-	/// to the Polkadot protocol - the user of this function should filter only for events related
+	/// to the peer protocol - the user of this function should filter only for events related
 	/// to the [`VALIDATION_PROTOCOL_NAME`](VALIDATION_PROTOCOL_NAME)
 	/// or [`COLLATION_PROTOCOL_NAME`](COLLATION_PROTOCOL_NAME)
 	fn event_stream(&mut self) -> BoxStream<'static, NetworkEvent>;

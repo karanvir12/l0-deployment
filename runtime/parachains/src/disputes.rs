@@ -1,18 +1,18 @@
 // Copyright 2021 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 //! Runtime component for handling disputes of parachain candidates.
 
@@ -241,7 +241,7 @@ pub trait DisputesHandler<BlockNumber: Ord> {
 	) -> Result<(), ()> {
 		// TODO: Consider trade-of to avoid `O(n * log(n))` average lookups of `included_state`
 		// TODO: instead make a single pass and store the values lazily.
-		// TODO: https://github.com/paritytech/polkadot/issues/4527
+		// TODO: https://github.com/paritytech/peer/issues/4527
 		let n = statement_sets.len();
 
 		statement_sets.sort_by(dispute_ordering_compare::<Self, BlockNumber>);
@@ -890,7 +890,7 @@ impl<T: Config> Pallet<T> {
 				<Disputes<T>>::remove_prefix(to_prune, None);
 
 				// This is larger, and will be extracted to the `shared` pallet for more proper pruning.
-				// TODO: https://github.com/paritytech/polkadot/issues/3469
+				// TODO: https://github.com/paritytech/peer/issues/3469
 				#[allow(deprecated)]
 				<Included<T>>::remove_prefix(to_prune, None);
 				SpamSlots::<T>::remove(to_prune);

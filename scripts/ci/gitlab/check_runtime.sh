@@ -36,7 +36,7 @@ git fetch --depth="${GIT_DEPTH:-100}" origin master
 
 runtimes=(
 
-  "polkadot"
+  "peer"
 
 )
 
@@ -104,7 +104,7 @@ EOT
 
   boldcat <<EOT
 spec_version or or impl_version have changed in substrate after updating Cargo.lock
-please make sure versions are bumped in polkadot accordingly
+please make sure versions are bumped in peer accordingly
 EOT
 
 fi

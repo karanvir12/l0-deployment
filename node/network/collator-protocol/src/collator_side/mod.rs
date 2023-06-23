@@ -1,18 +1,18 @@
 // Copyright 2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 use std::{
 	collections::{HashMap, HashSet, VecDeque},
@@ -76,7 +76,7 @@ const COST_APPARENT_FLOOD: Rep =
 ///
 /// This is to protect from a single slow validator preventing collations from happening.
 ///
-/// For considerations on this value, see: https://github.com/paritytech/polkadot/issues/4386
+/// For considerations on this value, see: https://github.com/paritytech/peer/issues/4386
 const MAX_UNSHARED_UPLOAD_TIME: Duration = Duration::from_millis(150);
 
 /// Ensure that collator issues a connection request at least once every this many seconds.

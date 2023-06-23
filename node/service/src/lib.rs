@@ -1,20 +1,20 @@
 // Copyright 2017-2021 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
-//! Polkadot service. Specialized wrapper over substrate service.
+//! peer service. Specialized wrapper over substrate service.
 
 // #![deny(unused_results)]
 
@@ -127,9 +127,9 @@ use telemetry::{Telemetry, TelemetryWorkerHandle};
 
 
 #[cfg(feature = "peer-native")]
-pub use peer_client::PolkadotExecutorDispatch;
+pub use peer_client::peerExecutorDispatch;
 
-pub use chain_spec::{ PolkadotChainSpec};
+pub use chain_spec::{ peerChainSpec};
 pub use consensus_common::{block_validation::Chain, Proposal, SelectChain};
 use mmr_gadget::MmrGadget;
 #[cfg(feature = "full-node")]
@@ -285,8 +285,8 @@ pub enum Error {
 
 /// Can be called for a `Configuration` to identify which network the configuration targets.
 pub trait IdentifyVariant {
-	/// Returns if this is a configuration for the `Polkadot` network.
-	fn is_polkadot(&self) -> bool;
+	/// Returns if this is a configuration for the `peer` network.
+	fn is_peer(&self) -> bool;
 
 	fn is_versi(&self) -> bool;
 
@@ -295,8 +295,8 @@ pub trait IdentifyVariant {
 }
 
 impl IdentifyVariant for Box<dyn ChainSpec> {
-	fn is_polkadot(&self) -> bool {
-		self.id().starts_with("polkadot") || self.id().starts_with("dot")
+	fn is_peer(&self) -> bool {
+		self.id().starts_with("peer") || self.id().starts_with("dot")
 	}
 	
 	fn is_versi(&self) -> bool {
@@ -331,7 +331,7 @@ pub fn open_database(db_source: &DatabaseSource) -> Result<Arc<dyn Database>, Er
 				)?
 			},
 		DatabaseSource::Custom { .. } => {
-			unimplemented!("No polkadot subsystem db for custom source.");
+			unimplemented!("No peer subsystem db for custom source.");
 		},
 	};
 	Ok(parachains_db)
@@ -861,7 +861,7 @@ pub const AVAILABILITY_CONFIG: AvailabilityConfig = AvailabilityConfig {
 /// regardless of the role the node has. The relay chain selection (longest or disputes-aware) is
 /// still determined based on the role of the node. Likewise for authority discovery.
 pub type FullClientNew =
-	service::TFullClient<Block, RuntimeApiPolka, NativeElseWasmExecutor<PolkadotExecutorDispatch>>;
+	service::TFullClient<Block, RuntimeApiPolka, NativeElseWasmExecutor<peerExecutorDispatch>>;
 	
 #[cfg(feature = "full-node")]
 pub fn new_full<RuntimeApiPol, ExecutorDispatchStruct, OverseerGenerator>(
@@ -877,7 +877,7 @@ pub fn new_full<RuntimeApiPol, ExecutorDispatchStruct, OverseerGenerator>(
 	overseer_message_channel_capacity_override: Option<usize>,
 	_malus_finality_delay: Option<u32>,
 	hwbench: Option<sc_sysinfo::HwBench>,
-) -> Result<NewFull<Arc<FullClient<RuntimeApiPolka, PolkadotExecutorDispatch>>>, Error>
+) -> Result<NewFull<Arc<FullClient<RuntimeApiPolka, peerExecutorDispatch>>>, Error>
 where
   RuntimeApiPol: ConstructRuntimeApi<Block, FullClientNew>
 		+ Send
@@ -885,7 +885,7 @@ where
 		+ 'static,
 	RuntimeApiPol::RuntimeApi:
 		RuntimeApiCollection<StateBackend = sc_client_api::StateBackendFor<FullBackend, Block>>,
-	PolkadotExecutorDispatch: NativeExecutionDispatch + 'static,
+	peerExecutorDispatch: NativeExecutionDispatch + 'static,
 	OverseerGenerator: OverseerGen,
 {
 	use peer_node_network_protocol::request_response::IncomingRequest;
@@ -919,7 +919,7 @@ where
 	let disable_grandpa = config.disable_grandpa;
 	let name = config.network.node_name.clone();
 
-	let basics = new_partial_basics::<RuntimeApiPolka, PolkadotExecutorDispatch>(
+	let basics = new_partial_basics::<RuntimeApiPolka, peerExecutorDispatch>(
 		&mut config,
 		jaeger_agent,
 		telemetry_worker_handle,
@@ -961,7 +961,7 @@ where
 		transaction_pool,
 		// other: (rpc_extensions_builder, import_setup, rpc_setup, slot_duration, mut telemetry,frontier_backend),
 		other: (import_setup,slot_duration,mut telemetry,frontier_backend),
-	} = new_partial::<RuntimeApiPolka, PolkadotExecutorDispatch, SelectRelayChain<_>>(
+	} = new_partial::<RuntimeApiPolka, peerExecutorDispatch, SelectRelayChain<_>>(
 		&mut config,
 		basics,
 		select_chain,
@@ -973,7 +973,7 @@ where
 
 	let genesis_hash = client.block_hash(0).ok().flatten().expect("Genesis block exists; qed");
 
-	// Note: GrandPa is pushed before the Polkadot-specific protocols. This doesn't change
+	// Note: GrandPa is pushed before the peer-specific protocols. This doesn't change
 	// anything in terms of behaviour, but makes the logs more consistent with the other
 	// Substrate nodes.
 	let grandpa_protocol_name = grandpa::protocol_standard_name(&genesis_hash, &config.chain_spec);
@@ -1218,7 +1218,7 @@ where
 
 	fn spawn_frontier_tasks(
 		task_manager: &TaskManager,
-		client: Arc<FullClient<RuntimeApiPolka, PolkadotExecutorDispatch>>,
+		client: Arc<FullClient<RuntimeApiPolka, peerExecutorDispatch>>,
 		backend: Arc<FullBackend>,
 		frontier_backend: Arc<FrontierBackend<Block>>,
 		filter_pool: Option<FilterPool>,
@@ -1526,7 +1526,7 @@ where
 	let config = grandpa::Config {
 		// FIXME substrate#1578 make this available through chainspec
 		// Grandpa performance can be improved a bit by tuning this parameter, see:
-		// https://github.com/paritytech/polkadot/issues/5464
+		// https://github.com/paritytech/peer/issues/5464
 		gossip_duration: Duration::from_millis(1000),
 		justification_period: 512,
 		name: Some(name),
@@ -1643,7 +1643,7 @@ pub fn new_chain_ops(
 
 	#[cfg(feature = "peer-native")]
 	{
-		return chain_ops!(config, jaeger_agent, telemetry_worker_handle; Peer_Runtime, PolkadotExecutorDispatch, Polkadot)
+		return chain_ops!(config, jaeger_agent, telemetry_worker_handle; Peer_Runtime, peerExecutorDispatch, peer)
 	}
 	#[cfg(not(feature = "peer-native"))]
 	Err(Error::NoRuntime)
@@ -1670,7 +1670,7 @@ pub fn build_full(
 
 	#[cfg(feature = "peer-native")]
 	{
-		return new_full::<RuntimeApiPolka, PolkadotExecutorDispatch, _>(
+		return new_full::<RuntimeApiPolka, peerExecutorDispatch, _>(
 			config,
 			is_collator,
 			grandpa_pause,
@@ -1681,14 +1681,14 @@ pub fn build_full(
 			overseer_enable_anyways,
 			overseer_gen,
 			overseer_message_channel_override.map(|capacity| {
-				gum::warn!("Channel capacity should _never_ be tampered with on polkadot!");
+				gum::warn!("Channel capacity should _never_ be tampered with on peer!");
 				capacity
 			}),
 			malus_finality_delay,
 			hwbench,
 		)
 		.map(|full| 
-			full.with_client(Client::Polkadot)	
+			full.with_client(Client::peer)	
 			
 		)
 	}

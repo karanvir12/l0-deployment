@@ -2,7 +2,7 @@
 
 Native runtimes:
 
-- Polkadot: **<%= Peer_Runtime %>**
+- peer: **<%= Peer_Runtime %>**
 
 
 This release was tested against the following versions of `rustc`. Other versions may work.
@@ -10,10 +10,10 @@ This release was tested against the following versions of `rustc`. Other version
 - <%= rustc_stable %>
 - <%= rustc_nightly %>
 
-WASM runtimes built with [<%= polkadot_json['info']['generator']['name'] %> v<%= polkadot_json['info']['generator']['version'] %>](https://github.com/paritytech/srtool) using `<%= polkadot_json['rustc'] %>`.
+WASM runtimes built with [<%= peer_json['info']['generator']['name'] %> v<%= peer_json['info']['generator']['version'] %>](https://github.com/paritytech/srtool) using `<%= peer_json['rustc'] %>`.
 
 Proposal hashes:
-* `Peer_Runtime-v<%= Peer_Runtime %>.compact.compressed.wasm`: `<%= polkadot_json['runtimes']['compressed']['prop'] %>`
+* `Peer_Runtime-v<%= Peer_Runtime %>.compact.compressed.wasm`: `<%= peer_json['runtimes']['compressed']['prop'] %>`
 
 
 <% unless misc_changes.empty? %>

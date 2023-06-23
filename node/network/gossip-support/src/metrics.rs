@@ -1,18 +1,18 @@
 // Copyright 2021 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 use peer_node_subsystem_util::{
 	metrics,
@@ -74,12 +74,12 @@ impl metrics::Metrics for Metrics {
 	fn try_register(registry: &Registry) -> Result<Self, PrometheusError> {
 		let metrics = MetricsInner {
 			is_authority: prometheus::register(
-				Gauge::new("polkadot_node_is_active_validator", "Tracks if the validator is in the active set. \
+				Gauge::new("peer_node_is_active_validator", "Tracks if the validator is in the active set. \
 				Updates at session boundary.")?,
 				registry,
 			)?,
 			is_parachain_validator: prometheus::register(
-				Gauge::new("polkadot_node_is_parachain_validator", 
+				Gauge::new("peer_node_is_parachain_validator", 
 				"Tracks if the validator participates in parachain consensus. Parachain validators are a \
 				subset of the active set validators that perform approval checking of all parachain candidates in a session.\
 				Updates at session boundary.")?,

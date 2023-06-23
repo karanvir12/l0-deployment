@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with PEER.  If not, see <http://www.gnu.org/licenses/>.
 
-//! The Polkadot runtime. This can be compiled with `#[no_std]`, ready for Wasm.
+//! The peer runtime. This can be compiled with `#[no_std]`, ready for Wasm.
 
 #![cfg_attr(not(feature = "std"), no_std)]
 // `construct_runtime!` does a lot of recursion and requires us to increase the limit to 256.
@@ -146,8 +146,8 @@ impl_runtime_weights!(Peer_Runtime_constants);
 #[cfg(feature = "std")]
 include!(concat!(env!("OUT_DIR"), "/wasm_binary.rs"));
 
-// Polkadot version identifier;
-/// Runtime version (Polkadot).
+// peer version identifier;
+/// Runtime version (peer).
 #[sp_version::runtime_version]
 pub const VERSION: RuntimeVersion = RuntimeVersion {
 	spec_name: create_runtime_str!("peer"),
@@ -1300,7 +1300,7 @@ parameter_types! {
 }
 
 parameter_types! {
-	pub Prefix: &'static [u8] = b"Pay DOTs to the Polkadot account:";
+	pub Prefix: &'static [u8] = b"Pay DOTs to the peer account:";
 }
 
 impl claims::Config for Runtime {
@@ -1626,7 +1626,7 @@ impl paras_registrar::Config for Runtime {
 parameter_types! {
 	// 12 weeks = 3 months per lease period -> 8 lease periods ~ 2 years
 	pub const LeasePeriod: BlockNumber = 28 * DAYS;
-	// Polkadot Genesis was on May 26, 2020.
+	// peer Genesis was on May 26, 2020.
 	// Target Parachain Onboarding Date: Dec 15, 2021.
 	// Difference is 568 days.
 	// We want a lease period to start on the target onboarding date.
@@ -1748,10 +1748,10 @@ impl frame_support::traits::OnRuntimeUpgrade for InitiateNominationPools {
 			pallet_nomination_pools::MaxPoolMembersPerPool::<Runtime>::put(0);
 			pallet_nomination_pools::MaxPoolMembers::<Runtime>::put(0);
 
-			log::info!(target: "runtime::polkadot", "pools config initiated 🎉");
+			log::info!(target: "runtime::peer", "pools config initiated 🎉");
 			<Runtime as frame_system::Config>::DbWeight::get().reads_writes(1, 5)
 		} else {
-			log::info!(target: "runtime::polkadot", "pools config already initiated 😏");
+			log::info!(target: "runtime::peer", "pools config already initiated 😏");
 			<Runtime as frame_system::Config>::DbWeight::get().reads(1)
 		}
 	}
@@ -2035,7 +2035,7 @@ extern crate frame_benchmarking;
 #[cfg(feature = "runtime-benchmarks")]
 mod benches {
 	define_benchmarks!(
-		// Polkadot
+		// peer
 		// NOTE: Make sure to prefix these with `runtime_common::` so
 		// the that path resolves correctly in the generated file.
 		[runtime_common::auctions, Auctions]
@@ -2565,7 +2565,7 @@ sp_api::impl_runtime_apis! {
 	#[cfg(feature = "try-runtime")]
 	impl frame_try_runtime::TryRuntime<Block> for Runtime {
 		fn on_runtime_upgrade(checks: bool) -> (Weight, Weight) {
-			log::info!("try-runtime::on_runtime_upgrade polkadot.");
+			log::info!("try-runtime::on_runtime_upgrade peer.");
 			let weight = Executive::try_runtime_upgrade(checks).unwrap();
 			(weight, BlockWeights::get().max_block)
 		}
@@ -3052,7 +3052,7 @@ mod remote_tests {
 	async fn run_migrations() {
 		sp_tracing::try_init_simple();
 		let transport: Transport =
-			var("WS").unwrap_or("wss://rpc.polkadot.io:443".to_string()).into();
+			var("WS").unwrap_or("wss://rpc.peer.io:443".to_string()).into();
 		let maybe_state_snapshot: Option<SnapshotConfig> = var("SNAP").map(|s| s.into()).ok();
 		let mut ext = Builder::<Block>::default()
 			.mode(if let Some(state_snapshot) = maybe_state_snapshot {

@@ -1,20 +1,20 @@
 // Copyright 2022 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
-//! XCM configuration for Polkadot.
+//! XCM configuration for peer.
 
 use super::{
 	parachains_origin, AccountId, Balances, CouncilCollective, ParaId, Runtime, RuntimeCall,
@@ -39,10 +39,10 @@ parameter_types! {
 	/// chain, we make it synonymous with it and thus it is the `Here` location, which means "equivalent to
 	/// the context".
 	pub const DotLocation: MultiLocation = Here.into();
-	/// The Polkadot network ID. This is named.
-	pub const PolkadotNetwork: NetworkId = NetworkId::Polkadot;
+	/// The peer network ID. This is named.
+	pub const peerNetwork: NetworkId = NetworkId::peer;
 	/// Our XCM location ancestry - i.e. what, if anything, `Parent` means evaluated in our context. Since
-	/// Polkadot is a top-level relay-chain, there is no ancestry.
+	/// peer is a top-level relay-chain, there is no ancestry.
 	pub const Ancestry: MultiLocation = Here.into();
 	/// The check account, which holds any native assets that have been teleported out and not back in (yet).
 	pub CheckAccount: AccountId = XcmPallet::check_account();
@@ -54,7 +54,7 @@ pub type SovereignAccountOf = (
 	// We can convert a child parachain using the standard `AccountId` conversion.
 	ChildParachainConvertsVia<ParaId, AccountId>,
 	// We can directly alias an `AccountId32` into a local account.
-	AccountId32Aliases<PolkadotNetwork, AccountId>,
+	AccountId32Aliases<peerNetwork, AccountId>,
 );
 
 /// Our asset transactor. This is what allows us to interact with the runtime assets from the point of
@@ -86,7 +86,7 @@ type LocalOriginConverter = (
 	ChildParachainAsNative<parachains_origin::Origin, RuntimeOrigin>,
 	// If the origin kind is `Native` and the XCM origin is the `AccountId32` location, then it can
 	// be expressed using the `Signed` origin variant.
-	SignedAccountId32AsNative<PolkadotNetwork, RuntimeOrigin>,
+	SignedAccountId32AsNative<peerNetwork, RuntimeOrigin>,
 );
 
 parameter_types! {
@@ -105,14 +105,14 @@ pub type XcmRouter = (
 );
 
 parameter_types! {
-	pub const Polkadot: MultiAssetFilter = Wild(AllOf { fun: WildFungible, id: Concrete(DotLocation::get()) });
-	pub const PolkadotForStatemint: (MultiAssetFilter, MultiLocation) = (Polkadot::get(), Parachain(1000).into());
-	pub const PolkadotForCollectives: (MultiAssetFilter, MultiLocation) = (Polkadot::get(), Parachain(1001).into());
+	pub const peer: MultiAssetFilter = Wild(AllOf { fun: WildFungible, id: Concrete(DotLocation::get()) });
+	pub const peerForStatemint: (MultiAssetFilter, MultiLocation) = (peer::get(), Parachain(1000).into());
+	pub const peerForCollectives: (MultiAssetFilter, MultiLocation) = (peer::get(), Parachain(1001).into());
 }
 
-/// Polkadot Relay recognizes/respects System parachains as teleporters.
+/// peer Relay recognizes/respects System parachains as teleporters.
 pub type TrustedTeleporters =
-	(xcm_builder::Case<PolkadotForStatemint>, xcm_builder::Case<PolkadotForCollectives>);
+	(xcm_builder::Case<peerForStatemint>, xcm_builder::Case<peerForCollectives>);
 
 match_types! {
 	pub type OnlyParachains: impl Contains<MultiLocation> = {
@@ -138,7 +138,7 @@ impl xcm_executor::Config for XcmConfig {
 	type XcmSender = XcmRouter;
 	type AssetTransactor = LocalAssetTransactor;
 	type OriginConverter = LocalOriginConverter;
-	// Polkadot Relay recognises no chains which act as reserves.
+	// peer Relay recognises no chains which act as reserves.
 	type IsReserve = ();
 	type IsTeleporter = TrustedTeleporters;
 	type LocationInverter = LocationInverter<Ancestry>;
@@ -172,7 +172,7 @@ pub type LocalOriginToLocation = (
 	// `Unit` body.
 	CouncilToPlurality,
 	// And a usual Signed origin to be used in XCM as a corresponding AccountId32
-	SignedToAccountId32<RuntimeOrigin, AccountId, PolkadotNetwork>,
+	SignedToAccountId32<RuntimeOrigin, AccountId, peerNetwork>,
 );
 
 impl pallet_xcm::Config for Runtime {

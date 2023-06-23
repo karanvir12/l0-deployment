@@ -1,20 +1,20 @@
 // Copyright 2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
-//! Polkadot test service only.
+//! peer test service only.
 
 #![warn(missing_docs)]
 
@@ -60,11 +60,11 @@ use substrate_test_client::{
 	BlockchainEventsExt, RpcHandlersExt, RpcTransactionError, RpcTransactionOutput,
 };
 
-/// Declare an instance of the native executor named `PolkadotTestExecutorDispatch`. Include the wasm binary as the
+/// Declare an instance of the native executor named `peerTestExecutorDispatch`. Include the wasm binary as the
 /// equivalent wasm code.
-pub struct PolkadotTestExecutorDispatch;
+pub struct peerTestExecutorDispatch;
 
-impl sc_executor::NativeExecutionDispatch for PolkadotTestExecutorDispatch {
+impl sc_executor::NativeExecutionDispatch for peerTestExecutorDispatch {
 	type ExtendHostFunctions = frame_benchmarking::benchmarking::HostFunctions;
 
 	fn dispatch(method: &str, data: &[u8]) -> Option<Vec<u8>> {
@@ -77,7 +77,7 @@ impl sc_executor::NativeExecutionDispatch for PolkadotTestExecutorDispatch {
 }
 
 /// The client type being used by the test service.
-pub type Client = FullClient<peer_test_runtime::RuntimeApi, PolkadotTestExecutorDispatch>;
+pub type Client = FullClient<peer_test_runtime::RuntimeApi, peerTestExecutorDispatch>;
 
 pub use peer_service::FullBackend;
 
@@ -88,7 +88,7 @@ pub fn new_full(
 	is_collator: IsCollator,
 	worker_program_path: Option<PathBuf>,
 ) -> Result<NewFull<Arc<Client>>, Error> {
-	peer_service::new_full::<peer_test_runtime::RuntimeApi, PolkadotTestExecutorDispatch, _>(
+	peer_service::new_full::<peer_test_runtime::RuntimeApi, peerTestExecutorDispatch, _>(
 		config,
 		is_collator,
 		None,
@@ -121,7 +121,7 @@ pub fn test_prometheus_config(port: u16) -> PrometheusConfig {
 	)
 }
 
-/// Create a Polkadot `Configuration`.
+/// Create a peer `Configuration`.
 ///
 /// By default an in-memory socket will be used, therefore you need to provide boot
 /// nodes if you want the future node to be connected to other nodes.
@@ -164,7 +164,7 @@ pub fn node_config(
 	network_config.transport = TransportConfig::MemoryOnly;
 
 	Configuration {
-		impl_name: "polkadot-test-node".to_string(),
+		impl_name: "peer-test-node".to_string(),
 		impl_version: "0.1".to_string(),
 		role,
 		tokio_handle,
@@ -222,17 +222,17 @@ pub fn node_config(
 pub fn run_validator_node(
 	config: Configuration,
 	worker_program_path: Option<PathBuf>,
-) -> PolkadotTestNode {
+) -> peerTestNode {
 	let multiaddr = config.network.listen_addresses[0].clone();
 	let NewFull { task_manager, client, network, rpc_handlers, overseer_handle, .. } =
 		new_full(config, IsCollator::No, worker_program_path)
-			.expect("could not create Polkadot test service");
+			.expect("could not create peer test service");
 
 	let overseer_handle = overseer_handle.expect("test node must have an overseer handle");
 	let peer_id = network.local_peer_id().clone();
 	let addr = MultiaddrWithPeerId { multiaddr, peer_id };
 
-	PolkadotTestNode { task_manager, client, overseer_handle, addr, rpc_handlers }
+	peerTestNode { task_manager, client, overseer_handle, addr, rpc_handlers }
 }
 
 /// Run a test collator node that uses the test runtime.
@@ -246,29 +246,29 @@ pub fn run_validator_node(
 /// # Note
 ///
 /// The collator functionality still needs to be registered at the node! This can be done using
-/// [`PolkadotTestNode::register_collator`].
+/// [`peerTestNode::register_collator`].
 pub fn run_collator_node(
 	tokio_handle: tokio::runtime::Handle,
 	key: Sr25519Keyring,
 	storage_update_func: impl Fn(),
 	boot_nodes: Vec<MultiaddrWithPeerId>,
 	collator_pair: CollatorPair,
-) -> PolkadotTestNode {
+) -> peerTestNode {
 	let config = node_config(storage_update_func, tokio_handle, key, boot_nodes, false);
 	let multiaddr = config.network.listen_addresses[0].clone();
 	let NewFull { task_manager, client, network, rpc_handlers, overseer_handle, .. } =
 		new_full(config, IsCollator::Yes(collator_pair), None)
-			.expect("could not create Polkadot test service");
+			.expect("could not create peer test service");
 
 	let overseer_handle = overseer_handle.expect("test node must have an overseer handle");
 	let peer_id = network.local_peer_id().clone();
 	let addr = MultiaddrWithPeerId { multiaddr, peer_id };
 
-	PolkadotTestNode { task_manager, client, overseer_handle, addr, rpc_handlers }
+	peerTestNode { task_manager, client, overseer_handle, addr, rpc_handlers }
 }
 
-/// A Polkadot test node instance used for testing.
-pub struct PolkadotTestNode {
+/// A peer test node instance used for testing.
+pub struct peerTestNode {
 	/// `TaskManager`'s instance.
 	pub task_manager: TaskManager,
 	/// Client's instance.
@@ -281,7 +281,7 @@ pub struct PolkadotTestNode {
 	pub rpc_handlers: RpcHandlers,
 }
 
-impl PolkadotTestNode {
+impl peerTestNode {
 	/// Send an extrinsic to this node.
 	pub async fn send_extrinsic(
 		&self,

@@ -1,20 +1,20 @@
 // Copyright 2017-2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
-//! Polkadot-specific GRANDPA integration utilities.
+//! peer-specific GRANDPA integration utilities.
 
 use std::sync::Arc;
 
@@ -220,7 +220,7 @@ mod tests {
 	use consensus_common::BlockOrigin;
 	use grandpa::VotingRule;
 	use peer_test_client::{
-		ClientBlockImportExt, DefaultTestClientBuilderExt, InitPolkadotBlockBuilder,
+		ClientBlockImportExt, DefaultTestClientBuilderExt, InitpeerBlockBuilder,
 		TestClientBuilder, TestClientBuilderExt,
 	};
 	use sp_blockchain::HeaderBackend;
@@ -238,7 +238,7 @@ mod tests {
 
 			move |n| {
 				for _ in 0..n {
-					let block = client.init_polkadot_block_builder().build().unwrap().block;
+					let block = client.init_peer_block_builder().build().unwrap().block;
 					futures::executor::block_on(client.import(BlockOrigin::Own, block)).unwrap();
 				}
 			}

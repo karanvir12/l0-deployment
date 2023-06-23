@@ -1,26 +1,26 @@
 // Copyright 2021 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 #![warn(missing_docs)]
 
 //! A crate that implements the PVF validation host.
 //!
 //! For more background, refer to the Implementer's Guide: [PVF
-//! Pre-checking](https://paritytech.github.io/polkadot/book/pvf-prechecking.html) and [Candidate
-//! Validation](https://paritytech.github.io/polkadot/book/node/utility/candidate-validation.html#pvf-host).
+//! Pre-checking](https://paritytech.github.io/peer/book/pvf-prechecking.html) and [Candidate
+//! Validation](https://paritytech.github.io/peer/book/node/utility/candidate-validation.html#pvf-host).
 //!
 //! # Entrypoint
 //!

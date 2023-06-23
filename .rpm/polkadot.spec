@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
-Name: polkadot
-Summary: Implementation of a https://polkadot.network node in Rust based on the Substrate framework.
+Name: peer
+Summary: Implementation of a https://peer.network node in Rust based on the Substrate framework.
 Version: @@VERSION@@
 Release: @@RELEASE@@%{?dist}
 License: GPLv3
@@ -29,13 +29,13 @@ mkdir -p %{buildroot}
 cp -a * %{buildroot}
 
 %post
-config_file="/etc/default/polkadot"
-getent group polkadot >/dev/null || groupadd -r polkadot
-getent passwd polkadot >/dev/null || \
-    useradd -r -g polkadot -d /home/polkadot -m -s /sbin/nologin \
-    -c "User account for running polkadot as a service" polkadot
+config_file="/etc/default/peer"
+getent group peer >/dev/null || groupadd -r peer
+getent passwd peer >/dev/null || \
+    useradd -r -g peer -d /home/peer -m -s /sbin/nologin \
+    -c "User account for running peer as a service" peer
 if [ ! -e "$config_file" ]; then
-    echo 'POLKADOT_CLI_ARGS=""' > /etc/default/polkadot
+    echo 'peer_CLI_ARGS=""' > /etc/default/peer
 fi
 exit 0
 
@@ -45,4 +45,4 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %{_bindir}/*
-/usr/lib/systemd/system/polkadot.service
+/usr/lib/systemd/system/peer.service

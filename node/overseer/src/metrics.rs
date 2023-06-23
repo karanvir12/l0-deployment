@@ -1,18 +1,18 @@
 // Copyright 2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 //! Prometheus metrics related to the overseer and its channels.
 
@@ -137,21 +137,21 @@ impl MetricsTrait for Metrics {
 		let metrics = MetricsInner {
 			activated_heads_total: prometheus::register(
 				prometheus::Counter::new(
-					"polkadot_parachain_activated_heads_total",
+					"peer_parachain_activated_heads_total",
 					"Number of activated heads.",
 				)?,
 				registry,
 			)?,
 			deactivated_heads_total: prometheus::register(
 				prometheus::Counter::new(
-					"polkadot_parachain_deactivated_heads_total",
+					"peer_parachain_deactivated_heads_total",
 					"Number of deactivated heads.",
 				)?,
 				registry,
 			)?,
 			messages_relayed_total: prometheus::register(
 				prometheus::Counter::new(
-					"polkadot_parachain_messages_relayed_total",
+					"peer_parachain_messages_relayed_total",
 					"Number of messages relayed by Overseer.",
 				)?,
 				registry,
@@ -159,7 +159,7 @@ impl MetricsTrait for Metrics {
 			to_subsystem_bounded_tof: prometheus::register(
 				prometheus::HistogramVec::new(
 					prometheus::HistogramOpts::new(
-						"polkadot_parachain_subsystem_bounded_tof",
+						"peer_parachain_subsystem_bounded_tof",
 						"Duration spent in a particular channel from entrance to removal",
 					),
 					&["subsystem_name"],
@@ -169,7 +169,7 @@ impl MetricsTrait for Metrics {
 			to_subsystem_bounded_sent: prometheus::register(
 				prometheus::GaugeVec::<prometheus::U64>::new(
 					prometheus::Opts::new(
-						"polkadot_parachain_subsystem_bounded_sent",
+						"peer_parachain_subsystem_bounded_sent",
 						"Number of elements sent to subsystems' bounded queues",
 					),
 					&["subsystem_name"],
@@ -179,7 +179,7 @@ impl MetricsTrait for Metrics {
 			to_subsystem_bounded_received: prometheus::register(
 				prometheus::GaugeVec::<prometheus::U64>::new(
 					prometheus::Opts::new(
-						"polkadot_parachain_subsystem_bounded_received",
+						"peer_parachain_subsystem_bounded_received",
 						"Number of elements received by subsystems' bounded queues",
 					),
 					&["subsystem_name"],
@@ -189,7 +189,7 @@ impl MetricsTrait for Metrics {
 			to_subsystem_bounded_blocked: prometheus::register(
 				prometheus::GaugeVec::<prometheus::U64>::new(
 					prometheus::Opts::new(
-						"polkadot_parachain_subsystem_bounded_blocked",
+						"peer_parachain_subsystem_bounded_blocked",
 						"Number of times senders blocked while sending messages to a subsystem",
 					),
 					&["subsystem_name"],
@@ -199,7 +199,7 @@ impl MetricsTrait for Metrics {
 			to_subsystem_unbounded_tof: prometheus::register(
 				prometheus::HistogramVec::new(
 					prometheus::HistogramOpts::new(
-						"polkadot_parachain_subsystem_unbounded_tof",
+						"peer_parachain_subsystem_unbounded_tof",
 						"Duration spent in a particular channel from entrance to removal",
 					),
 					&["subsystem_name"],
@@ -209,7 +209,7 @@ impl MetricsTrait for Metrics {
 			to_subsystem_unbounded_sent: prometheus::register(
 				prometheus::GaugeVec::<prometheus::U64>::new(
 					prometheus::Opts::new(
-						"polkadot_parachain_subsystem_unbounded_sent",
+						"peer_parachain_subsystem_unbounded_sent",
 						"Number of elements sent to subsystems' unbounded queues",
 					),
 					&["subsystem_name"],
@@ -219,7 +219,7 @@ impl MetricsTrait for Metrics {
 			to_subsystem_unbounded_received: prometheus::register(
 				prometheus::GaugeVec::<prometheus::U64>::new(
 					prometheus::Opts::new(
-						"polkadot_parachain_subsystem_unbounded_received",
+						"peer_parachain_subsystem_unbounded_received",
 						"Number of elements received by subsystems' unbounded queues",
 					),
 					&["subsystem_name"],
@@ -229,7 +229,7 @@ impl MetricsTrait for Metrics {
 			signals_sent: prometheus::register(
 				prometheus::GaugeVec::<prometheus::U64>::new(
 					prometheus::Opts::new(
-						"polkadot_parachain_overseer_signals_sent",
+						"peer_parachain_overseer_signals_sent",
 						"Number of signals sent by overseer to subsystems",
 					),
 					&["subsystem_name"],
@@ -239,7 +239,7 @@ impl MetricsTrait for Metrics {
 			signals_received: prometheus::register(
 				prometheus::GaugeVec::<prometheus::U64>::new(
 					prometheus::Opts::new(
-						"polkadot_parachain_overseer_signals_received",
+						"peer_parachain_overseer_signals_received",
 						"Number of signals received by subsystems from overseer",
 					),
 					&["subsystem_name"],
@@ -249,14 +249,14 @@ impl MetricsTrait for Metrics {
 
 			memory_stats_allocated: prometheus::register(
 				prometheus::Gauge::<prometheus::U64>::new(
-					"polkadot_memory_allocated",
+					"peer_memory_allocated",
 					"Total bytes allocated by the node",
 				)?,
 				registry,
 			)?,
 			memory_stats_resident: prometheus::register(
 				prometheus::Gauge::<prometheus::U64>::new(
-					"polkadot_memory_resident",
+					"peer_memory_resident",
 					"Bytes allocated by the node, and held in RAM",
 				)?,
 				registry,

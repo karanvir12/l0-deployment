@@ -1,18 +1,18 @@
 // Copyright 2021 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 //! Make the set of voting bag thresholds to be used in `voter_bags.rs`.
 //!
@@ -23,14 +23,14 @@
 use clap::{Parser, ValueEnum};
 use generate_bags::generate_thresholds;
 
-use Peer_Runtime::Runtime as PolkadotRuntime;
+use Peer_Runtime::Runtime as peerRuntime;
 use std::path::{Path, PathBuf};
 
 
 #[derive(Clone, Debug, ValueEnum)]
 #[value(rename_all = "PascalCase")]
 enum Runtime {
-	Polkadot,
+	peer,
 }
 
 impl Runtime {
@@ -39,7 +39,7 @@ impl Runtime {
 	) -> Box<dyn FnOnce(usize, &Path, u128, u128) -> Result<(), std::io::Error>> {
 		match self {
 
-			Runtime::Polkadot => Box::new(generate_thresholds::<PolkadotRuntime>),
+			Runtime::peer => Box::new(generate_thresholds::<peerRuntime>),
 		}
 	}
 }
@@ -51,7 +51,7 @@ struct Opt {
 	n_bags: usize,
 
 	/// Which runtime to generate.
-	#[arg(long, ignore_case = true, value_enum, default_value_t = Runtime::Polkadot)]
+	#[arg(long, ignore_case = true, value_enum, default_value_t = Runtime::peer)]
 	runtime: Runtime,
 
 	/// Where to write the output.

@@ -1,18 +1,18 @@
 // Copyright 2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 use always_assert::never;
 use futures::{
@@ -100,7 +100,7 @@ const ACTIVITY_POLL: Duration = Duration::from_millis(10);
 
 // How often to poll collation responses.
 // This is a hack that should be removed in a refactoring.
-// See https://github.com/paritytech/polkadot/issues/4182
+// See https://github.com/paritytech/peer/issues/4182
 const CHECK_COLLATIONS_POLL: Duration = Duration::from_millis(50);
 
 #[derive(Clone, Default)]
@@ -162,7 +162,7 @@ impl metrics::Metrics for Metrics {
 			collation_requests: prometheus::register(
 				prometheus::CounterVec::new(
 					prometheus::Opts::new(
-						"polkadot_parachain_collation_requests_total",
+						"peer_parachain_collation_requests_total",
 						"Number of collations requested from Collators.",
 					),
 					&["success"],
@@ -172,7 +172,7 @@ impl metrics::Metrics for Metrics {
 			process_msg: prometheus::register(
 				prometheus::Histogram::with_opts(
 					prometheus::HistogramOpts::new(
-						"polkadot_parachain_collator_protocol_validator_process_msg",
+						"peer_parachain_collator_protocol_validator_process_msg",
 						"Time spent within `collator_protocol_validator::process_msg`",
 					)
 				)?,
@@ -181,7 +181,7 @@ impl metrics::Metrics for Metrics {
 			handle_collation_request_result: prometheus::register(
 				prometheus::Histogram::with_opts(
 					prometheus::HistogramOpts::new(
-						"polkadot_parachain_collator_protocol_validator_handle_collation_request_result",
+						"peer_parachain_collator_protocol_validator_handle_collation_request_result",
 						"Time spent within `collator_protocol_validator::handle_collation_request_result`",
 					)
 				)?,
@@ -189,7 +189,7 @@ impl metrics::Metrics for Metrics {
 			)?,
 			collator_peer_count: prometheus::register(
 				prometheus::Gauge::new(
-					"polkadot_parachain_collator_peer_count",
+					"peer_parachain_collator_peer_count",
 					"Amount of collator peers connected",
 				)?,
 				registry,
@@ -197,7 +197,7 @@ impl metrics::Metrics for Metrics {
 			collation_request_duration: prometheus::register(
 				prometheus::Histogram::with_opts(
 					prometheus::HistogramOpts::new(
-						"polkadot_parachain_collator_protocol_validator_collation_request_duration",
+						"peer_parachain_collator_protocol_validator_collation_request_duration",
 						"Lifetime of the `PerRequest` structure",
 					).buckets(vec![0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.75, 0.9, 1.0, 1.2, 1.5, 1.75]),
 				)?,
@@ -1421,7 +1421,7 @@ async fn poll_collation_response(
 					"Request timed out"
 				);
 				// For now we don't want to change reputation on timeout, to mitigate issues like
-				// this: https://github.com/paritytech/polkadot/issues/4617
+				// this: https://github.com/paritytech/peer/issues/4617
 				CollationFetchResult::Error(None)
 			},
 			Err(RequestError::NetworkError(err)) => {

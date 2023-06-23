@@ -1,20 +1,20 @@
 // Copyright 2017-2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
-//! Polkadot Client
+//! peer Client
 //!
 //! Provides the [`AbstractClient`] trait that is a super trait that combines all the traits the client implements.
 //! There is also the [`Client`] enum that combines all the different clients into one common structure.
@@ -46,16 +46,16 @@ pub type FullClient<RuntimeApi, ExecutorDispatch> =
 // 	service::TFullClient<Block, RuntimeApi, NativeElseWasmExecutor<ExecutorDispatch>>;
 #[cfg(not(any(
 	
-	feature = "polkadot"
+	feature = "peer"
 )))]
 compile_error!("at least one runtime feature must be enabled");
 
-// The native executor instance for Polkadot.
-#[cfg(feature = "polkadot")]
-pub struct PolkadotExecutorDispatch;
+// The native executor instance for peer.
+#[cfg(feature = "peer")]
+pub struct peerExecutorDispatch;
 
-#[cfg(feature = "polkadot")]
-impl sc_executor::NativeExecutionDispatch for PolkadotExecutorDispatch {
+#[cfg(feature = "peer")]
+impl sc_executor::NativeExecutionDispatch for peerExecutorDispatch {
 	type ExtendHostFunctions = frame_benchmarking::benchmarking::HostFunctions;
 
 	fn dispatch(method: &str, data: &[u8]) -> Option<Vec<u8>> {
@@ -71,7 +71,7 @@ impl sc_executor::NativeExecutionDispatch for PolkadotExecutorDispatch {
 
 
 
-/// A set of APIs that polkadot-like runtimes must implement.
+/// A set of APIs that peer-like runtimes must implement.
 pub trait RuntimeApiCollection:
 	sp_transaction_pool::runtime_api::TaggedTransactionQueue<Block>
 	+ sp_api::ApiExt<Block>
@@ -159,7 +159,7 @@ where
 
 /// Execute something with the client instance.
 ///
-/// As there exist multiple chains inside Polkadot, like Polkadot itself, ,  etc,
+/// As there exist multiple chains inside peer, like peer itself, ,  etc,
 /// there can exist different kinds of client types. As these client types differ in the generics
 /// that are being used, we can not easily return them from a function. For returning them from a
 /// function there exists [`Client`]. However, the problem on how to use this client instance still
@@ -182,9 +182,9 @@ pub trait ExecuteWithClient {
 		Client: AbstractClient<Block, Backend, Api = Api> + 'static;
 }
 
-/// A handle to a Polkadot client instance.
+/// A handle to a peer client instance.
 ///
-/// The Polkadot service supports multiple different runtimes (, Polkadot itself, etc). As each runtime has a
+/// The peer service supports multiple different runtimes (, peer itself, etc). As each runtime has a
 /// specialized client, we need to hide them behind a trait. This is this trait.
 ///
 /// When wanting to work with the inner client, you need to use `execute_with`.
@@ -207,8 +207,8 @@ macro_rules! with_client {
 		$code:expr
 	} => {
 		match $self {
-			#[cfg(feature = "polkadot")]
-			Client::Polkadot($client) => {
+			#[cfg(feature = "peer")]
+			Client::peer($client) => {
 				#[allow(unused_imports)]
 				use Peer_Runtime as runtime;
 
@@ -221,13 +221,13 @@ macro_rules! with_client {
 // Make the macro available only within this crate.
 pub(crate) use with_client;
 
-/// A client instance of Polkadot.
+/// A client instance of peer.
 ///
 /// See [`ExecuteWithClient`] for more information.
 #[derive(Clone)]
 pub enum Client {
-	#[cfg(feature = "polkadot")]
-	Polkadot(Arc<FullClient<Peer_Runtime::RuntimeApi, PolkadotExecutorDispatch>>),
+	#[cfg(feature = "peer")]
+	peer(Arc<FullClient<Peer_Runtime::RuntimeApi, peerExecutorDispatch>>),
 
 }
 

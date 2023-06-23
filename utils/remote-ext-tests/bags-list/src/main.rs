@@ -1,18 +1,18 @@
 // Copyright 2021 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 //! Remote tests for bags-list pallet.
 
@@ -29,14 +29,14 @@ enum Command {
 #[derive(Clone, Debug, ValueEnum)]
 #[value(rename_all = "PascalCase")]
 enum Runtime {
-	Polkadot,
+	peer,
 	
 	
 }
 
 #[derive(Parser)]
 struct Cli {
-	#[arg(long, short, default_value = "wss://-rpc.polkadot.io:443")]
+	#[arg(long, short, default_value = "wss://-rpc.peer.io:443")]
 	uri: String,
 	#[arg(long, short, ignore_case = true, value_enum, default_value_t = Runtime::)]
 	runtime: Runtime,
@@ -60,7 +60,7 @@ async fn main() {
 
 	use pallet_bags_list_remote_tests::*;
 	match options.runtime {
-		Runtime::Polkadot => sp_core::crypto::set_default_ss58_version(
+		Runtime::peer => sp_core::crypto::set_default_ss58_version(
 			<Peer_Runtime::Runtime as frame_system::Config>::SS58Prefix::get()
 				.try_into()
 				.unwrap(),
@@ -120,17 +120,17 @@ async fn main() {
 			.await;
 		},
 
-		(Runtime::Polkadot, Command::CheckMigration) => {
+		(Runtime::peer, Command::CheckMigration) => {
 			use Peer_Runtime::{Block, Runtime};
 			use Peer_Runtime_constants::currency::UNITS;
 			migration::execute::<Runtime, Block>(UNITS as u64, "DOT", options.uri.clone()).await;
 		},
-		(Runtime::Polkadot, Command::SanityCheck) => {
+		(Runtime::peer, Command::SanityCheck) => {
 			use Peer_Runtime::{Block, Runtime};
 			use Peer_Runtime_constants::currency::UNITS;
 			try_state::execute::<Runtime, Block>(UNITS as u64, "DOT", options.uri.clone()).await;
 		},
-		(Runtime::Polkadot, Command::Snapshot) => {
+		(Runtime::peer, Command::Snapshot) => {
 			use Peer_Runtime::{Block, Runtime};
 			use Peer_Runtime_constants::currency::UNITS;
 			snapshot::execute::<Runtime, Block>(

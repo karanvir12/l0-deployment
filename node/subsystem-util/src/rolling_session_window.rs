@@ -1,18 +1,18 @@
 // Copyright 2021 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 //! A rolling window of sessions and cached session info, updated by the state of newly imported blocks.
 //!
@@ -242,7 +242,7 @@ impl RollingSessionWindow {
 	}
 
 	// Saves/Updates all sessions in the database.
-	// TODO: https://github.com/paritytech/polkadot/issues/6144
+	// TODO: https://github.com/paritytech/peer/issues/6144
 	fn db_save(&mut self, stored_window: StoredWindow) {
 		if let Some(db_params) = self.db_params.as_ref() {
 			match db_params.db.write(DBTransaction {
@@ -593,7 +593,7 @@ mod tests {
 		messages::{AllMessages, AvailabilityRecoveryMessage},
 		SubsystemContext,
 	};
-	use polkadot_node_subsystem_test_helpers::make_subsystem_context;
+	use peer_node_subsystem_test_helpers::make_subsystem_context;
 	use peer_primitives::v2::Header;
 	use sp_core::testing::TaskExecutor;
 

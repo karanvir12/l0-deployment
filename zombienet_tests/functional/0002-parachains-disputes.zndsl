@@ -52,21 +52,21 @@ eve: reports parachain_candidate_dispute_concluded{validity="invalid"} is 0 with
 alice: system event contains "There is an offence reported" within 60 seconds
 
 # Check lag - approval
-alice: reports polkadot_parachain_approval_checking_finality_lag is 0
-bob: reports polkadot_parachain_approval_checking_finality_lag is 0
-charlie: reports polkadot_parachain_approval_checking_finality_lag is 0
-dave: reports polkadot_parachain_approval_checking_finality_lag is 0
-ferdie: reports polkadot_parachain_approval_checking_finality_lag is 0
-eve: reports polkadot_parachain_approval_checking_finality_lag is 0
-one: reports polkadot_parachain_approval_checking_finality_lag is 0
-two: reports polkadot_parachain_approval_checking_finality_lag is 0
+alice: reports peer_parachain_approval_checking_finality_lag is 0
+bob: reports peer_parachain_approval_checking_finality_lag is 0
+charlie: reports peer_parachain_approval_checking_finality_lag is 0
+dave: reports peer_parachain_approval_checking_finality_lag is 0
+ferdie: reports peer_parachain_approval_checking_finality_lag is 0
+eve: reports peer_parachain_approval_checking_finality_lag is 0
+one: reports peer_parachain_approval_checking_finality_lag is 0
+two: reports peer_parachain_approval_checking_finality_lag is 0
 
 # Check lag - dispute conclusion
-alice: reports polkadot_parachain_disputes_finality_lag is 0
-bob: reports polkadot_parachain_disputes_finality_lag is 0
-charlie: reports polkadot_parachain_disputes_finality_lag is 0
-dave: reports polkadot_parachain_disputes_finality_lag is 0
-ferdie: reports polkadot_parachain_disputes_finality_lag is 0
-eve: reports polkadot_parachain_disputes_finality_lag is 0
-one: reports polkadot_parachain_disputes_finality_lag is 0
-two: reports polkadot_parachain_disputes_finality_lag is 0
+alice: reports peer_parachain_disputes_finality_lag is 0
+bob: reports peer_parachain_disputes_finality_lag is 0
+charlie: reports peer_parachain_disputes_finality_lag is 0
+dave: reports peer_parachain_disputes_finality_lag is 0
+ferdie: reports peer_parachain_disputes_finality_lag is 0
+eve: reports peer_parachain_disputes_finality_lag is 0
+one: reports peer_parachain_disputes_finality_lag is 0
+two: reports peer_parachain_disputes_finality_lag is 0

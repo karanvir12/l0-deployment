@@ -1,18 +1,18 @@
 // Copyright 2021 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 use std::{sync::Arc, time::Duration};
 
@@ -32,7 +32,7 @@ use peer_node_subsystem::{
 	},
 	ActivatedLeaf, ActiveLeavesUpdate, LeafStatus, SpawnGlue,
 };
-use polkadot_node_subsystem_test_helpers::{
+use peer_node_subsystem_test_helpers::{
 	make_subsystem_context, TestSubsystemContext, TestSubsystemContextHandle, TestSubsystemSender,
 };
 use peer_node_subsystem_util::{reexports::SubsystemContext, TimeoutExt};

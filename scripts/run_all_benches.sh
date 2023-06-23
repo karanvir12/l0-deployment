@@ -5,7 +5,7 @@
 # current reference machine: https://github.com/karanvir12/substrate36.git/pull/5848
 
 runtimes=(
-  polkadot
+  peer
 
 )
 

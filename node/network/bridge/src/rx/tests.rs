@@ -1,18 +1,18 @@
 // Copyright 2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 use super::*;
 use futures::{channel::oneshot, executor, stream::BoxStream};
@@ -42,7 +42,7 @@ use peer_node_subsystem::{
 	},
 	ActiveLeavesUpdate, FromOrchestra, LeafStatus, OverseerSignal,
 };
-use polkadot_node_subsystem_test_helpers::{
+use peer_node_subsystem_test_helpers::{
 	SingleItemSink, SingleItemStream, TestSubsystemContextHandle,
 };
 use peer_node_subsystem_util::metered;
@@ -85,7 +85,7 @@ struct TestNetworkHandle {
 fn new_test_network(
 	protocol_names: PeerSetProtocolNames,
 ) -> (TestNetwork, TestNetworkHandle, TestAuthorityDiscovery) {
-	let (net_tx, net_rx) = polkadot_node_subsystem_test_helpers::single_item_sink();
+	let (net_tx, net_rx) = peer_node_subsystem_test_helpers::single_item_sink();
 	let (action_tx, action_rx) = metered::unbounded();
 
 	(
@@ -303,7 +303,7 @@ fn test_harness<T: Future<Output = VirtualOverseer>>(
 	let pool = sp_core::testing::TaskExecutor::new();
 	let (mut network, network_handle, discovery) = new_test_network(peerset_protocol_names.clone());
 	let (context, virtual_overseer) =
-		polkadot_node_subsystem_test_helpers::make_subsystem_context(pool);
+		peer_node_subsystem_test_helpers::make_subsystem_context(pool);
 	let network_stream = network.event_stream();
 
 	let bridge = NetworkBridgeRx {

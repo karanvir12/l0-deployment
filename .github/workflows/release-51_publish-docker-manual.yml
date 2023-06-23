@@ -37,12 +37,12 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          file: scripts/ci/dockerfiles/polkadot_injected_release.Dockerfile
+          file: scripts/ci/dockerfiles/peer_injected_release.Dockerfile
           tags: |
-            parity/polkadot:latest
-            parity/polkadot:${{ github.event.inputs.version }}
+            parity/peer:latest
+            parity/peer:${{ github.event.inputs.version }}
           build-args: |
-            POLKADOT_VERSION=${{ github.event.inputs.version }}
+            peer_VERSION=${{ github.event.inputs.version }}
             VCS_REF=${{ github.ref }}
             BUILD_DATE=${{ github.event.inputs.date }}
           cache-from: type=local,src=/tmp/.buildx-cache

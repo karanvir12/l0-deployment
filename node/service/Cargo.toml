@@ -80,7 +80,7 @@ parity-db = { version = "0.4.2", optional = true }
 async-trait = "0.1.57"
 lru = "0.8"
 
-# Polkadot
+# peer
 peer-node-core-parachains-inherent = { path = "../core/parachains-inherent" }
 peer-overseer = { path = "../overseer" }
 peer-client = { path = "../client", default-features = false, optional = true }
@@ -94,17 +94,17 @@ peer-node-subsystem-types = { path = "../subsystem-types" }
 Peer-Runtime-parachains = { path = "../../runtime/parachains" }
 peer-node-network-protocol = { path = "../network/protocol" }
 
-# Polkadot Runtime Constants
+# peer Runtime Constants
 Peer-Runtime-constants = { path = "../../runtime/peer/constants", optional = true }
 
-# Polkadot Runtimes
+# peer Runtimes
 Peer-Runtime = { path = "../../runtime/peer", optional = true }
 
-# Polkadot Subsystems
-polkadot-approval-distribution = { path = "../network/approval-distribution", optional = true }
+# peer Subsystems
+peer-approval-distribution = { path = "../network/approval-distribution", optional = true }
 peer-availability-bitfield-distribution = { path = "../network/bitfield-distribution", optional = true }
-polkadot-availability-distribution = { path = "../network/availability-distribution", optional = true }
-polkadot-availability-recovery = { path = "../network/availability-recovery", optional = true }
+peer-availability-distribution = { path = "../network/availability-distribution", optional = true }
+peer-availability-recovery = { path = "../network/availability-recovery", optional = true }
 peer-collator-protocol = { path = "../network/collator-protocol", optional = true }
 peer-dispute-distribution = { path = "../network/dispute-distribution", optional = true }
 peer-gossip-support = { path = "../network/gossip-support", optional = true }
@@ -173,8 +173,8 @@ full-node = [
 	"peer-node-core-av-store",
 	"peer-node-core-approval-voting",
 	"peer-availability-bitfield-distribution",
-	"polkadot-availability-distribution",
-	"polkadot-availability-recovery",
+	"peer-availability-distribution",
+	"peer-availability-recovery",
 	"peer-client",
 	"peer-collator-protocol",
 	"peer-dispute-distribution",
@@ -190,16 +190,16 @@ full-node = [
 	"peer-node-core-provisioner",
 	"peer-node-core-runtime-api",
 	"peer-statement-distribution",
-	"polkadot-approval-distribution",
+	"peer-approval-distribution",
 	"peer-node-core-pvf-checker",
 	"kvdb-rocksdb",
 	"parity-db",
 ]
 
-# Configure the native runtimes to use. Polkadot is enabled by default.
+# Configure the native runtimes to use. peer is enabled by default.
 #
 # Validators require the native runtime currently
-peer-native = [ "Peer-Runtime", "Peer-Runtime-constants", "peer-client/polkadot" ]
+peer-native = [ "Peer-Runtime", "Peer-Runtime-constants", "peer-client/peer" ]
 
 runtime-benchmarks = [
 	"Peer-Runtime?/runtime-benchmarks",

@@ -1,13 +1,13 @@
 [Unit]
-Description=Polkadot Node
+Description=peer Node
 After=network.target
-Documentation=https://github.com/paritytech/polkadot
+Documentation=https://github.com/paritytech/peer
 
 [Service]
-EnvironmentFile=-/etc/default/polkadot
-ExecStart=/usr/bin/polkadot $POLKADOT_CLI_ARGS
-User=polkadot
-Group=polkadot
+EnvironmentFile=-/etc/default/peer
+ExecStart=/usr/bin/peer $peer_CLI_ARGS
+User=peer
+Group=peer
 Restart=always
 RestartSec=120
 CapabilityBoundingSet=

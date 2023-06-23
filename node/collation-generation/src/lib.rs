@@ -1,20 +1,20 @@
 // Copyright 2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
-//! The collation generation subsystem is the interface between polkadot and the collators.
+//! The collation generation subsystem is the interface between peer and the collators.
 
 #![deny(missing_docs)]
 
@@ -199,7 +199,7 @@ async fn handle_new_activations<Context>(
 				CoreState::Scheduled(scheduled_core) =>
 					(scheduled_core, OccupiedCoreAssumption::Free),
 				CoreState::Occupied(_occupied_core) => {
-					// TODO: https://github.com/paritytech/polkadot/issues/1573
+					// TODO: https://github.com/paritytech/peer/issues/1573
 					gum::trace!(
 						target: LOG_TARGET,
 						core_idx = %core_idx,

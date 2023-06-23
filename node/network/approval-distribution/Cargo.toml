@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-approval-distribution"
+name = "peer-approval-distribution"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true

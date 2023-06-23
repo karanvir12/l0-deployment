@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Substrate.  If not, see <http://www.gnu.org/licenses/>.
 
-//! Polkadot runtime metrics integration test.
+//! peer runtime metrics integration test.
 
 use hyper::{Client, Uri};
 use peer_test_service::{node_config, run_validator_node, test_prometheus_config};

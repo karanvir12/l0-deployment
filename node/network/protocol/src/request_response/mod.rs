@@ -1,20 +1,20 @@
 // Copyright 2021 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
-//! Overview over request/responses as used in `Polkadot`.
+//! Overview over request/responses as used in `peer`.
 //!
 //! `enum Protocol` .... List of all supported protocols.
 //!
@@ -276,12 +276,12 @@ impl Protocol {
 	/// Legacy protocol name associated with each peer set.
 	const fn get_legacy_name(self) -> &'static str {
 		match self {
-			Protocol::ChunkFetchingV1 => "/polkadot/req_chunk/1",
-			Protocol::CollationFetchingV1 => "/polkadot/req_collation/1",
-			Protocol::PoVFetchingV1 => "/polkadot/req_pov/1",
-			Protocol::AvailableDataFetchingV1 => "/polkadot/req_available_data/1",
-			Protocol::StatementFetchingV1 => "/polkadot/req_statement/1",
-			Protocol::DisputeSendingV1 => "/polkadot/send_dispute/1",
+			Protocol::ChunkFetchingV1 => "/peer/req_chunk/1",
+			Protocol::CollationFetchingV1 => "/peer/req_collation/1",
+			Protocol::PoVFetchingV1 => "/peer/req_pov/1",
+			Protocol::AvailableDataFetchingV1 => "/peer/req_available_data/1",
+			Protocol::StatementFetchingV1 => "/peer/req_statement/1",
+			Protocol::DisputeSendingV1 => "/peer/send_dispute/1",
 		}
 	}
 }

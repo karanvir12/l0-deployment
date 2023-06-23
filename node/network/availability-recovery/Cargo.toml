@@ -1,5 +1,5 @@
 [package]
-name = "polkadot-availability-recovery"
+name = "peer-availability-recovery"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true

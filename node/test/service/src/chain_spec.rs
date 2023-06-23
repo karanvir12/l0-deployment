@@ -1,18 +1,18 @@
 // Copyright 2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 //! Chain specifications for the test runtime.
 
@@ -21,7 +21,7 @@ use grandpa::AuthorityId as GrandpaId;
 use pallet_staking::Forcing;
 use peer_primitives::v2::{AccountId, AssignmentId, ValidatorId, MAX_CODE_SIZE, MAX_POV_SIZE};
 use peer_service::chain_spec::{
-	get_account_id_from_seed, get_from_seed, polkadot_chain_spec_properties, Extensions,
+	get_account_id_from_seed, get_from_seed, peer_chain_spec_properties, Extensions,
 };
 use peer_test_runtime::BABE_GENESIS_EPOCH_CONFIG;
 use sc_chain_spec::{ChainSpec, ChainType};
@@ -32,29 +32,29 @@ use test_runtime_constants::currency::DOTS;
 
 const DEFAULT_PROTOCOL_ID: &str = "dot";
 
-/// The `ChainSpec` parameterized for polkadot test runtime.
-pub type PolkadotChainSpec =
+/// The `ChainSpec` parameterized for peer test runtime.
+pub type peerChainSpec =
 	sc_service::GenericChainSpec<peer_test_runtime::GenesisConfig, Extensions>;
 
 /// Local testnet config (multivalidator Alice + Bob)
-pub fn peer_local_testnet_config() -> PolkadotChainSpec {
-	PolkadotChainSpec::from_genesis(
+pub fn peer_local_testnet_config() -> peerChainSpec {
+	peerChainSpec::from_genesis(
 		"Local Testnet",
 		"local_testnet",
 		ChainType::Local,
-		|| polkadot_local_testnet_genesis(),
+		|| peer_local_testnet_genesis(),
 		vec![],
 		None,
 		Some(DEFAULT_PROTOCOL_ID),
 		None,
-		Some(polkadot_chain_spec_properties()),
+		Some(peer_chain_spec_properties()),
 		Default::default(),
 	)
 }
 
 /// Local testnet genesis config (multivalidator Alice + Bob)
-pub fn polkadot_local_testnet_genesis() -> peer_test_runtime::GenesisConfig {
-	polkadot_testnet_genesis(
+pub fn peer_local_testnet_genesis() -> peer_test_runtime::GenesisConfig {
+	peer_testnet_genesis(
 		vec![get_authority_keys_from_seed("Alice"), get_authority_keys_from_seed("Bob")],
 		get_account_id_from_seed::<sr25519::Public>("Alice"),
 		None,
@@ -93,8 +93,8 @@ fn testnet_accounts() -> Vec<AccountId> {
 	]
 }
 
-/// Helper function to create polkadot `GenesisConfig` for testing
-fn polkadot_testnet_genesis(
+/// Helper function to create peer `GenesisConfig` for testing
+fn peer_testnet_genesis(
 	initial_authorities: Vec<(
 		AccountId,
 		AccountId,

@@ -6575,6 +6575,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "peer-approval-distribution"
+version = "0.9.36"
+dependencies = [
+ "assert_matches",
+ "env_logger 0.9.3",
+ "futures 0.3.28",
+ "log",
+ "peer-node-network-protocol",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "rand 0.8.5",
+ "rand_chacha 0.3.1",
+ "rand_core 0.5.1",
+ "schnorrkel",
+ "sp-authority-discovery",
+ "sp-core",
+ "tracing-gum",
+]
+
+[[package]]
 name = "peer-availability-bitfield-distribution"
 version = "0.9.36"
 dependencies = [
@@ -6596,6 +6620,64 @@ dependencies = [
  "sp-core",
  "sp-keyring",
  "sp-keystore",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-availability-distribution"
+version = "0.9.36"
+dependencies = [
+ "assert_matches",
+ "derive_more",
+ "fatality",
+ "futures 0.3.28",
+ "futures-timer",
+ "lru",
+ "parity-scale-codec",
+ "peer-erasure-coding",
+ "peer-node-network-protocol",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "rand 0.8.5",
+ "sc-network",
+ "sp-core",
+ "sp-keyring",
+ "sp-keystore",
+ "sp-tracing",
+ "thiserror",
+ "tracing-gum",
+]
+
+[[package]]
+name = "peer-availability-recovery"
+version = "0.9.36"
+dependencies = [
+ "assert_matches",
+ "env_logger 0.9.3",
+ "fatality",
+ "futures 0.3.28",
+ "futures-timer",
+ "log",
+ "lru",
+ "parity-scale-codec",
+ "peer-erasure-coding",
+ "peer-node-network-protocol",
+ "peer-node-primitives",
+ "peer-node-subsystem",
+ "peer-node-subsystem-test-helpers",
+ "peer-node-subsystem-util",
+ "peer-primitives",
+ "peer-primitives-test-helpers",
+ "rand 0.8.5",
+ "sc-network",
+ "sp-application-crypto",
+ "sp-core",
+ "sp-keyring",
+ "thiserror",
  "tracing-gum",
 ]
 
@@ -6911,7 +6993,7 @@ dependencies = [
  "peer-node-subsystem-util",
  "peer-primitives",
  "peer-primitives-test-helpers",
- "polkadot-statement-table",
+ "peer-statement-table",
  "sc-keystore",
  "sp-application-crypto",
  "sp-core",
@@ -7274,7 +7356,7 @@ dependencies = [
  "peer-node-network-protocol",
  "peer-node-primitives",
  "peer-primitives",
- "polkadot-statement-table",
+ "peer-statement-table",
  "sc-network",
  "smallvec",
  "sp-api",
@@ -7505,7 +7587,10 @@ dependencies = [
  "pallet-transaction-payment-rpc",
  "pallet-transaction-payment-rpc-runtime-api",
  "parity-db",
+ "peer-approval-distribution",
  "peer-availability-bitfield-distribution",
+ "peer-availability-distribution",
+ "peer-availability-recovery",
  "peer-client",
  "peer-collator-protocol",
  "peer-dispute-distribution",
@@ -7536,9 +7621,6 @@ dependencies = [
  "peer-rpc",
  "peer-statement-distribution",
  "peer-test-client",
- "polkadot-approval-distribution",
- "polkadot-availability-distribution",
- "polkadot-availability-recovery",
  "sc-authority-discovery",
  "sc-basic-authorship",
  "sc-block-builder",
@@ -7626,6 +7708,15 @@ dependencies = [
  "sp-tracing",
  "thiserror",
  "tracing-gum",
+]
+
+[[package]]
+name = "peer-statement-table"
+version = "0.9.36"
+dependencies = [
+ "parity-scale-codec",
+ "peer-primitives",
+ "sp-core",
 ]
 
 [[package]]
@@ -7937,97 +8028,6 @@ name = "platforms"
 version = "3.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e3d7ddaed09e0eb771a79ab0fd64609ba0afb0a8366421957936ad14cbd13630"
-
-[[package]]
-name = "polkadot-approval-distribution"
-version = "0.9.36"
-dependencies = [
- "assert_matches",
- "env_logger 0.9.3",
- "futures 0.3.28",
- "log",
- "peer-node-network-protocol",
- "peer-node-primitives",
- "peer-node-subsystem",
- "peer-node-subsystem-test-helpers",
- "peer-node-subsystem-util",
- "peer-primitives",
- "peer-primitives-test-helpers",
- "rand 0.8.5",
- "rand_chacha 0.3.1",
- "rand_core 0.5.1",
- "schnorrkel",
- "sp-authority-discovery",
- "sp-core",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-availability-distribution"
-version = "0.9.36"
-dependencies = [
- "assert_matches",
- "derive_more",
- "fatality",
- "futures 0.3.28",
- "futures-timer",
- "lru",
- "parity-scale-codec",
- "peer-erasure-coding",
- "peer-node-network-protocol",
- "peer-node-primitives",
- "peer-node-subsystem",
- "peer-node-subsystem-test-helpers",
- "peer-node-subsystem-util",
- "peer-primitives",
- "peer-primitives-test-helpers",
- "rand 0.8.5",
- "sc-network",
- "sp-core",
- "sp-keyring",
- "sp-keystore",
- "sp-tracing",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-availability-recovery"
-version = "0.9.36"
-dependencies = [
- "assert_matches",
- "env_logger 0.9.3",
- "fatality",
- "futures 0.3.28",
- "futures-timer",
- "log",
- "lru",
- "parity-scale-codec",
- "peer-erasure-coding",
- "peer-node-network-protocol",
- "peer-node-primitives",
- "peer-node-subsystem",
- "peer-node-subsystem-test-helpers",
- "peer-node-subsystem-util",
- "peer-primitives",
- "peer-primitives-test-helpers",
- "rand 0.8.5",
- "sc-network",
- "sp-application-crypto",
- "sp-core",
- "sp-keyring",
- "thiserror",
- "tracing-gum",
-]
-
-[[package]]
-name = "polkadot-statement-table"
-version = "0.9.36"
-dependencies = [
- "parity-scale-codec",
- "peer-primitives",
- "sp-core",
-]
 
 [[package]]
 name = "polling"

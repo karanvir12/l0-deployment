@@ -1,24 +1,24 @@
 // Copyright 2017-2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 use super::{AuthorityDiscoveryApi, Block, Error, Hash, IsCollator, Registry};
 use sp_core::traits::SpawnNamed;
 
 use lru::LruCache;
-use polkadot_availability_distribution::IncomingRequestReceivers;
+use peer_availability_distribution::IncomingRequestReceivers;
 use peer_node_core_approval_voting::Config as ApprovalVotingConfig;
 use peer_node_core_av_store::Config as AvailabilityConfig;
 use peer_node_core_candidate_validation::Config as CandidateValidationConfig;
@@ -48,10 +48,10 @@ use sp_blockchain::HeaderBackend;
 use sp_consensus_babe::BabeApi;
 use std::sync::Arc;
 
-pub use polkadot_approval_distribution::ApprovalDistribution as ApprovalDistributionSubsystem;
+pub use peer_approval_distribution::ApprovalDistribution as ApprovalDistributionSubsystem;
 pub use peer_availability_bitfield_distribution::BitfieldDistribution as BitfieldDistributionSubsystem;
-pub use polkadot_availability_distribution::AvailabilityDistributionSubsystem;
-pub use polkadot_availability_recovery::AvailabilityRecoverySubsystem;
+pub use peer_availability_distribution::AvailabilityDistributionSubsystem;
+pub use peer_availability_recovery::AvailabilityRecoverySubsystem;
 pub use peer_collator_protocol::{CollatorProtocolSubsystem, ProtocolSide};
 pub use peer_dispute_distribution::DisputeDistributionSubsystem;
 pub use peer_gossip_support::GossipSupport as GossipSupportSubsystem;

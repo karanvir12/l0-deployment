@@ -1,18 +1,18 @@
 // Copyright 2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 use std::{sync::Arc, time::Duration};
 
@@ -34,12 +34,12 @@ use peer_node_subsystem::{
 	messages::{AllMessages, RuntimeApiMessage, RuntimeApiRequest},
 	ActivatedLeaf, LeafStatus,
 };
-use polkadot_node_subsystem_test_helpers::{make_subsystem_context, TestSubsystemContextHandle};
+use peer_node_subsystem_test_helpers::{make_subsystem_context, TestSubsystemContextHandle};
 use peer_node_subsystem_util::TimeoutExt;
 use peer_primitives::v2::{
 	AuthorityDiscoveryId, Hash, HeadData, IndexedVec, PersistedValidationData, ValidatorId,
 };
-use polkadot_primitives_test_helpers::{dummy_candidate_receipt, dummy_hash};
+use peer_primitives_test_helpers::{dummy_candidate_receipt, dummy_hash};
 
 type VirtualOverseer = TestSubsystemContextHandle<AvailabilityRecoveryMessage>;
 
@@ -51,7 +51,7 @@ fn test_harness_fast_path<T: Future<Output = (VirtualOverseer, RequestResponseCo
 ) {
 	let _ = env_logger::builder()
 		.is_test(true)
-		.filter(Some("polkadot_availability_recovery"), log::LevelFilter::Trace)
+		.filter(Some("peer_availability_recovery"), log::LevelFilter::Trace)
 		.try_init();
 
 	let pool = sp_core::testing::TaskExecutor::new();
@@ -86,7 +86,7 @@ fn test_harness_chunks_only<T: Future<Output = (VirtualOverseer, RequestResponse
 ) {
 	let _ = env_logger::builder()
 		.is_test(true)
-		.filter(Some("polkadot_availability_recovery"), log::LevelFilter::Trace)
+		.filter(Some("peer_availability_recovery"), log::LevelFilter::Trace)
 		.try_init();
 
 	let pool = sp_core::testing::TaskExecutor::new();

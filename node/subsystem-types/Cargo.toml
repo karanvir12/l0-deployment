@@ -11,7 +11,7 @@ futures = "0.3.21"
 peer-primitives = { path = "../../primitives" }
 peer-node-primitives = { path = "../primitives" }
 peer-node-network-protocol = { path = "../network/protocol" }
-polkadot-statement-table = { path = "../../statement-table" }
+peer-statement-table = { path = "../../statement-table" }
 peer-node-jaeger = { path = "../jaeger" }
 orchestra = "0.0.2"
 sc-network = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }

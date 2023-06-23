@@ -1,18 +1,18 @@
 // Copyright 2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 //! The paras pallet acts as the main registry of paras.
 //!
@@ -1637,7 +1637,7 @@ impl<T: Config> Pallet<T> {
 		//
 		// This is only an intermediate solution and should be fixed in foreseable future.
 		//
-		// [soaking issue]: https://github.com/paritytech/polkadot/issues/3918
+		// [soaking issue]: https://github.com/paritytech/peer/issues/3918
 		let validation_code =
 			mem::replace(&mut genesis_data.validation_code, ValidationCode(Vec::new()));
 		UpcomingParasGenesis::<T>::insert(&id, genesis_data);

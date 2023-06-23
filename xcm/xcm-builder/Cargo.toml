@@ -19,7 +19,7 @@ frame-system = { git = "https://github.com/karanvir12/substrate36.git", default-
 pallet-transaction-payment = { git = "https://github.com/karanvir12/substrate36.git", default-features = false , branch = "relpeer" }
 log = { version = "0.4.17", default-features = false }
 
-# Polkadot dependencies
+# peer dependencies
 peer-parachain = { path = "../../parachain", default-features = false }
 
 [dev-dependencies]

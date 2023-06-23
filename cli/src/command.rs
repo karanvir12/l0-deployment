@@ -1,18 +1,18 @@
 // Copyright 2017-2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 use crate::cli::{Cli, Subcommand};
 use frame_benchmarking_cli::{BenchmarkCmd, ExtrinsicFactory, SUBSTRATE_REFERENCE_HARDWARE};
@@ -63,7 +63,7 @@ impl SubstrateCli for Cli {
 	}
 
 	fn support_url() -> String {
-		"https://github.com/paritytech/polkadot/issues/new".into()
+		"https://github.com/paritytech/peer/issues/new".into()
 	}
 
 	fn copyright_start_year() -> i32 {
@@ -99,7 +99,7 @@ impl SubstrateCli for Cli {
 			path => {
 				let path = std::path::PathBuf::from(path);
 
-				let chain_spec = Box::new(service::PolkadotChainSpec::from_json_file(path.clone())?)
+				let chain_spec = Box::new(service::peerChainSpec::from_json_file(path.clone())?)
 					as Box<dyn service::ChainSpec>;
 
 					chain_spec
@@ -119,7 +119,7 @@ impl SubstrateCli for Cli {
 		}
 
 		#[cfg(not(feature = "peer-native"))]
-		panic!("No runtime feature (polkadot, ) is enabled")
+		panic!("No runtime feature (peer, ) is enabled")
 	}
 }
 
@@ -133,7 +133,7 @@ fn set_default_ss58_version(spec: &Box<dyn service::ChainSpec>) {
 }
 
 const DEV_ONLY_ERROR_PATTERN: &'static str =
-	"can only use subcommand with --chain [polkadot-dev], got ";
+	"can only use subcommand with --chain [peer-dev], got ";
 
 fn ensure_dev(spec: &Box<dyn service::ChainSpec>) -> std::result::Result<(), String> {
 	if spec.is_dev() {
@@ -151,7 +151,7 @@ macro_rules! unwrap_client {
 	) => {
 		match $client.as_ref() {
 			#[cfg(feature = "peer-native")]
-			peer_client::Client::Polkadot($client) => $code,
+			peer_client::Client::peer($client) => $code,
 			#[allow(unreachable_patterns)]
 			_ => Err(Error::CommandNotImplemented),
 		}
@@ -209,7 +209,7 @@ where
 
 	// Disallow BEEFY on production networks.
 	if cli.run.beefy &&
-		(chain_spec.is_polkadot() )
+		(chain_spec.is_peer() )
 	{
 		return Err(Error::Other("BEEFY disallowed on production networks".to_string()))
 	}
@@ -264,7 +264,7 @@ where
 	})
 }
 
-/// Parses polkadot specific CLI arguments and run the service.
+/// Parses peer specific CLI arguments and run the service.
 pub fn run() -> Result<()> {
 	let cli: Cli = Cli::from_args();
 
@@ -278,7 +278,7 @@ pub fn run() -> Result<()> {
 		// The pyroscope agent requires a `http://` prefix, so we just do that.
 		let mut agent = pyro::PyroscopeAgent::builder(
 			"http://".to_owned() + address.to_string().as_str(),
-			"polkadot".to_owned(),
+			"peer".to_owned(),
 		)
 		.sample_rate(113)
 		.build()?;
@@ -324,7 +324,7 @@ pub fn run() -> Result<()> {
 
 			Ok(runner.async_run(|mut config| {
 				let (client, _, _, task_manager) =
-					service::new_chain_ops(&mut config, None).map_err(Error::PolkadotService)?;
+					service::new_chain_ops(&mut config, None).map_err(Error::peerService)?;
 				Ok((cmd.run(client, config.database).map_err(Error::SubstrateCli), task_manager))
 			})?)
 		},
@@ -502,11 +502,11 @@ pub fn run() -> Result<()> {
 
 	
 
-					// else we assume it is polkadot.
+					// else we assume it is peer.
 					#[cfg(feature = "peer-native")]
 					{
 						return runner.sync_run(|config| {
-							cmd.run::<service::Peer_Runtime::Block, service::PolkadotExecutorDispatch>(config)
+							cmd.run::<service::Peer_Runtime::Block, service::peerExecutorDispatch>(config)
 								.map_err(|e| Error::SubstrateCli(e))
 						})
 					}
@@ -519,7 +519,7 @@ pub fn run() -> Result<()> {
 					cmd.run(&config, SUBSTRATE_REFERENCE_HARDWARE.clone())
 						.map_err(Error::SubstrateCli)
 				}),
-				// NOTE: this allows the Polkadot client to leniently implement
+				// NOTE: this allows the peer client to leniently implement
 				// new benchmark commands.
 				#[allow(unreachable_patterns)]
 				_ => Err(Error::CommandNotImplemented),
@@ -553,12 +553,12 @@ pub fn run() -> Result<()> {
 
 	
 
-			// else we assume it is polkadot.
+			// else we assume it is peer.
 			#[cfg(feature = "peer-native")]
 			{
 				return runner.async_run(|_| {
 					Ok((
-						cmd.run::<service::Peer_Runtime::Block, HostFunctionsOf<service::PolkadotExecutorDispatch>>(
+						cmd.run::<service::Peer_Runtime::Block, HostFunctionsOf<service::peerExecutorDispatch>>(
 						)
 						.map_err(Error::SubstrateCli),
 						task_manager,
@@ -566,7 +566,7 @@ pub fn run() -> Result<()> {
 				})
 			}
 			#[cfg(not(feature = "peer-native"))]
-			panic!("No runtime feature (polkadot) is enabled")
+			panic!("No runtime feature (peer) is enabled")
 		},
 		#[cfg(not(feature = "try-runtime"))]
 		Some(Subcommand::TryRuntime) => Err(Error::Other(

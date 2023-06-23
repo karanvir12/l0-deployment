@@ -1,20 +1,20 @@
 // Copyright 2017-2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
-//! Polkadot chain configurations.
+//! peer chain configurations.
 
 use beefy_primitives::crypto::AuthorityId as BeefyId;
 use frame_support::weights::Weight;
@@ -23,7 +23,7 @@ use pallet_im_online::sr25519::AuthorityId as ImOnlineId;
 use pallet_staking::Forcing;
 use peer_primitives::v2::{AccountId, AccountPublic, AssignmentId, ValidatorId};
 #[cfg(feature = "peer-native")]
-use Peer_Runtime as polkadot;
+use Peer_Runtime as peer;
 #[cfg(feature = "peer-native")]
 use Peer_Runtime_constants::currency::UNITS as DOT;
 use sp_authority_discovery::AuthorityId as AuthorityDiscoveryId;
@@ -44,7 +44,7 @@ use telemetry::TelemetryEndpoints;
 
 
 #[cfg(feature = "peer-native")]
-const POLKADOT_STAGING_TELEMETRY_URL: &str = "wss://telemetry.peer.io/submit/";
+const peer_STAGING_TELEMETRY_URL: &str = "wss://telemetry.peer.io/submit/";
 
 const DEFAULT_PROTOCOL_ID: &str = "Peer";
 
@@ -65,22 +65,22 @@ pub struct Extensions {
 	pub light_sync_state: sc_sync_state_rpc::LightSyncStateExtension,
 }
 
-/// The `ChainSpec` parameterized for the polkadot runtime.
+/// The `ChainSpec` parameterized for the peer runtime.
 #[cfg(feature = "peer-native")]
-pub type PolkadotChainSpec = service::GenericChainSpec<polkadot::GenesisConfig, Extensions>;
+pub type peerChainSpec = service::GenericChainSpec<peer::GenesisConfig, Extensions>;
 
 // Dummy chain spec, in case when we don't have the native runtime.
 pub type DummyChainSpec = service::GenericChainSpec<(), Extensions>;
 
 // Dummy chain spec, but that is fine when we don't have the native runtime.
 #[cfg(not(feature = "peer-native"))]
-pub type PolkadotChainSpec = DummyChainSpec;
+pub type peerChainSpec = DummyChainSpec;
 /// The `ChainSpec` parameterized for the `versi` runtime.
 ///
 //
 
-pub fn peer_config() -> Result<PolkadotChainSpec, String> {
-	PolkadotChainSpec::from_json_bytes(&include_bytes!("../chain-specs/polkadot.json")[..])
+pub fn peer_config() -> Result<peerChainSpec, String> {
+	peerChainSpec::from_json_bytes(&include_bytes!("../chain-specs/peer.json")[..])
 }
 
 
@@ -132,7 +132,7 @@ fn default_parachains_host_configuration(
 	}
 }
 
-pub fn polkadot_chain_spec_properties() -> serde_json::map::Map<String, serde_json::Value> {
+pub fn peer_chain_spec_properties() -> serde_json::map::Map<String, serde_json::Value> {
 	serde_json::json!({
 		"tokenDecimals": 18,
 		"tokenSymbol":"PEER",
@@ -142,25 +142,25 @@ pub fn polkadot_chain_spec_properties() -> serde_json::map::Map<String, serde_js
 	.clone()
 }
 
-// Polkadot staging testnet config.
+// peer staging testnet config.
 #[cfg(feature = "peer-native")]
-pub fn peer_staging_testnet_config() -> Result<PolkadotChainSpec, String> {
-	let wasm_binary = polkadot::WASM_BINARY.ok_or("Peer development wasm not available")?;
+pub fn peer_staging_testnet_config() -> Result<peerChainSpec, String> {
+	let wasm_binary = peer::WASM_BINARY.ok_or("Peer development wasm not available")?;
 	let boot_nodes = vec![];
 
-	Ok(PolkadotChainSpec::from_genesis(
+	Ok(peerChainSpec::from_genesis(
 		"Peer Staging Testnet",
 		"peer_staging_testnet",
 		ChainType::Live,
 		move || peer_staging_testnet_config_genesis(wasm_binary, 100),
 		boot_nodes,
 		Some(
-			TelemetryEndpoints::new(vec![(POLKADOT_STAGING_TELEMETRY_URL.to_string(), 0)])
-				.expect("Polkadot Staging telemetry url is valid; qed"),
+			TelemetryEndpoints::new(vec![(peer_STAGING_TELEMETRY_URL.to_string(), 0)])
+				.expect("peer Staging telemetry url is valid; qed"),
 		),
 		Some(DEFAULT_PROTOCOL_ID),
 		None,
-		Some(polkadot_chain_spec_properties()),
+		Some(peer_chain_spec_properties()),
 		Default::default(),
 	))
 }
@@ -175,15 +175,15 @@ fn default_parachains_host_configuration_is_consistent() {
 }
 
 #[cfg(feature = "peer-native")]
-fn polkadot_session_keys(
+fn peer_session_keys(
 	babe: BabeId,
 	grandpa: GrandpaId,
 	im_online: ImOnlineId,
 	para_validator: ValidatorId,
 	para_assignment: AssignmentId,
 	authority_discovery: AuthorityDiscoveryId,
-) -> polkadot::SessionKeys {
-	polkadot::SessionKeys {
+) -> peer::SessionKeys {
+	peer::SessionKeys {
 		babe,
 		grandpa,
 		im_online,
@@ -194,7 +194,7 @@ fn polkadot_session_keys(
 }
 
 #[cfg(feature = "peer-native")]
-fn peer_staging_testnet_config_genesis(wasm_binary: &[u8], chain_id: u64) -> polkadot::GenesisConfig {
+fn peer_staging_testnet_config_genesis(wasm_binary: &[u8], chain_id: u64) -> peer::GenesisConfig {
 	// subkey inspect "$SECRET"
 	let endowed_accounts = vec![];
 
@@ -212,27 +212,27 @@ fn peer_staging_testnet_config_genesis(wasm_binary: &[u8], chain_id: u64) -> pol
 	const ENDOWMENT: u128 = 1_000_000_000 * DOT;
 	const STASH: u128 = 100 * DOT;
 
-	polkadot::GenesisConfig {
-		sudo: polkadot::SudoConfig {
+	peer::GenesisConfig {
+		sudo: peer::SudoConfig {
 			key: Some(get_account_id_from_seed::<sr25519::Public>("Alice")),
 		},
-		system: polkadot::SystemConfig { code: wasm_binary.to_vec() },
-		balances: polkadot::BalancesConfig {
+		system: peer::SystemConfig { code: wasm_binary.to_vec() },
+		balances: peer::BalancesConfig {
 			balances: endowed_accounts
 				.iter()
 				.map(|k: &AccountId| (k.clone(), ENDOWMENT))
 				.chain(initial_authorities.iter().map(|x| (x.0.clone(), STASH)))
 				.collect(),
 		},
-		indices: polkadot::IndicesConfig { indices: vec![] },
-		session: polkadot::SessionConfig {
+		indices: peer::IndicesConfig { indices: vec![] },
+		session: peer::SessionConfig {
 			keys: initial_authorities
 				.iter()
 				.map(|x| {
 					(
 						x.0.clone(),
 						x.0.clone(),
-						polkadot_session_keys(
+						peer_session_keys(
 							x.2.clone(),
 							x.3.clone(),
 							x.4.clone(),
@@ -244,12 +244,12 @@ fn peer_staging_testnet_config_genesis(wasm_binary: &[u8], chain_id: u64) -> pol
 				})
 				.collect::<Vec<_>>(),
 		},
-		staking: polkadot::StakingConfig {
+		staking: peer::StakingConfig {
 			validator_count: 50,
 			minimum_validator_count: 4,
 			stakers: initial_authorities
 				.iter()
-				.map(|x| (x.0.clone(), x.1.clone(), STASH, polkadot::StakerStatus::Validator))
+				.map(|x| (x.0.clone(), x.1.clone(), STASH, peer::StakerStatus::Validator))
 				.collect(),
 			invulnerables: initial_authorities.iter().map(|x| x.0.clone()).collect(),
 			force_era: Forcing::ForceNone,
@@ -258,24 +258,24 @@ fn peer_staging_testnet_config_genesis(wasm_binary: &[u8], chain_id: u64) -> pol
 		},
 		phragmen_election: Default::default(),
 		democracy: Default::default(),
-		council: polkadot::CouncilConfig { members: vec![], phantom: Default::default() },
-		technical_committee: polkadot::TechnicalCommitteeConfig {
+		council: peer::CouncilConfig { members: vec![], phantom: Default::default() },
+		technical_committee: peer::TechnicalCommitteeConfig {
 			members: vec![],
 			phantom: Default::default(),
 		},
 		technical_membership: Default::default(),
-		babe: polkadot::BabeConfig {
+		babe: peer::BabeConfig {
 			authorities: Default::default(),
-			epoch_config: Some(polkadot::BABE_GENESIS_EPOCH_CONFIG),
+			epoch_config: Some(peer::BABE_GENESIS_EPOCH_CONFIG),
 		},
 		grandpa: Default::default(),
 		im_online: Default::default(),
-		authority_discovery: polkadot::AuthorityDiscoveryConfig { keys: vec![] },
-		claims: polkadot::ClaimsConfig { claims: vec![], vesting: vec![] },
-		vesting: polkadot::VestingConfig { vesting: vec![] },
+		authority_discovery: peer::AuthorityDiscoveryConfig { keys: vec![] },
+		claims: peer::ClaimsConfig { claims: vec![], vesting: vec![] },
+		vesting: peer::VestingConfig { vesting: vec![] },
 		treasury: Default::default(),
 		hrmp: Default::default(),
-		configuration: polkadot::ConfigurationConfig {
+		configuration: peer::ConfigurationConfig {
 			config: default_parachains_host_configuration(),
 		},
 		paras: Default::default(),
@@ -399,9 +399,9 @@ fn testnet_accounts() -> Vec<AccountId> {
 	]
 }
 
-/// Helper function to create polkadot `GenesisConfig` for testing
+/// Helper function to create peer `GenesisConfig` for testing
 #[cfg(feature = "peer-native")]
-pub fn polkadot_testnet_genesis(
+pub fn peer_testnet_genesis(
 	wasm_binary: &[u8],
 	initial_authorities: Vec<(
 		AccountId,
@@ -416,26 +416,26 @@ pub fn polkadot_testnet_genesis(
 	_root_key: AccountId,
 	endowed_accounts: Option<Vec<AccountId>>,
 	chain_id: u64,
-) -> polkadot::GenesisConfig {
+) -> peer::GenesisConfig {
 	let endowed_accounts: Vec<AccountId> = endowed_accounts.unwrap_or_else(testnet_accounts);
 
 	const ENDOWMENT: u128 = 1_000_000 * DOT;
 	const STASH: u128 = 100 * DOT;
 
-	polkadot::GenesisConfig {
-		system: polkadot::SystemConfig { code: wasm_binary.to_vec() },
-		indices: polkadot::IndicesConfig { indices: vec![] },
-		balances: polkadot::BalancesConfig {
+	peer::GenesisConfig {
+		system: peer::SystemConfig { code: wasm_binary.to_vec() },
+		indices: peer::IndicesConfig { indices: vec![] },
+		balances: peer::BalancesConfig {
 			balances: endowed_accounts.iter().map(|k| (k.clone(), ENDOWMENT)).collect(),
 		},
-		session: polkadot::SessionConfig {
+		session: peer::SessionConfig {
 			keys: initial_authorities
 				.iter()
 				.map(|x| {
 					(
 						x.0.clone(),
 						x.0.clone(),
-						polkadot_session_keys(
+						peer_session_keys(
 							x.2.clone(),
 							x.3.clone(),
 							x.4.clone(),
@@ -447,12 +447,12 @@ pub fn polkadot_testnet_genesis(
 				})
 				.collect::<Vec<_>>(),
 		},
-		staking: polkadot::StakingConfig {
+		staking: peer::StakingConfig {
 			minimum_validator_count: 1,
 			validator_count: initial_authorities.len() as u32,
 			stakers: initial_authorities
 				.iter()
-				.map(|x| (x.0.clone(), x.1.clone(), STASH, polkadot::StakerStatus::Validator))
+				.map(|x| (x.0.clone(), x.1.clone(), STASH, peer::StakerStatus::Validator))
 				.collect(),
 			invulnerables: initial_authorities.iter().map(|x| x.0.clone()).collect(),
 			force_era: Forcing::NotForcing,
@@ -460,33 +460,33 @@ pub fn polkadot_testnet_genesis(
 			..Default::default()
 		},
 		phragmen_election: Default::default(),
-		democracy: polkadot::DemocracyConfig::default(),
-		council: polkadot::CouncilConfig { members: vec![], phantom: Default::default() },
-		//council: polkadot::CouncilConfig ::default(),
+		democracy: peer::DemocracyConfig::default(),
+		council: peer::CouncilConfig { members: vec![], phantom: Default::default() },
+		//council: peer::CouncilConfig ::default(),
 
-		technical_committee: polkadot::TechnicalCommitteeConfig {
+		technical_committee: peer::TechnicalCommitteeConfig {
 			members: vec![],
 			phantom: Default::default(),
 		},
 		technical_membership: Default::default(),
-		babe: polkadot::BabeConfig {
+		babe: peer::BabeConfig {
 			authorities: Default::default(),
-			epoch_config: Some(polkadot::BABE_GENESIS_EPOCH_CONFIG),
+			epoch_config: Some(peer::BABE_GENESIS_EPOCH_CONFIG),
 		},
 		grandpa: Default::default(),
 		im_online: Default::default(),
-		authority_discovery: polkadot::AuthorityDiscoveryConfig { keys: vec![] },
-		claims: polkadot::ClaimsConfig { claims: vec![], vesting: vec![] },
-		vesting: polkadot::VestingConfig { vesting: vec![] },
+		authority_discovery: peer::AuthorityDiscoveryConfig { keys: vec![] },
+		claims: peer::ClaimsConfig { claims: vec![], vesting: vec![] },
+		vesting: peer::VestingConfig { vesting: vec![] },
 		treasury: Default::default(),
 		hrmp: Default::default(),
-		configuration: polkadot::ConfigurationConfig {
+		configuration: peer::ConfigurationConfig {
 			config: default_parachains_host_configuration(),
 		},
 		paras: Default::default(),
 		xcm_pallet: Default::default(),
 		nomination_pools: Default::default(),
-		sudo: polkadot::SudoConfig {
+		sudo: peer::SudoConfig {
 			key: Some(get_account_id_from_seed::<sr25519::Public>("Alice")),
 		},
 
@@ -533,8 +533,8 @@ pub fn polkadot_testnet_genesis(
 }
 
 #[cfg(feature = "peer-native")]
-fn peer_development_config_genesis(wasm_binary: &[u8]) -> polkadot::GenesisConfig {
-	polkadot_testnet_genesis(
+fn peer_development_config_genesis(wasm_binary: &[u8]) -> peer::GenesisConfig {
+	peer_testnet_genesis(
 		wasm_binary,
 		vec![get_authority_keys_from_seed_no_beefy("Alice")],
 		get_account_id_from_seed::<sr25519::Public>("Alice"),
@@ -543,12 +543,12 @@ fn peer_development_config_genesis(wasm_binary: &[u8]) -> polkadot::GenesisConfi
 	)
 }
 
-/// Polkadot development config (single validator Alice)
+/// peer development config (single validator Alice)
 #[cfg(feature = "peer-native")]
-pub fn peer_development_config() -> Result<PolkadotChainSpec, String> {
-	let wasm_binary = polkadot::WASM_BINARY.ok_or("Polkadot development wasm not available")?;
+pub fn peer_development_config() -> Result<peerChainSpec, String> {
+	let wasm_binary = peer::WASM_BINARY.ok_or("peer development wasm not available")?;
 
-	Ok(PolkadotChainSpec::from_genesis(
+	Ok(peerChainSpec::from_genesis(
 		"Development",
 		"dev",
 		ChainType::Development,
@@ -557,15 +557,15 @@ pub fn peer_development_config() -> Result<PolkadotChainSpec, String> {
 		None,
 		Some(DEFAULT_PROTOCOL_ID),
 		None,
-		Some(polkadot_chain_spec_properties()),
+		Some(peer_chain_spec_properties()),
 		Default::default(),
 	))
 }
 
 
 #[cfg(feature = "peer-native")]
-fn polkadot_local_testnet_genesis(wasm_binary: &[u8]) -> polkadot::GenesisConfig {
-	polkadot_testnet_genesis(
+fn peer_local_testnet_genesis(wasm_binary: &[u8]) -> peer::GenesisConfig {
+	peer_testnet_genesis(
 		wasm_binary,
 		vec![
 			get_authority_keys_from_seed_no_beefy("Alice"),
@@ -577,21 +577,21 @@ fn polkadot_local_testnet_genesis(wasm_binary: &[u8]) -> polkadot::GenesisConfig
 	)
 }
 
-/// Polkadot local testnet config (multivalidator Alice + Bob)
+/// peer local testnet config (multivalidator Alice + Bob)
 #[cfg(feature = "peer-native")]
-pub fn peer_local_testnet_config() -> Result<PolkadotChainSpec, String> {
-	let wasm_binary = polkadot::WASM_BINARY.ok_or("Polkadot development wasm not available")?;
+pub fn peer_local_testnet_config() -> Result<peerChainSpec, String> {
+	let wasm_binary = peer::WASM_BINARY.ok_or("peer development wasm not available")?;
 
-	Ok(PolkadotChainSpec::from_genesis(
+	Ok(peerChainSpec::from_genesis(
 		"Local Testnet",
 		"local_testnet",
 		ChainType::Local,
-		move || polkadot_local_testnet_genesis(wasm_binary),
+		move || peer_local_testnet_genesis(wasm_binary),
 		vec![],
 		None,
 		Some(DEFAULT_PROTOCOL_ID),
 		None,
-		Some(polkadot_chain_spec_properties()),
+		Some(peer_chain_spec_properties()),
 		Default::default(),
 	))
 }

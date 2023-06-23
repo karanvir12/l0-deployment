@@ -1,18 +1,18 @@
 // Copyright 2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 use peer_node_subsystem_util::metrics::{self, prometheus};
 
@@ -103,7 +103,7 @@ impl metrics::Metrics for Metrics {
 		let metrics = MetricsInner {
 			open: prometheus::register(
 				prometheus::Counter::with_opts(prometheus::Opts::new(
-					"polkadot_parachain_candidate_disputes_total",
+					"peer_parachain_candidate_disputes_total",
 					"Total number of raised disputes.",
 				))?,
 				registry,
@@ -111,7 +111,7 @@ impl metrics::Metrics for Metrics {
 			concluded: prometheus::register(
 				prometheus::CounterVec::new(
 					prometheus::Opts::new(
-						"polkadot_parachain_candidate_dispute_concluded",
+						"peer_parachain_candidate_dispute_concluded",
 						"Concluded dispute votes, sorted by candidate is `valid` and `invalid`.",
 					),
 					&["validity"],
@@ -121,7 +121,7 @@ impl metrics::Metrics for Metrics {
 			votes: prometheus::register(
 				prometheus::CounterVec::new(
 					prometheus::Opts::new(
-						"polkadot_parachain_candidate_dispute_votes",
+						"peer_parachain_candidate_dispute_votes",
 						"Accumulated dispute votes, sorted by candidate is `valid` and `invalid`.",
 					),
 					&["validity"],
@@ -130,7 +130,7 @@ impl metrics::Metrics for Metrics {
 			)?,
 			approval_votes: prometheus::register(
 				prometheus::Counter::with_opts(prometheus::Opts::new(
-					"polkadot_parachain_dispute_candidate_approval_votes_fetched_total",
+					"peer_parachain_dispute_candidate_approval_votes_fetched_total",
 					"Number of approval votes fetched from approval voting.",
 				))?,
 				registry,
@@ -138,7 +138,7 @@ impl metrics::Metrics for Metrics {
 			queued_participations: prometheus::register(
 				prometheus::CounterVec::new(
 					prometheus::Opts::new(
-						"polkadot_parachain_dispute_participations",
+						"peer_parachain_dispute_participations",
 						"Total number of queued participations, grouped by priority and best-effort. (Not every queueing will necessarily lead to an actual participation because of duplicates.)",
 					),
 					&["priority"],
@@ -148,7 +148,7 @@ impl metrics::Metrics for Metrics {
 			vote_cleanup_time: prometheus::register(
 				prometheus::Histogram::with_opts(
 					prometheus::HistogramOpts::new(
-						"polkadot_parachain_dispute_coordinator_vote_cleanup",
+						"peer_parachain_dispute_coordinator_vote_cleanup",
 						"Time spent cleaning up old votes per batch.",
 					)
 					.buckets([0.01, 0.1, 0.5, 1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0].into()),
@@ -158,7 +158,7 @@ impl metrics::Metrics for Metrics {
 			refrained_participations: prometheus::register(
 			prometheus::Counter::with_opts(
 				prometheus::Opts::new(
-					"polkadot_parachain_dispute_refrained_participations",
+					"peer_parachain_dispute_refrained_participations",
 					"Number of refrained participations. We refrain from participation if all of the following conditions are met: disputed candidate is not included, not backed and not confirmed.",
 				))?,
 				registry,

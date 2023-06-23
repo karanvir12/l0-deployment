@@ -1,5 +1,5 @@
 
-= Polkadot Parachain
+= peer Parachain
 
 placeholder
-//TODO Write content :) (https://github.com/paritytech/polkadot/issues/159)
+//TODO Write content :) (https://github.com/paritytech/peer/issues/159)

@@ -1,4 +1,4 @@
 # Further Reading
 
-- Polkadot Wiki on Consensus: <https://wiki.polkadot.network/docs/learn-consensus>
-- Polkadot Spec: <https://github.com/w3f/polkadot-spec>
+- peer Wiki on Consensus: <https://wiki.peer.network/docs/learn-consensus>
+- peer Spec: <https://github.com/w3f/peer-spec>

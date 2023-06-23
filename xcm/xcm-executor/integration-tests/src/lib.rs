@@ -1,25 +1,25 @@
 // Copyright 2021 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 #![cfg_attr(not(feature = "std"), no_std)]
 #![cfg(test)]
 
 use peer_test_client::{
 	BlockBuilderExt, ClientBlockImportExt, DefaultTestClientBuilderExt, ExecutionStrategy,
-	InitPolkadotBlockBuilder, TestClientBuilder, TestClientBuilderExt,
+	InitpeerBlockBuilder, TestClientBuilder, TestClientBuilderExt,
 };
 use peer_test_runtime::pallet_test_notifier;
 use peer_test_service::construct_extrinsic;
@@ -40,7 +40,7 @@ fn basic_buy_fees_message_executes() {
 		DepositAsset { assets: Wild(All), max_assets: 1, beneficiary: Parent.into() },
 	]);
 
-	let mut block_builder = client.init_polkadot_block_builder();
+	let mut block_builder = client.init_peer_block_builder();
 
 	let execute = construct_extrinsic(
 		&client,
@@ -52,7 +52,7 @@ fn basic_buy_fees_message_executes() {
 		0,
 	);
 
-	block_builder.push_polkadot_extrinsic(execute).expect("pushes extrinsic");
+	block_builder.push_peer_extrinsic(execute).expect("pushes extrinsic");
 
 	let block = block_builder.build().expect("Finalizes the block").block;
 	let block_hash = block.hash();
@@ -81,7 +81,7 @@ fn query_response_fires() {
 		.set_execution_strategy(ExecutionStrategy::AlwaysWasm)
 		.build();
 
-	let mut block_builder = client.init_polkadot_block_builder();
+	let mut block_builder = client.init_peer_block_builder();
 
 	let execute = construct_extrinsic(
 		&client,
@@ -92,7 +92,7 @@ fn query_response_fires() {
 		0,
 	);
 
-	block_builder.push_polkadot_extrinsic(execute).expect("pushes extrinsic");
+	block_builder.push_peer_extrinsic(execute).expect("pushes extrinsic");
 
 	let block = block_builder.build().expect("Finalizes the block").block;
 	let block_hash = block.hash();
@@ -111,7 +111,7 @@ fn query_response_fires() {
 	});
 	let query_id = query_id.unwrap();
 
-	let mut block_builder = client.init_polkadot_block_builder();
+	let mut block_builder = client.init_peer_block_builder();
 
 	let response = Response::ExecutionResult(None);
 	let max_weight = 1_000_000;
@@ -128,7 +128,7 @@ fn query_response_fires() {
 		1,
 	);
 
-	block_builder.push_polkadot_extrinsic(execute).expect("pushes extrinsic");
+	block_builder.push_peer_extrinsic(execute).expect("pushes extrinsic");
 
 	let block = block_builder.build().expect("Finalizes the block").block;
 	let block_hash = block.hash();
@@ -164,7 +164,7 @@ fn query_response_elicits_handler() {
 		.set_execution_strategy(ExecutionStrategy::AlwaysWasm)
 		.build();
 
-	let mut block_builder = client.init_polkadot_block_builder();
+	let mut block_builder = client.init_peer_block_builder();
 
 	let execute = construct_extrinsic(
 		&client,
@@ -175,7 +175,7 @@ fn query_response_elicits_handler() {
 		0,
 	);
 
-	block_builder.push_polkadot_extrinsic(execute).expect("pushes extrinsic");
+	block_builder.push_peer_extrinsic(execute).expect("pushes extrinsic");
 
 	let block = block_builder.build().expect("Finalizes the block").block;
 	let block_hash = block.hash();
@@ -194,7 +194,7 @@ fn query_response_elicits_handler() {
 	});
 	let query_id = query_id.unwrap();
 
-	let mut block_builder = client.init_polkadot_block_builder();
+	let mut block_builder = client.init_peer_block_builder();
 
 	let response = Response::ExecutionResult(None);
 	let max_weight = 1_000_000;
@@ -210,7 +210,7 @@ fn query_response_elicits_handler() {
 		1,
 	);
 
-	block_builder.push_polkadot_extrinsic(execute).expect("pushes extrinsic");
+	block_builder.push_peer_extrinsic(execute).expect("pushes extrinsic");
 
 	let block = block_builder.build().expect("Finalizes the block").block;
 	let block_hash = block.hash();

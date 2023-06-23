@@ -1,18 +1,18 @@
 // Copyright 2022 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 //! Code related to benchmarking a [`crate::Client`].
 
@@ -129,9 +129,9 @@ trait BenchmarkCallSigner<RuntimeCall: Encode + Clone, Signer: Pair> {
 	) -> OpaqueExtrinsic;
 }
 
-#[cfg(feature = "polkadot")]
+#[cfg(feature = "peer")]
 impl BenchmarkCallSigner<Peer_Runtime::RuntimeCall, sp_core::sr25519::Pair>
-	for FullClient<Peer_Runtime::RuntimeApi, PolkadotExecutorDispatch>
+	for FullClient<Peer_Runtime::RuntimeApi, peerExecutorDispatch>
 {
 	fn sign_call(
 		&self,
@@ -241,7 +241,7 @@ impl BenchmarkCallSigner< _runtime::RuntimeCall, sp_core::sr25519::Pair>
 
 
 
-/// Generates inherent data for benchmarking Polkadot.
+/// Generates inherent data for benchmarking peer.
 ///
 /// Not to be used outside of benchmarking since it returns mocked values.
 pub fn benchmark_inherent_data(

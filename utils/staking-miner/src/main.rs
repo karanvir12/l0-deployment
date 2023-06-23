@@ -1,22 +1,22 @@
 // Copyright 2021 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
-//! # Polkadot Staking Miner.
+//! # peer Staking Miner.
 //!
-//! Simple bot capable of monitoring a polkadot (and cousins) chain and submitting solutions to the
+//! Simple bot capable of monitoring a peer (and cousins) chain and submitting solutions to the
 //! `pallet-election-provider-multi-phase`. See `--help` for more details.
 //!
 //! # Implementation Notes:
@@ -61,11 +61,11 @@ use std::{ops::Deref, sync::Arc, time::Duration};
 use tracing_subscriber::{fmt, EnvFilter};
 
 pub(crate) enum AnyRuntime {
-	Polkadot,
+	peer,
 
 }
 
-pub(crate) static mut RUNTIME: AnyRuntime = AnyRuntime::Polkadot;
+pub(crate) static mut RUNTIME: AnyRuntime = AnyRuntime::peer;
 
 macro_rules! construct_runtime_prelude {
 	($runtime:ident) => { paste::paste! {
@@ -119,7 +119,7 @@ macro_rules! construct_runtime_prelude {
 }
 
 // NOTE: we might be able to use some code from the bridges repo here.
-fn signed_ext_builder_polkadot(
+fn signed_ext_builder_peer(
 	nonce: Index,
 	tip: Balance,
 	era: sp_runtime::generic::Era,
@@ -173,7 +173,7 @@ fn signed_ext_builder_(
 	)
 }
 
-construct_runtime_prelude!(polkadot);
+construct_runtime_prelude!(peer);
 construct_runtime_prelude!();
 construct_runtime_prelude!();
 
@@ -188,7 +188,7 @@ macro_rules! any_runtime {
 	($($code:tt)*) => {
 		unsafe {
 			match $crate::RUNTIME {
-				$crate::AnyRuntime::Polkadot => {
+				$crate::AnyRuntime::peer => {
 					#[allow(unused)]
 					use $crate::Peer_Runtime_exports::*;
 					$($code)*
@@ -215,7 +215,7 @@ macro_rules! any_runtime_unit {
 	($($code:tt)*) => {
 		unsafe {
 			match $crate::RUNTIME {
-				$crate::AnyRuntime::Polkadot => {
+				$crate::AnyRuntime::peer => {
 					#[allow(unused)]
 					use $crate::Peer_Runtime_exports::*;
 					let _ = $($code)*;
@@ -540,16 +540,16 @@ async fn main() {
 
 	let chain: String = rpc.system_chain().await.expect("system_chain infallible; qed.");
 	match chain.to_lowercase().as_str() {
-		"polkadot" | "development" => {
+		"peer" | "development" => {
 			sp_core::crypto::set_default_ss58_version(
-				sp_core::crypto::Ss58AddressFormatRegistry::PolkadotAccount.into(),
+				sp_core::crypto::Ss58AddressFormatRegistry::peerAccount.into(),
 			);
 			sub_tokens::dynamic::set_name("DOT");
 			sub_tokens::dynamic::set_decimal_points(10_000_000_000);
 			// safety: this program will always be single threaded, thus accessing global static is
 			// safe.
 			unsafe {
-				RUNTIME = AnyRuntime::Polkadot;
+				RUNTIME = AnyRuntime::peer;
 			}
 		},
 		"" | "-dev" => {
@@ -566,7 +566,7 @@ async fn main() {
 		},
 		"" => {
 			sp_core::crypto::set_default_ss58_version(
-				sp_core::crypto::Ss58AddressFormatRegistry::PolkadotAccount.into(),
+				sp_core::crypto::Ss58AddressFormatRegistry::peerAccount.into(),
 			);
 			sub_tokens::dynamic::set_name("WND");
 			sub_tokens::dynamic::set_decimal_points(1_000_000_000_000);
@@ -651,16 +651,16 @@ mod tests {
 	#[test]
 	fn any_runtime_works() {
 		unsafe {
-			RUNTIME = AnyRuntime::Polkadot;
+			RUNTIME = AnyRuntime::peer;
 		}
-		let polkadot_version = any_runtime! { get_version::<Runtime>() };
+		let peer_version = any_runtime! { get_version::<Runtime>() };
 
 		unsafe {
 			RUNTIME = AnyRuntime::;
 		}
 		let _version = any_runtime! { get_version::<Runtime>() };
 
-		assert_eq!(polkadot_version.spec_name, "polkadot".into());
+		assert_eq!(peer_version.spec_name, "peer".into());
 		assert_eq!(_version.spec_name, "".into());
 	}
 }

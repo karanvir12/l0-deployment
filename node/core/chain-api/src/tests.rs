@@ -5,7 +5,7 @@ use parity_scale_codec::Encode;
 use std::collections::BTreeMap;
 
 use peer_node_primitives::BlockWeight;
-use polkadot_node_subsystem_test_helpers::{make_subsystem_context, TestSubsystemContextHandle};
+use peer_node_subsystem_test_helpers::{make_subsystem_context, TestSubsystemContextHandle};
 use peer_primitives::v2::{BlockId, BlockNumber, Hash, Header};
 use sp_blockchain::Info as BlockInfo;
 use sp_core::testing::TaskExecutor;

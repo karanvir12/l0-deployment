@@ -1,36 +1,36 @@
-# This is the build stage for Polkadot. Here we create the binary in a temporary image.
+# This is the build stage for peer. Here we create the binary in a temporary image.
 FROM docker.io/paritytech/ci-linux:production as builder
 
-WORKDIR /polkadot
-COPY . /polkadot
+WORKDIR /peer
+COPY . /peer
 
 RUN cargo build --locked --release
 
-# This is the 2nd stage: a very small image where we copy the Polkadot binary."
+# This is the 2nd stage: a very small image where we copy the peer binary."
 FROM docker.io/library/ubuntu:20.04
 
-LABEL description="Multistage Docker image for Polkadot: a platform for web3" \
+LABEL description="Multistage Docker image for peer: a platform for web3" \
 	io.parity.image.type="builder" \
 	io.parity.image.authors="chevdor@gmail.com, devops-team@parity.io" \
 	io.parity.image.vendor="Parity Technologies" \
-	io.parity.image.description="Polkadot: a platform for web3" \
-	io.parity.image.source="https://github.com/paritytech/polkadot/blob/${VCS_REF}/scripts/ci/dockerfiles/polkadot/polkadot_builder.Dockerfile" \
-	io.parity.image.documentation="https://github.com/paritytech/polkadot/"
+	io.parity.image.description="peer: a platform for web3" \
+	io.parity.image.source="https://github.com/paritytech/peer/blob/${VCS_REF}/scripts/ci/dockerfiles/peer/peer_builder.Dockerfile" \
+	io.parity.image.documentation="https://github.com/paritytech/peer/"
 
-COPY --from=builder /polkadot/target/release/polkadot /usr/local/bin
+COPY --from=builder /peer/target/release/peer /usr/local/bin
 
-RUN useradd -m -u 1000 -U -s /bin/sh -d /polkadot polkadot && \
-	mkdir -p /data /polkadot/.local/share && \
-	chown -R polkadot:polkadot /data && \
-	ln -s /data /polkadot/.local/share/polkadot && \
+RUN useradd -m -u 1000 -U -s /bin/sh -d /peer peer && \
+	mkdir -p /data /peer/.local/share && \
+	chown -R peer:peer /data && \
+	ln -s /data /peer/.local/share/peer && \
 # unclutter and minimize the attack surface
 	rm -rf /usr/bin /usr/sbin && \
 # check if executable works in this container
-	/usr/local/bin/polkadot --version
+	/usr/local/bin/peer --version
 
-USER polkadot
+USER peer
 
 EXPOSE 30333 9933 9944 9615
 VOLUME ["/data"]
 
-ENTRYPOINT ["/usr/local/bin/polkadot"]
+ENTRYPOINT ["/usr/local/bin/peer"]

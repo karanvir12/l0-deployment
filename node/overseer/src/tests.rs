@@ -1,18 +1,18 @@
 // Copyright 2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 use async_trait::async_trait;
 use futures::{executor, pending, pin_mut, poll, select, stream, FutureExt};
@@ -278,9 +278,9 @@ fn extract_metrics(registry: &prometheus::Registry) -> HashMap<&'static str, u64
 			.get_value() as u64
 	};
 
-	let activated = extract("polkadot_parachain_activated_heads_total");
-	let deactivated = extract("polkadot_parachain_deactivated_heads_total");
-	let relayed = extract("polkadot_parachain_messages_relayed_total");
+	let activated = extract("peer_parachain_activated_heads_total");
+	let deactivated = extract("peer_parachain_deactivated_heads_total");
+	let relayed = extract("peer_parachain_messages_relayed_total");
 	let mut result = HashMap::new();
 	result.insert("activated", activated);
 	result.insert("deactivated", deactivated);

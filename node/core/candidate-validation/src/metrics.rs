@@ -1,18 +1,18 @@
 // Copyright 2020-2021 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 use super::{ValidationFailed, ValidationResult};
 use peer_node_subsystem_util::metrics::{self, prometheus};
@@ -76,7 +76,7 @@ impl metrics::Metrics for Metrics {
 			validation_requests: prometheus::register(
 				prometheus::CounterVec::new(
 					prometheus::Opts::new(
-						"polkadot_parachain_validation_requests_total",
+						"peer_parachain_validation_requests_total",
 						"Number of validation requests served.",
 					),
 					&["validity"],
@@ -85,21 +85,21 @@ impl metrics::Metrics for Metrics {
 			)?,
 			validate_from_chain_state: prometheus::register(
 				prometheus::Histogram::with_opts(prometheus::HistogramOpts::new(
-					"polkadot_parachain_candidate_validation_validate_from_chain_state",
+					"peer_parachain_candidate_validation_validate_from_chain_state",
 					"Time spent within `candidate_validation::validate_from_chain_state`",
 				))?,
 				registry,
 			)?,
 			validate_from_exhaustive: prometheus::register(
 				prometheus::Histogram::with_opts(prometheus::HistogramOpts::new(
-					"polkadot_parachain_candidate_validation_validate_from_exhaustive",
+					"peer_parachain_candidate_validation_validate_from_exhaustive",
 					"Time spent within `candidate_validation::validate_from_exhaustive`",
 				))?,
 				registry,
 			)?,
 			validate_candidate_exhaustive: prometheus::register(
 				prometheus::Histogram::with_opts(prometheus::HistogramOpts::new(
-					"polkadot_parachain_candidate_validation_validate_candidate_exhaustive",
+					"peer_parachain_candidate_validation_validate_candidate_exhaustive",
 					"Time spent within `candidate_validation::validate_candidate_exhaustive`",
 				))?,
 				registry,

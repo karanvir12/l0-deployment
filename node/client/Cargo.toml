@@ -41,7 +41,7 @@ beefy-primitives = { git = "https://github.com/karanvir12/substrate36.git", pack
 
 fp-rpc = { path = "../../evm-primitives/rpc" }
 
-# Polkadot Runtimes
+# peer Runtimes
 Peer-Runtime = { path = "../../runtime/peer", optional = true }
 
 
@@ -52,8 +52,8 @@ peer-node-core-parachains-inherent = { path = "../core/parachains-inherent" }
 Peer-Runtime-common = { path = "../../runtime/common" }
 
 [features]
-default = ["polkadot"]
-polkadot = ["Peer-Runtime"]
+default = ["peer"]
+peer = ["Peer-Runtime"]
 runtime-metrics = [
     "Peer-Runtime/runtime-metrics",
 ]

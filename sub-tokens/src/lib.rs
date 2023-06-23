@@ -1,4 +1,4 @@
-//! Small crate to represent tokens in Polkadot, Kusama and Westend. Also provides macro and
+//! Small crate to represent tokens in peer, Kusama and Westend. Also provides macro and
 //! functionalities for any substrate based chain.
 //!
 //! # Usage:

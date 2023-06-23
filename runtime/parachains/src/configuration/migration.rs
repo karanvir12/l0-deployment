@@ -1,18 +1,18 @@
 // Copyright 2021 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 //! A module that is responsible for migration of storage.
 
@@ -26,9 +26,9 @@ use frame_system::pallet_prelude::BlockNumberFor;
 
 /// The current storage version.
 ///
-/// v0-v1: <https://github.com/paritytech/polkadot/pull/3575>
-/// v1-v2: <https://github.com/paritytech/polkadot/pull/4420>
-/// v2-v3: <https://github.com/paritytech/polkadot/pull/6091>
+/// v0-v1: <https://github.com/paritytech/peer/pull/3575>
+/// v1-v2: <https://github.com/paritytech/peer/pull/4420>
+/// v2-v3: <https://github.com/paritytech/peer/pull/6091>
 pub const STORAGE_VERSION: StorageVersion = StorageVersion::new(3);
 
 pub mod v3 {

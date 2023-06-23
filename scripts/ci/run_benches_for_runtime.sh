@@ -11,7 +11,7 @@ cargo build --profile production --locked --features=runtime-benchmarks
 
 # Load all pallet names in an array.
 PALLETS=($(
-  ./target/production/polkadot benchmark pallet --list --chain="${runtime}-dev" |\
+  ./target/production/peer benchmark pallet --list --chain="${runtime}-dev" |\
     tail -n+2 |\
     cut -d',' -f1 |\
     sort |\
@@ -36,7 +36,7 @@ for PALLET in "${PALLETS[@]}"; do
   fi
 
   OUTPUT=$(
-    ./target/production/polkadot benchmark pallet \
+    ./target/production/peer benchmark pallet \
     --chain="${runtime}-dev" \
     --steps=50 \
     --repeat=20 \
@@ -56,7 +56,7 @@ done
 # Update the block and extrinsic overhead weights.
 echo "[+] Benchmarking block and extrinsic overheads..."
 OUTPUT=$(
-  ./target/production/polkadot benchmark overhead \
+  ./target/production/peer benchmark overhead \
   --chain="${runtime}-dev" \
   --execution=wasm \
   --wasm-execution=compiled \

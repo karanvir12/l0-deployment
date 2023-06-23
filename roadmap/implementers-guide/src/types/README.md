@@ -6,7 +6,7 @@ This section of the guide provides type definitions of various categories.
 
 Diagrams are rendered in high resolution; open them in a separate tab to see full scale.
 
-These data types are defined in `polkadot/primitives/src/v1.rs`:
+These data types are defined in `peer/primitives/src/v1.rs`:
 
 ```dot process
 digraph {
@@ -337,7 +337,7 @@ digraph {
 }
 ```
 
-These data types are defined in `polkadot/parachain/src/primitives.rs`:
+These data types are defined in `peer/parachain/src/primitives.rs`:
 
 ```dot process
 digraph {

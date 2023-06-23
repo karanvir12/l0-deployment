@@ -12,7 +12,7 @@ rand = "0.8.5"
 tempfile = "3.2.0"
 tokio = "1.22.0"
 
-# Polkadot dependencies
+# peer dependencies
 peer-overseer = { path = "../../overseer" }
 peer-primitives = { path = "../../../primitives" }
 peer-parachain = { path = "../../../parachain" }

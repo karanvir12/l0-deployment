@@ -3,15 +3,15 @@
 set -e
 
 action="$1"
-config_file="/etc/default/polkadot"
+config_file="/etc/default/peer"
 
 if [ "$action" = "configure" ]; then
   # Make user and group
-  getent group polkadot >/dev/null 2>&1 || addgroup --system polkadot
-  getent passwd polkadot >/dev/null 2>&1 ||
-    adduser --system --home /home/polkadot --disabled-password \
-    --ingroup polkadot polkadot
+  getent group peer >/dev/null 2>&1 || addgroup --system peer
+  getent passwd peer >/dev/null 2>&1 ||
+    adduser --system --home /home/peer --disabled-password \
+    --ingroup peer peer
   if [ ! -e "$config_file" ]; then
-    echo 'POLKADOT_CLI_ARGS=""' > /etc/default/polkadot
+    echo 'peer_CLI_ARGS=""' > /etc/default/peer
   fi
 fi

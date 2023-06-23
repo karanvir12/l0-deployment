@@ -3,7 +3,7 @@ name = "peer-node-jaeger"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
-description = "Polkadot Jaeger primitives, but equally useful for Grafana/Tempo"
+description = "peer Jaeger primitives, but equally useful for Grafana/Tempo"
 
 [dependencies]
 mick-jaeger = "0.1.8"

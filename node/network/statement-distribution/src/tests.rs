@@ -1,18 +1,18 @@
 // Copyright 2020 Parity Technologies (UK) Ltd.
-// This file is part of Polkadot.
+// This file is part of peer.
 
-// Polkadot is free software: you can redistribute it and/or modify
+// peer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Polkadot is distributed in the hope that it will be useful,
+// peer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Polkadot.  If not, see <http://www.gnu.org/licenses/>.
+// along with peer.  If not, see <http://www.gnu.org/licenses/>.
 
 use super::{metrics::Metrics, *};
 use assert_matches::assert_matches;
@@ -34,11 +34,11 @@ use peer_node_subsystem::{
 	messages::{network_bridge_event, AllMessages, RuntimeApiMessage, RuntimeApiRequest},
 	ActivatedLeaf, LeafStatus,
 };
-use polkadot_node_subsystem_test_helpers::mock::make_ferdie_keystore;
+use peer_node_subsystem_test_helpers::mock::make_ferdie_keystore;
 use peer_primitives::v2::{
 	GroupIndex, Hash, Id as ParaId, IndexedVec, SessionInfo, ValidationCode, ValidatorId,
 };
-use polkadot_primitives_test_helpers::{
+use peer_primitives_test_helpers::{
 	dummy_committed_candidate_receipt, dummy_hash, AlwaysZeroRng,
 };
 use sc_keystore::LocalKeystore;
@@ -505,7 +505,7 @@ fn peer_view_update_sends_messages() {
 	};
 
 	let pool = sp_core::testing::TaskExecutor::new();
-	let (mut ctx, mut handle) = polkadot_node_subsystem_test_helpers::make_subsystem_context::<
+	let (mut ctx, mut handle) = peer_node_subsystem_test_helpers::make_subsystem_context::<
 		StatementDistributionMessage,
 		_,
 	>(pool);
@@ -606,7 +606,7 @@ fn circulated_statement_goes_to_all_peers_with_view() {
 	.collect();
 
 	let pool = sp_core::testing::TaskExecutor::new();
-	let (mut ctx, mut handle) = polkadot_node_subsystem_test_helpers::make_subsystem_context::<
+	let (mut ctx, mut handle) = peer_node_subsystem_test_helpers::make_subsystem_context::<
 		StatementDistributionMessage,
 		_,
 	>(pool);
@@ -729,7 +729,7 @@ fn receiving_from_one_sends_to_another_and_to_candidate_backing() {
 	let session_index = 1;
 
 	let pool = sp_core::testing::TaskExecutor::new();
-	let (ctx, mut handle) = polkadot_node_subsystem_test_helpers::make_subsystem_context(pool);
+	let (ctx, mut handle) = peer_node_subsystem_test_helpers::make_subsystem_context(pool);
 
 	let req_protocol_names = ReqProtocolNames::new(&GENESIS_HASH, None);
 	let (statement_req_receiver, _) = IncomingRequest::get_config_receiver(&req_protocol_names);
@@ -933,7 +933,7 @@ fn receiving_large_statement_from_one_sends_to_another_and_to_candidate_backing(
 	let session_index = 1;
 
 	let pool = sp_core::testing::TaskExecutor::new();
-	let (ctx, mut handle) = polkadot_node_subsystem_test_helpers::make_subsystem_context(pool);
+	let (ctx, mut handle) = peer_node_subsystem_test_helpers::make_subsystem_context(pool);
 
 	let req_protocol_names = ReqProtocolNames::new(&GENESIS_HASH, None);
 	let (statement_req_receiver, mut req_cfg) =
@@ -1447,7 +1447,7 @@ fn share_prioritizes_backing_group() {
 	let session_index = 1;
 
 	let pool = sp_core::testing::TaskExecutor::new();
-	let (ctx, mut handle) = polkadot_node_subsystem_test_helpers::make_subsystem_context(pool);
+	let (ctx, mut handle) = peer_node_subsystem_test_helpers::make_subsystem_context(pool);
 
 	let req_protocol_names = ReqProtocolNames::new(&GENESIS_HASH, None);
 	let (statement_req_receiver, mut req_cfg) =
@@ -1744,7 +1744,7 @@ fn peer_cant_flood_with_large_statements() {
 	let session_index = 1;
 
 	let pool = sp_core::testing::TaskExecutor::new();
-	let (ctx, mut handle) = polkadot_node_subsystem_test_helpers::make_subsystem_context(pool);
+	let (ctx, mut handle) = peer_node_subsystem_test_helpers::make_subsystem_context(pool);
 
 	let req_protocol_names = ReqProtocolNames::new(&GENESIS_HASH, None);
 	let (statement_req_receiver, _) = IncomingRequest::get_config_receiver(&req_protocol_names);
@@ -1906,7 +1906,7 @@ fn peer_cant_flood_with_large_statements() {
 
 // This test addresses an issue when received knowledge is not updated on a
 // subsequent `Seconded` statements
-// See https://github.com/paritytech/polkadot/pull/5177
+// See https://github.com/paritytech/peer/pull/5177
 #[test]
 fn handle_multiple_seconded_statements() {
 	let relay_parent_hash = Hash::repeat_byte(1);
@@ -1949,7 +1949,7 @@ fn handle_multiple_seconded_statements() {
 	let session_index = 1;
 
 	let pool = sp_core::testing::TaskExecutor::new();
-	let (ctx, mut handle) = polkadot_node_subsystem_test_helpers::make_subsystem_context(pool);
+	let (ctx, mut handle) = peer_node_subsystem_test_helpers::make_subsystem_context(pool);
 
 	let req_protocol_names = ReqProtocolNames::new(&GENESIS_HASH, None);
 	let (statement_req_receiver, _) = IncomingRequest::get_config_receiver(&req_protocol_names);
