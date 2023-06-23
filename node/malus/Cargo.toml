@@ -13,7 +13,7 @@ name = "malus"
 path = "src/malus.rs"
 
 [dependencies]
-peer-cli = { path = "../../cli", features = [ "malus",  "polkadot-native" ] }
+peer-cli = { path = "../../cli", features = [ "malus",  "peer-native" ] }
 peer-node-subsystem = { path = "../subsystem" }
 peer-node-subsystem-util = { path = "../subsystem-util" }
 peer-node-subsystem-types = { path = "../subsystem-types" }

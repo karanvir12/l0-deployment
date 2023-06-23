@@ -1,6 +1,6 @@
 [package]
 name = "peer-cli"
-description = "Polkadot Relay-chain Client Node"
+description = "Peer Relay-chain Client Node"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -41,7 +41,7 @@ sc-executor = { git = "https://github.com/karanvir12/substrate36.git", branch = 
 substrate-build-script-utils = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
 [features]
-default = ["db", "cli", "hostperfcheck", "full-node", "polkadot-native"]
+default = ["db", "cli", "hostperfcheck", "full-node", "peer-native"]
 db = ["service/db"]
 cli = [
 	"clap",
@@ -64,10 +64,10 @@ fast-runtime = ["service/fast-runtime"]
 pyroscope = ["pyro"]
 hostperfcheck = ["peer-performance-test"]
 
-# Configure the native runtimes to use. Polkadot is enabled by default.
+# Configure the native runtimes to use. Peer is enabled by default.
 #
 # Validators require the native runtime currently
-polkadot-native = ["service/polkadot-native"]
+peer-native = ["service/peer-native"]
 
 
 malus = ["full-node", "service/malus"]

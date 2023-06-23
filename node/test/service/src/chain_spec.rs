@@ -37,7 +37,7 @@ pub type PolkadotChainSpec =
 	sc_service::GenericChainSpec<peer_test_runtime::GenesisConfig, Extensions>;
 
 /// Local testnet config (multivalidator Alice + Bob)
-pub fn polkadot_local_testnet_config() -> PolkadotChainSpec {
+pub fn peer_local_testnet_config() -> PolkadotChainSpec {
 	PolkadotChainSpec::from_genesis(
 		"Local Testnet",
 		"local_testnet",

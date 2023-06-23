@@ -42,7 +42,7 @@ beefy-primitives = { git = "https://github.com/karanvir12/substrate36.git", pack
 fp-rpc = { path = "../../evm-primitives/rpc" }
 
 # Polkadot Runtimes
-Peer-Runtime = { path = "../../runtime/polkadot", optional = true }
+Peer-Runtime = { path = "../../runtime/peer", optional = true }
 
 
 peer-core-primitives = { path = "../../core-primitives" }

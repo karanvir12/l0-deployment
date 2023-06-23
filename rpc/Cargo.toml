@@ -37,7 +37,7 @@ beefy-gadget-rpc = { git = "https://github.com/karanvir12/substrate36.git", bran
 substrate-state-trie-migration-rpc = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
 
-Peer-Runtime = { version = "3.0.0-dev", path = "../runtime/polkadot" }
+Peer-Runtime = { version = "3.0.0-dev", path = "../runtime/peer" }
 
 
 

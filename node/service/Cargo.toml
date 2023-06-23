@@ -95,10 +95,10 @@ Peer-Runtime-parachains = { path = "../../runtime/parachains" }
 peer-node-network-protocol = { path = "../network/protocol" }
 
 # Polkadot Runtime Constants
-Peer-Runtime-constants = { path = "../../runtime/polkadot/constants", optional = true }
+Peer-Runtime-constants = { path = "../../runtime/peer/constants", optional = true }
 
 # Polkadot Runtimes
-Peer-Runtime = { path = "../../runtime/polkadot", optional = true }
+Peer-Runtime = { path = "../../runtime/peer", optional = true }
 
 # Polkadot Subsystems
 polkadot-approval-distribution = { path = "../network/approval-distribution", optional = true }
@@ -137,7 +137,7 @@ beefy-gadget-rpc = { git = "https://github.com/karanvir12/substrate36.git", bran
 substrate-state-trie-migration-rpc = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 pallet-transaction-payment-rpc = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
-# Peer-Runtime = { version = "3.0.0-dev", path = "../runtime/polkadot" }
+# Peer-Runtime = { version = "3.0.0-dev", path = "../runtime/peer" }
 
 # Frontier
 fc-cli = { path = "../../evm-client/cli" }
@@ -163,7 +163,7 @@ assert_matches = "1.5.0"
 tempfile = "3.2"
 
 [features]
-default = ["db", "full-node", "polkadot-native"]
+default = ["db", "full-node", "peer-native"]
 
 db = [
 	"service/rocksdb"
@@ -199,7 +199,7 @@ full-node = [
 # Configure the native runtimes to use. Polkadot is enabled by default.
 #
 # Validators require the native runtime currently
-polkadot-native = [ "Peer-Runtime", "Peer-Runtime-constants", "peer-client/polkadot" ]
+peer-native = [ "Peer-Runtime", "Peer-Runtime-constants", "peer-client/polkadot" ]
 
 runtime-benchmarks = [
 	"Peer-Runtime?/runtime-benchmarks",

@@ -11,4 +11,4 @@ generate-bags = { git = "https://github.com/karanvir12/substrate36.git", branch 
 sp-io = { git = "https://github.com/karanvir12/substrate36.git", branch = "relpeer" }
 
 
-Peer-Runtime = { path = "../../runtime/polkadot" }
+Peer-Runtime = { path = "../../runtime/peer" }

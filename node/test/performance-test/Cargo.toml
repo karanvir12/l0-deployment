@@ -14,7 +14,7 @@ peer-node-core-pvf = { path = "../../core/pvf" }
 peer-erasure-coding = { path = "../../../erasure-coding" }
 peer-node-primitives = { path = "../../primitives" }
 
-Peer-Runtime = { path = "../../../runtime/polkadot" }
+Peer-Runtime = { path = "../../../runtime/peer" }
 
 [[bin]]
 name = "gen-ref-constants"

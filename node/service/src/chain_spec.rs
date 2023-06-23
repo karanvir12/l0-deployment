@@ -22,9 +22,9 @@ use grandpa::AuthorityId as GrandpaId;
 use pallet_im_online::sr25519::AuthorityId as ImOnlineId;
 use pallet_staking::Forcing;
 use peer_primitives::v2::{AccountId, AccountPublic, AssignmentId, ValidatorId};
-#[cfg(feature = "polkadot-native")]
+#[cfg(feature = "peer-native")]
 use Peer_Runtime as polkadot;
-#[cfg(feature = "polkadot-native")]
+#[cfg(feature = "peer-native")]
 use Peer_Runtime_constants::currency::UNITS as DOT;
 use sp_authority_discovery::AuthorityId as AuthorityDiscoveryId;
 use sp_consensus_babe::AuthorityId as BabeId;
@@ -43,7 +43,7 @@ use sp_runtime::{traits::IdentifyAccount, Perbill};
 use telemetry::TelemetryEndpoints;
 
 
-#[cfg(feature = "polkadot-native")]
+#[cfg(feature = "peer-native")]
 const POLKADOT_STAGING_TELEMETRY_URL: &str = "wss://telemetry.peer.io/submit/";
 
 const DEFAULT_PROTOCOL_ID: &str = "Peer";
@@ -66,27 +66,27 @@ pub struct Extensions {
 }
 
 /// The `ChainSpec` parameterized for the polkadot runtime.
-#[cfg(feature = "polkadot-native")]
+#[cfg(feature = "peer-native")]
 pub type PolkadotChainSpec = service::GenericChainSpec<polkadot::GenesisConfig, Extensions>;
 
 // Dummy chain spec, in case when we don't have the native runtime.
 pub type DummyChainSpec = service::GenericChainSpec<(), Extensions>;
 
 // Dummy chain spec, but that is fine when we don't have the native runtime.
-#[cfg(not(feature = "polkadot-native"))]
+#[cfg(not(feature = "peer-native"))]
 pub type PolkadotChainSpec = DummyChainSpec;
 /// The `ChainSpec` parameterized for the `versi` runtime.
 ///
 //
 
-pub fn polkadot_config() -> Result<PolkadotChainSpec, String> {
+pub fn peer_config() -> Result<PolkadotChainSpec, String> {
 	PolkadotChainSpec::from_json_bytes(&include_bytes!("../chain-specs/polkadot.json")[..])
 }
 
 
 /// The default parachains host configuration.
 #[cfg(any(
-	feature = "polkadot-native"
+	feature = "peer-native"
 ))]
 fn default_parachains_host_configuration(
 ) -> Peer_Runtime_parachains::configuration::HostConfiguration<
@@ -143,8 +143,8 @@ pub fn polkadot_chain_spec_properties() -> serde_json::map::Map<String, serde_js
 }
 
 // Polkadot staging testnet config.
-#[cfg(feature = "polkadot-native")]
-pub fn polkadot_staging_testnet_config() -> Result<PolkadotChainSpec, String> {
+#[cfg(feature = "peer-native")]
+pub fn peer_staging_testnet_config() -> Result<PolkadotChainSpec, String> {
 	let wasm_binary = polkadot::WASM_BINARY.ok_or("Peer development wasm not available")?;
 	let boot_nodes = vec![];
 
@@ -152,7 +152,7 @@ pub fn polkadot_staging_testnet_config() -> Result<PolkadotChainSpec, String> {
 		"Peer Staging Testnet",
 		"peer_staging_testnet",
 		ChainType::Live,
-		move || polkadot_staging_testnet_config_genesis(wasm_binary, 100),
+		move || peer_staging_testnet_config_genesis(wasm_binary, 100),
 		boot_nodes,
 		Some(
 			TelemetryEndpoints::new(vec![(POLKADOT_STAGING_TELEMETRY_URL.to_string(), 0)])
@@ -167,14 +167,14 @@ pub fn polkadot_staging_testnet_config() -> Result<PolkadotChainSpec, String> {
 
 #[cfg(any(
 
-	feature = "polkadot-native"
+	feature = "peer-native"
 ))]
 #[test]
 fn default_parachains_host_configuration_is_consistent() {
 	default_parachains_host_configuration().panic_if_not_consistent();
 }
 
-#[cfg(feature = "polkadot-native")]
+#[cfg(feature = "peer-native")]
 fn polkadot_session_keys(
 	babe: BabeId,
 	grandpa: GrandpaId,
@@ -193,8 +193,8 @@ fn polkadot_session_keys(
 	}
 }
 
-#[cfg(feature = "polkadot-native")]
-fn polkadot_staging_testnet_config_genesis(wasm_binary: &[u8], chain_id: u64) -> polkadot::GenesisConfig {
+#[cfg(feature = "peer-native")]
+fn peer_staging_testnet_config_genesis(wasm_binary: &[u8], chain_id: u64) -> polkadot::GenesisConfig {
 	// subkey inspect "$SECRET"
 	let endowed_accounts = vec![];
 
@@ -400,7 +400,7 @@ fn testnet_accounts() -> Vec<AccountId> {
 }
 
 /// Helper function to create polkadot `GenesisConfig` for testing
-#[cfg(feature = "polkadot-native")]
+#[cfg(feature = "peer-native")]
 pub fn polkadot_testnet_genesis(
 	wasm_binary: &[u8],
 	initial_authorities: Vec<(
@@ -532,8 +532,8 @@ pub fn polkadot_testnet_genesis(
 	}
 }
 
-#[cfg(feature = "polkadot-native")]
-fn polkadot_development_config_genesis(wasm_binary: &[u8]) -> polkadot::GenesisConfig {
+#[cfg(feature = "peer-native")]
+fn peer_development_config_genesis(wasm_binary: &[u8]) -> polkadot::GenesisConfig {
 	polkadot_testnet_genesis(
 		wasm_binary,
 		vec![get_authority_keys_from_seed_no_beefy("Alice")],
@@ -544,15 +544,15 @@ fn polkadot_development_config_genesis(wasm_binary: &[u8]) -> polkadot::GenesisC
 }
 
 /// Polkadot development config (single validator Alice)
-#[cfg(feature = "polkadot-native")]
-pub fn polkadot_development_config() -> Result<PolkadotChainSpec, String> {
+#[cfg(feature = "peer-native")]
+pub fn peer_development_config() -> Result<PolkadotChainSpec, String> {
 	let wasm_binary = polkadot::WASM_BINARY.ok_or("Polkadot development wasm not available")?;
 
 	Ok(PolkadotChainSpec::from_genesis(
 		"Development",
 		"dev",
 		ChainType::Development,
-		move || polkadot_development_config_genesis(wasm_binary),
+		move || peer_development_config_genesis(wasm_binary),
 		vec![],
 		None,
 		Some(DEFAULT_PROTOCOL_ID),
@@ -563,7 +563,7 @@ pub fn polkadot_development_config() -> Result<PolkadotChainSpec, String> {
 }
 
 
-#[cfg(feature = "polkadot-native")]
+#[cfg(feature = "peer-native")]
 fn polkadot_local_testnet_genesis(wasm_binary: &[u8]) -> polkadot::GenesisConfig {
 	polkadot_testnet_genesis(
 		wasm_binary,
@@ -578,8 +578,8 @@ fn polkadot_local_testnet_genesis(wasm_binary: &[u8]) -> polkadot::GenesisConfig
 }
 
 /// Polkadot local testnet config (multivalidator Alice + Bob)
-#[cfg(feature = "polkadot-native")]
-pub fn polkadot_local_testnet_config() -> Result<PolkadotChainSpec, String> {
+#[cfg(feature = "peer-native")]
+pub fn peer_local_testnet_config() -> Result<PolkadotChainSpec, String> {
 	let wasm_binary = polkadot::WASM_BINARY.ok_or("Polkadot development wasm not available")?;
 
 	Ok(PolkadotChainSpec::from_genesis(

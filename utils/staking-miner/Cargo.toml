@@ -35,7 +35,7 @@ pallet-transaction-payment = { git = "https://github.com/karanvir12/substrate36.
 core-primitives = { package = "peer-core-primitives", path = "../../core-primitives" }
 
 runtime-common = { package = "Peer-Runtime-common", path = "../../runtime/common" }
-Peer-Runtime = { path = "../../runtime/polkadot" }
+Peer-Runtime = { path = "../../runtime/peer" }
 
 exitcode = "1.1"
 

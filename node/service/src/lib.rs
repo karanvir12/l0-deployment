@@ -126,7 +126,7 @@ use telemetry::{Telemetry, TelemetryWorkerHandle};
 
 
 
-#[cfg(feature = "polkadot-native")]
+#[cfg(feature = "peer-native")]
 pub use peer_client::PolkadotExecutorDispatch;
 
 pub use chain_spec::{ PolkadotChainSpec};
@@ -1641,11 +1641,11 @@ pub fn new_chain_ops(
 	let telemetry_worker_handle = None;
 
 
-	#[cfg(feature = "polkadot-native")]
+	#[cfg(feature = "peer-native")]
 	{
 		return chain_ops!(config, jaeger_agent, telemetry_worker_handle; Peer_Runtime, PolkadotExecutorDispatch, Polkadot)
 	}
-	#[cfg(not(feature = "polkadot-native"))]
+	#[cfg(not(feature = "peer-native"))]
 	Err(Error::NoRuntime)
 }
 
@@ -1668,7 +1668,7 @@ pub fn build_full(
 ) -> Result<NewFull<Client>, Error> {
 	
 
-	#[cfg(feature = "polkadot-native")]
+	#[cfg(feature = "peer-native")]
 	{
 		return new_full::<RuntimeApiPolka, PolkadotExecutorDispatch, _>(
 			config,
@@ -1694,7 +1694,7 @@ pub fn build_full(
 	}
 	
 
-	#[cfg(not(feature = "polkadot-native"))]
+	#[cfg(not(feature = "peer-native"))]
 	Err(Error::NoRuntime)
 }
 

@@ -86,13 +86,13 @@ impl SubstrateCli for Cli {
 			id
 		};
 		Ok(match id {
-			"peer" => Box::new(service::chain_spec::polkadot_config()?),
-			#[cfg(feature = "polkadot-native")]
-			"peer-dev" | "dev" => Box::new(service::chain_spec::polkadot_development_config()?),
-			#[cfg(feature = "polkadot-native")]
-			"peer-local" => Box::new(service::chain_spec::polkadot_local_testnet_config()?),
-			#[cfg(feature = "polkadot-native")]
-			"peer-staging" => Box::new(service::chain_spec::polkadot_staging_testnet_config()?),
+			"peer" => Box::new(service::chain_spec::peer_config()?),
+			#[cfg(feature = "peer-native")]
+			"peer-dev" | "dev" => Box::new(service::chain_spec::peer_development_config()?),
+			#[cfg(feature = "peer-native")]
+			"peer-local" => Box::new(service::chain_spec::peer_local_testnet_config()?),
+			#[cfg(feature = "peer-native")]
+			"peer-staging" => Box::new(service::chain_spec::peer_staging_testnet_config()?),
 		
 		
 		
@@ -113,12 +113,12 @@ impl SubstrateCli for Cli {
 	fn native_runtime_version(spec: &Box<dyn service::ChainSpec>) -> &'static RuntimeVersion {
 	
 
-		#[cfg(feature = "polkadot-native")]
+		#[cfg(feature = "peer-native")]
 		{
 			return &service::Peer_Runtime::VERSION
 		}
 
-		#[cfg(not(feature = "polkadot-native"))]
+		#[cfg(not(feature = "peer-native"))]
 		panic!("No runtime feature (polkadot, ) is enabled")
 	}
 }
@@ -150,7 +150,7 @@ macro_rules! unwrap_client {
 		$code:expr
 	) => {
 		match $client.as_ref() {
-			#[cfg(feature = "polkadot-native")]
+			#[cfg(feature = "peer-native")]
 			peer_client::Client::Polkadot($client) => $code,
 			#[allow(unreachable_patterns)]
 			_ => Err(Error::CommandNotImplemented),
@@ -503,7 +503,7 @@ pub fn run() -> Result<()> {
 	
 
 					// else we assume it is polkadot.
-					#[cfg(feature = "polkadot-native")]
+					#[cfg(feature = "peer-native")]
 					{
 						return runner.sync_run(|config| {
 							cmd.run::<service::Peer_Runtime::Block, service::PolkadotExecutorDispatch>(config)
@@ -511,7 +511,7 @@ pub fn run() -> Result<()> {
 						})
 					}
 
-					#[cfg(not(feature = "polkadot-native"))]
+					#[cfg(not(feature = "peer-native"))]
 					#[allow(unreachable_code)]
 					Err(service::Error::NoRuntime.into())
 				},
@@ -554,7 +554,7 @@ pub fn run() -> Result<()> {
 	
 
 			// else we assume it is polkadot.
-			#[cfg(feature = "polkadot-native")]
+			#[cfg(feature = "peer-native")]
 			{
 				return runner.async_run(|_| {
 					Ok((
@@ -565,7 +565,7 @@ pub fn run() -> Result<()> {
 					))
 				})
 			}
-			#[cfg(not(feature = "polkadot-native"))]
+			#[cfg(not(feature = "peer-native"))]
 			panic!("No runtime feature (polkadot) is enabled")
 		},
 		#[cfg(not(feature = "try-runtime"))]
