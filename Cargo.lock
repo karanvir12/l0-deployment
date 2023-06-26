@@ -7683,7 +7683,7 @@ dependencies = [
 name = "peer-statement-distribution"
 version = "0.9.36"
 dependencies = [
- "arrayvec 0.5.2",
+ "arrayvec 0.7.4",
  "assert_matches",
  "fatality",
  "futures 0.3.28",
