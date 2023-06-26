@@ -314,7 +314,7 @@ parameter_types! {
 	pub EpochDuration: u64 = prod_or_fast!(
 		EPOCH_DURATION_IN_SLOTS as u64,
 		2 * MINUTES as u64,
-		"DOT_EPOCH_DURATION"
+		"peer_EPOCH_DURATION"
 	);
 	pub const ExpectedBlockTime: Moment = MILLISECS_PER_BLOCK;
 	pub ReportLongevity: u64 =
@@ -529,22 +529,22 @@ parameter_types! {
 	pub SignedPhase: u32 = prod_or_fast!(
 		EPOCH_DURATION_IN_SLOTS / 4,
 		(1 * MINUTES).min(EpochDuration::get().saturated_into::<u32>() / 2),
-		"DOT_SIGNED_PHASE"
+		"peer_SIGNED_PHASE"
 	);
 	pub UnsignedPhase: u32 = prod_or_fast!(
 		EPOCH_DURATION_IN_SLOTS / 4,
 		(1 * MINUTES).min(EpochDuration::get().saturated_into::<u32>() / 2),
-		"DOT_UNSIGNED_PHASE"
+		"peer_UNSIGNED_PHASE"
 	);
 
 	// signed config
 	pub const SignedMaxSubmissions: u32 = 16;
 	pub const SignedMaxRefunds: u32 = 16 / 4;
-	// 40 DOTs fixed deposit..
+	// 40 peers fixed deposit..
 	pub const SignedDepositBase: Balance = deposit(2, 0);
-	// 0.01 DOT per KB of solution data.
+	// 0.01 peer per KB of solution data.
 	pub const SignedDepositByte: Balance = deposit(0, 10) / 1024;
-	// Each good submission will get 1 DOT as reward
+	// Each good submission will get 1 peer as reward
 	pub SignedRewardBase: Balance = 1 * UNITS;
 	pub BetterUnsignedThreshold: Perbill = Perbill::from_rational(5u32, 10_000);
 
@@ -684,12 +684,12 @@ parameter_types! {
 	pub BondingDuration: sp_staking::EraIndex = prod_or_fast!(
 		28,
 		28,
-		"DOT_BONDING_DURATION"
+		"peer_BONDING_DURATION"
 	);
 	pub SlashDeferDuration: sp_staking::EraIndex = prod_or_fast!(
 		27,
 		27,
-		"DOT_SLASH_DEFER_DURATION"
+		"peer_SLASH_DEFER_DURATION"
 	);
 	pub const RewardCurve: &'static PiecewiseLinear<'static> = &REWARD_CURVE;
 	pub const MaxNominatorRewardedPerValidator: u32 = 512;
@@ -801,12 +801,12 @@ impl pallet_identity::Config for Runtime {
 }
 
 parameter_types! {
-	pub LaunchPeriod: BlockNumber = prod_or_fast!(7 * DAYS , 7 * DAYS, "DOT_LAUNCH_PERIOD");
-	pub VotingPeriod: BlockNumber = prod_or_fast!(7 * DAYS, 7 * DAYS , "DOT_VOTING_PERIOD");
-	pub FastTrackVotingPeriod: BlockNumber = prod_or_fast!(1 * MINUTES, 1 * MINUTES, "DOT_FAST_TRACK_VOTING_PERIOD");
+	pub LaunchPeriod: BlockNumber = prod_or_fast!(7 * DAYS , 7 * DAYS, "peer_LAUNCH_PERIOD");
+	pub VotingPeriod: BlockNumber = prod_or_fast!(7 * DAYS, 7 * DAYS , "peer_VOTING_PERIOD");
+	pub FastTrackVotingPeriod: BlockNumber = prod_or_fast!(1 * MINUTES, 1 * MINUTES, "peer_FAST_TRACK_VOTING_PERIOD");
 	pub const MinimumDeposit: Balance = 100 * DOLLARS;
-	pub EnactmentPeriod: BlockNumber = prod_or_fast!(7 * DAYS,7 * DAYS, "DOT_ENACTMENT_PERIOD");
-	pub CooloffPeriod: BlockNumber = prod_or_fast!(7 * DAYS , 7 * DAYS, "DOT_COOLOFF_PERIOD");
+	pub EnactmentPeriod: BlockNumber = prod_or_fast!(7 * DAYS,7 * DAYS, "peer_ENACTMENT_PERIOD");
+	pub CooloffPeriod: BlockNumber = prod_or_fast!(7 * DAYS , 7 * DAYS, "peer_COOLOFF_PERIOD");
 	pub const InstantAllowed: bool = true;
 	pub const MaxVotes: u32 = 100;
 	pub const MaxProposals: u32 = 100;
@@ -876,7 +876,7 @@ impl pallet_democracy::Config for Runtime {
 }
 
 parameter_types! {
-	pub CouncilMotionDuration: BlockNumber = prod_or_fast!(7 * DAYS, 2 * MINUTES, "DOT_MOTION_DURATION");
+	pub CouncilMotionDuration: BlockNumber = prod_or_fast!(7 * DAYS, 2 * MINUTES, "peer_MOTION_DURATION");
 	pub const CouncilMaxProposals: u32 = 100;
 	pub const CouncilMaxMembers: u32 = 100;
 }
@@ -900,7 +900,7 @@ parameter_types! {
 	// additional data per vote is 32 bytes (account id).
 	pub const VotingBondFactor: Balance = deposit(0, 32);
 	/// Weekly council elections; scaling up to monthly eventually.
-	pub TermDuration: BlockNumber = prod_or_fast!(7 * DAYS, 2 * MINUTES, "DOT_TERM_DURATION");
+	pub TermDuration: BlockNumber = prod_or_fast!(7 * DAYS, 2 * MINUTES, "peer_TERM_DURATION");
 
 	/// 13 members initially, to be increased to 23 eventually.
 	pub const DesiredMembers: u32 = 13;
@@ -1300,7 +1300,7 @@ parameter_types! {
 }
 
 parameter_types! {
-	pub Prefix: &'static [u8] = b"Pay DOTs to the peer account:";
+	pub Prefix: &'static [u8] = b"Pay peers to the peer account:";
 }
 
 impl claims::Config for Runtime {
@@ -1631,7 +1631,7 @@ parameter_types! {
 	// Difference is 568 days.
 	// We want a lease period to start on the target onboarding date.
 	// 568 % (12 * 7) = 64 day offset
-	// pub LeaseOffset: BlockNumber = prod_or_fast!(1 * MINUTES, 0, "DOT_LEASE_OFFSET");
+	// pub LeaseOffset: BlockNumber = prod_or_fast!(1 * MINUTES, 0, "peer_LEASE_OFFSET");
 }
 
 impl slots::Config for Runtime {
@@ -1738,9 +1738,9 @@ impl frame_support::traits::OnRuntimeUpgrade for InitiateNominationPools {
 	fn on_runtime_upgrade() -> frame_support::weights::Weight {
 		// we use one as an indicator if this has already been set.
 		if pallet_nomination_pools::MaxPools::<Runtime>::get().is_none() {
-			// 5 DOT to join a pool.
+			// 5 peer to join a pool.
 			pallet_nomination_pools::MinJoinBond::<Runtime>::put(5 * UNITS);
-			// 100 DOT to create a pool.
+			// 100 peer to create a pool.
 			pallet_nomination_pools::MinCreateBond::<Runtime>::put(100 * UNITS);
 
 			// Initialize with limits for now.
@@ -2902,7 +2902,7 @@ mod test_fees {
 	#[test]
 	fn signed_deposit_is_sensible() {
 		// ensure this number does not change, or that it is checked after each change.
-		// a 1 MB solution should take (40 + 10) DOTs of deposit.
+		// a 1 MB solution should take (40 + 10) peers of deposit.
 		let deposit = SignedDepositBase::get() + (SignedDepositByte::get() * 1024 * 1024);
 		assert_eq_error_rate!(deposit, 50 * DOLLARS, DOLLARS);
 	}

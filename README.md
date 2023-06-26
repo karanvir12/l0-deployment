@@ -164,13 +164,13 @@ You can see your node on [telemetry] (set a custom name with `--name "my custom 
 
 
 
-### Obtaining DOTs
+### Obtaining peers
 
 If you want to do anything on peer, then you'll need to get an account and
-some DOT, KSM, or WND tokens, respectively. See the
-[claims instructions](https://claims.peer.network/) for peer if you have DOTs to claim. For
+some peer, KSM, or WND tokens, respectively. See the
+[claims instructions](https://claims.peer.network/) for peer if you have peers to claim. For
 
-[instructions](https://wiki.peer.network/docs/learn-DOT#getting-westies) on the Wiki.
+[instructions](https://wiki.peer.network/docs/learn-peer#getting-westies) on the Wiki.
 
 ## Hacking on peer
 

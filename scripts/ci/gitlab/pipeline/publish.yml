@@ -37,7 +37,7 @@ publish-peer-debug-image:
   artifacts:
     reports:
       # this artifact is used in zombienet-tests job
-      dotenv: ./artifacts/parachains.env
+      peerenv: ./artifacts/parachains.env
     expire_in:                     1 days
 
 publish-test-collators-image:
@@ -66,7 +66,7 @@ publish-test-collators-image:
   artifacts:
     reports:
       # this artifact is used in zombienet-tests job
-      dotenv: ./artifacts/collator.env
+      peerenv: ./artifacts/collator.env
 
 publish-malus-image:
   # service image for Simnet
@@ -94,7 +94,7 @@ publish-malus-image:
   artifacts:
     reports:
       # this artifact is used in zombienet-tests job
-      dotenv: ./artifacts/malus.env
+      peerenv: ./artifacts/malus.env
 
 publish-staking-miner-image:
   stage:                           publish

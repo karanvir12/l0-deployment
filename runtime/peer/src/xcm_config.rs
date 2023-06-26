@@ -35,10 +35,10 @@ use xcm_builder::{
 };
 
 parameter_types! {
-	/// The location of the DOT token, from the context of this chain. Since this token is native to this
+	/// The location of the peer token, from the context of this chain. Since this token is native to this
 	/// chain, we make it synonymous with it and thus it is the `Here` location, which means "equivalent to
 	/// the context".
-	pub const DotLocation: MultiLocation = Here.into();
+	pub const peerLocation: MultiLocation = Here.into();
 	/// The peer network ID. This is named.
 	pub const peerNetwork: NetworkId = NetworkId::peer;
 	/// Our XCM location ancestry - i.e. what, if anything, `Parent` means evaluated in our context. Since
@@ -60,12 +60,12 @@ pub type SovereignAccountOf = (
 /// Our asset transactor. This is what allows us to interact with the runtime assets from the point of
 /// view of XCM-only concepts like `MultiLocation` and `MultiAsset`.
 ///
-/// Ours is only aware of the Balances pallet, which is mapped to `DotLocation`.
+/// Ours is only aware of the Balances pallet, which is mapped to `peerLocation`.
 pub type LocalAssetTransactor = XcmCurrencyAdapter<
 	// Use this currency:
 	Balances,
 	// Use this currency when it is a fungible asset matching the given location or name:
-	IsConcrete<DotLocation>,
+	IsConcrete<peerLocation>,
 	// We can convert the MultiLocations with our converter above:
 	SovereignAccountOf,
 	// Our chain's account ID type (we can't get away without mentioning it explicitly):
@@ -105,7 +105,7 @@ pub type XcmRouter = (
 );
 
 parameter_types! {
-	pub const peer: MultiAssetFilter = Wild(AllOf { fun: WildFungible, id: Concrete(DotLocation::get()) });
+	pub const peer: MultiAssetFilter = Wild(AllOf { fun: WildFungible, id: Concrete(peerLocation::get()) });
 	pub const peerForStatemint: (MultiAssetFilter, MultiLocation) = (peer::get(), Parachain(1000).into());
 	pub const peerForCollectives: (MultiAssetFilter, MultiLocation) = (peer::get(), Parachain(1001).into());
 }
@@ -145,7 +145,7 @@ impl xcm_executor::Config for XcmConfig {
 	type Barrier = Barrier;
 	type Weigher = FixedWeightBounds<BaseXcmWeight, RuntimeCall, MaxInstructions>;
 	// The weight trader piggybacks on the existing transaction-fee conversion logic.
-	type Trader = UsingComponents<WeightToFee, DotLocation, AccountId, Balances, ToAuthor<Runtime>>;
+	type Trader = UsingComponents<WeightToFee, peerLocation, AccountId, Balances, ToAuthor<Runtime>>;
 	type ResponseHandler = XcmPallet;
 	type AssetTrap = XcmPallet;
 	type AssetClaims = XcmPallet;

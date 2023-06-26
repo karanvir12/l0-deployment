@@ -15,7 +15,7 @@ docker run --rm -it parity/peer:latest --version
 You can also pass any argument/flag that peer supports:
 
 ```bash
-docker run --rm -it parity/peer:latest --chain  --name "PolkaDocker"
+docker run --rm -it parity/peer:latest --chain  --name "peerDocker"
 ```
 
 ## Examples
@@ -31,13 +31,13 @@ docker run -d -p 30333:30333 -p 9933:9933 -v /my/local/folder:/peer parity/peer:
 Additionally if you want to have custom node name you can add the `--name "YourName"` at the end
 
 ```bash
-docker run -d -p 30333:30333 -p 9933:9933 -v /my/local/folder:/peer parity/peer:latest --chain  --rpc-external --rpc-cors all --name "PolkaDocker"
+docker run -d -p 30333:30333 -p 9933:9933 -v /my/local/folder:/peer parity/peer:latest --chain  --rpc-external --rpc-cors all --name "peerDocker"
 ```
 
 If you also want to expose the webservice port 9944 use the following command:
 
 ```bash
-docker run -d -p 30333:30333 -p 9933:9933 -p 9944:9944 -v /my/local/folder:/peer parity/peer:latest --chain  --ws-external --rpc-external --rpc-cors all --name "PolkaDocker"
+docker run -d -p 30333:30333 -p 9933:9933 -p 9944:9944 -v /my/local/folder:/peer parity/peer:latest --chain  --ws-external --rpc-external --rpc-cors all --name "peerDocker"
 ```
 
 ## Using Docker compose
@@ -58,7 +58,7 @@ services:
     volumes:
       - /my/local/folder:/peer
     command: [
-      "--name", "PolkaDocker",
+      "--name", "peerDocker",
       "--ws-external",
       "--rpc-external",
       "--rpc-cors", "all"
@@ -79,7 +79,7 @@ services:
       - 9933:9933 # rpc port
       - 9944:9944 # ws port
     command: [
-      "--name", "PolkaDocker",
+      "--name", "peerDocker",
       "--ws-external",
       "--rpc-external",
       "--rpc-cors", "all"

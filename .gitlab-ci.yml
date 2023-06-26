@@ -77,7 +77,7 @@ default:
 .pipeline-stopper-artifacts:
   artifacts:
      reports:
-       dotenv: pipeline-stopper.env
+       peerenv: pipeline-stopper.env
 
 .job-switcher:
   before_script:

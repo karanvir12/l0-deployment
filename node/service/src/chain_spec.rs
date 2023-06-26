@@ -25,7 +25,7 @@ use peer_primitives::v2::{AccountId, AccountPublic, AssignmentId, ValidatorId};
 #[cfg(feature = "peer-native")]
 use Peer_Runtime as peer;
 #[cfg(feature = "peer-native")]
-use Peer_Runtime_constants::currency::UNITS as DOT;
+use Peer_Runtime_constants::currency::UNITS as peer;
 use sp_authority_discovery::AuthorityId as AuthorityDiscoveryId;
 use sp_consensus_babe::AuthorityId as BabeId;
 
@@ -209,8 +209,8 @@ fn peer_staging_testnet_config_genesis(wasm_binary: &[u8], chain_id: u64) -> pee
 		AuthorityDiscoveryId,
 	) > = vec![];
 
-	const ENDOWMENT: u128 = 1_000_000_000 * DOT;
-	const STASH: u128 = 100 * DOT;
+	const ENDOWMENT: u128 = 1_000_000_000 * peer;
+	const STASH: u128 = 100 * peer;
 
 	peer::GenesisConfig {
 		sudo: peer::SudoConfig {
@@ -419,8 +419,8 @@ pub fn peer_testnet_genesis(
 ) -> peer::GenesisConfig {
 	let endowed_accounts: Vec<AccountId> = endowed_accounts.unwrap_or_else(testnet_accounts);
 
-	const ENDOWMENT: u128 = 1_000_000 * DOT;
-	const STASH: u128 = 100 * DOT;
+	const ENDOWMENT: u128 = 1_000_000 * peer;
+	const STASH: u128 = 100 * peer;
 
 	peer::GenesisConfig {
 		system: peer::SystemConfig { code: wasm_binary.to_vec() },

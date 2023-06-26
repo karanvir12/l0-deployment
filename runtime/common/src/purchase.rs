@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Substrate.  If not, see <http://www.gnu.org/licenses/>.
 
-//! Pallet to process purchase of DOTs.
+//! Pallet to process purchase of peers.
 
 use frame_support::{
 	pallet_prelude::*,
@@ -70,15 +70,15 @@ impl AccountValidity {
 	}
 }
 
-/// All information about an account regarding the purchase of DOTs.
+/// All information about an account regarding the purchase of peers.
 #[derive(Encode, Decode, Default, Clone, Eq, PartialEq, RuntimeDebug, TypeInfo)]
 pub struct AccountStatus<Balance> {
 	/// The current validity status of the user. Will denote if the user has passed KYC,
 	/// how much they are able to purchase, and when their purchase process has completed.
 	validity: AccountValidity,
-	/// The amount of free DOTs they have purchased.
+	/// The amount of free peers they have purchased.
 	free_balance: Balance,
-	/// The amount of locked DOTs they have purchased.
+	/// The amount of locked peers they have purchased.
 	locked_balance: Balance,
 	/// Their sr25519/ed25519 signature verifying they have signed our required statement.
 	signature: Vec<u8>,
@@ -120,11 +120,11 @@ pub mod pallet {
 		#[pallet::constant]
 		type MaxStatementLength: Get<u32>;
 
-		/// The amount of purchased locked DOTs that we will unlock for basic actions on the chain.
+		/// The amount of purchased locked peers that we will unlock for basic actions on the chain.
 		#[pallet::constant]
 		type UnlockedProportion: Get<Permill>;
 
-		/// The maximum amount of locked DOTs that we will unlock.
+		/// The maximum amount of locked peers that we will unlock.
 		#[pallet::constant]
 		type MaxUnlocked: Get<BalanceOf<Self>>;
 	}
@@ -168,12 +168,12 @@ pub mod pallet {
 		VestingScheduleExists,
 	}
 
-	// A map of all participants in the DOT purchase process.
+	// A map of all participants in the peer purchase process.
 	#[pallet::storage]
 	pub(super) type Accounts<T: Config> =
 		StorageMap<_, Blake2_128Concat, T::AccountId, AccountStatus<BalanceOf<T>>, ValueQuery>;
 
-	// The account that will be used to payout participants of the DOT purchase process.
+	// The account that will be used to payout participants of the peer purchase process.
 	#[pallet::storage]
 	pub(super) type PaymentAccount<T: Config> = StorageValue<_, T::AccountId, OptionQuery>;
 
@@ -181,7 +181,7 @@ pub mod pallet {
 	#[pallet::storage]
 	pub(super) type Statement<T> = StorageValue<_, Vec<u8>, ValueQuery>;
 
-	// The block where all locked dots will unlock.
+	// The block where all locked peers will unlock.
 	#[pallet::storage]
 	pub(super) type UnlockBlock<T: Config> = StorageValue<_, T::BlockNumber, ValueQuery>;
 
@@ -330,7 +330,7 @@ pub mod pallet {
 
 					if !status.locked_balance.is_zero() {
 						let unlock_block = UnlockBlock::<T>::get();
-						// We allow some configurable portion of the purchased locked DOTs to be unlocked for basic usage.
+						// We allow some configurable portion of the purchased locked peers to be unlocked for basic usage.
 						let unlocked = (T::UnlockedProportion::get() * status.locked_balance)
 							.min(T::MaxUnlocked::get());
 						let locked = status.locked_balance.saturating_sub(unlocked);
@@ -363,7 +363,7 @@ pub mod pallet {
 
 		/* Configuration Operations */
 
-		/// Set the account that will be used to payout users in the DOT purchase process.
+		/// Set the account that will be used to payout users in the peer purchase process.
 		///
 		/// Origin must match the `ConfigurationOrigin`
 		#[pallet::weight(T::DbWeight::get().writes(1))]
@@ -375,7 +375,7 @@ pub mod pallet {
 			Ok(())
 		}
 
-		/// Set the statement that must be signed for a user to participate on the DOT sale.
+		/// Set the statement that must be signed for a user to participate on the peer sale.
 		///
 		/// Origin must match the `ConfigurationOrigin`
 		#[pallet::weight(T::DbWeight::get().writes(1))]
@@ -391,7 +391,7 @@ pub mod pallet {
 			Ok(())
 		}
 
-		/// Set the block where locked DOTs will become unlocked.
+		/// Set the block where locked peers will become unlocked.
 		///
 		/// Origin must match the `ConfigurationOrigin`
 		#[pallet::weight(T::DbWeight::get().writes(1))]

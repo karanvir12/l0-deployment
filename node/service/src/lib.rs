@@ -61,7 +61,7 @@ use sc_client_api::BlockchainEvents;
 use service::BasePath;
 use peer_node_subsystem_util::database::Database;
 
-use Peer_Runtime::RuntimeApi as RuntimeApiPolka;
+use Peer_Runtime::RuntimeApi as RuntimeApipeer;
 mod rpc;
 #[cfg(feature = "full-node")]
 pub use {
@@ -296,7 +296,7 @@ pub trait IdentifyVariant {
 
 impl IdentifyVariant for Box<dyn ChainSpec> {
 	fn is_peer(&self) -> bool {
-		self.id().starts_with("peer") || self.id().starts_with("dot")
+		self.id().starts_with("peer") || self.id().starts_with("peer")
 	}
 	
 	fn is_versi(&self) -> bool {
@@ -861,7 +861,7 @@ pub const AVAILABILITY_CONFIG: AvailabilityConfig = AvailabilityConfig {
 /// regardless of the role the node has. The relay chain selection (longest or disputes-aware) is
 /// still determined based on the role of the node. Likewise for authority discovery.
 pub type FullClientNew =
-	service::TFullClient<Block, RuntimeApiPolka, NativeElseWasmExecutor<peerExecutorDispatch>>;
+	service::TFullClient<Block, RuntimeApipeer, NativeElseWasmExecutor<peerExecutorDispatch>>;
 	
 #[cfg(feature = "full-node")]
 pub fn new_full<RuntimeApiPol, ExecutorDispatchStruct, OverseerGenerator>(
@@ -877,7 +877,7 @@ pub fn new_full<RuntimeApiPol, ExecutorDispatchStruct, OverseerGenerator>(
 	overseer_message_channel_capacity_override: Option<usize>,
 	_malus_finality_delay: Option<u32>,
 	hwbench: Option<sc_sysinfo::HwBench>,
-) -> Result<NewFull<Arc<FullClient<RuntimeApiPolka, peerExecutorDispatch>>>, Error>
+) -> Result<NewFull<Arc<FullClient<RuntimeApipeer, peerExecutorDispatch>>>, Error>
 where
   RuntimeApiPol: ConstructRuntimeApi<Block, FullClientNew>
 		+ Send
@@ -919,7 +919,7 @@ where
 	let disable_grandpa = config.disable_grandpa;
 	let name = config.network.node_name.clone();
 
-	let basics = new_partial_basics::<RuntimeApiPolka, peerExecutorDispatch>(
+	let basics = new_partial_basics::<RuntimeApipeer, peerExecutorDispatch>(
 		&mut config,
 		jaeger_agent,
 		telemetry_worker_handle,
@@ -961,7 +961,7 @@ where
 		transaction_pool,
 		// other: (rpc_extensions_builder, import_setup, rpc_setup, slot_duration, mut telemetry,frontier_backend),
 		other: (import_setup,slot_duration,mut telemetry,frontier_backend),
-	} = new_partial::<RuntimeApiPolka, peerExecutorDispatch, SelectRelayChain<_>>(
+	} = new_partial::<RuntimeApipeer, peerExecutorDispatch, SelectRelayChain<_>>(
 		&mut config,
 		basics,
 		select_chain,
@@ -1218,7 +1218,7 @@ where
 
 	fn spawn_frontier_tasks(
 		task_manager: &TaskManager,
-		client: Arc<FullClient<RuntimeApiPolka, peerExecutorDispatch>>,
+		client: Arc<FullClient<RuntimeApipeer, peerExecutorDispatch>>,
 		backend: Arc<FullBackend>,
 		frontier_backend: Arc<FrontierBackend<Block>>,
 		filter_pool: Option<FilterPool>,
@@ -1670,7 +1670,7 @@ pub fn build_full(
 
 	#[cfg(feature = "peer-native")]
 	{
-		return new_full::<RuntimeApiPolka, peerExecutorDispatch, _>(
+		return new_full::<RuntimeApipeer, peerExecutorDispatch, _>(
 			config,
 			is_collator,
 			grandpa_pause,

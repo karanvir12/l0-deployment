@@ -3,19 +3,19 @@
 //!
 //! # Usage:
 //!
-//! ## Default Tokens: `DOT`, `KSM`, and `WND`.
-//! Current crate provides implementations for DOT, KSM, and WND. note that DOTs are 10 decimal
+//! ## Default Tokens: `peer`, `KSM`, and `WND`.
+//! Current crate provides implementations for peer, KSM, and WND. note that peers are 10 decimal
 //! points and the other two are 12.
 //!
 //! ```
-//! use sub_tokens::DOT;
+//! use sub_tokens::peer;
 //!
-//! // 100 new dot, 1 old dot.
-//! let dots = DOT::from(1_000_000_000_000u128);
+//! // 100 new peer, 1 old peer.
+//! let peers = peer::from(1_000_000_000_000u128);
 //!
 //! // provides display and format implementations.
-//! assert_eq!(format!("{}", dots), "100,000 DOT");
-//! assert_eq!(format!("{:?}", dots), "100,000 DOT (1,000,000,000,000)");
+//! assert_eq!(format!("{}", peers), "100,000 peer");
+//! assert_eq!(format!("{:?}", peers), "100,000 peer (1,000,000,000,000)");
 //! ```
 //!
 //! ## Custom tokens
@@ -95,7 +95,7 @@ macro_rules! impl_token {
 	};
 }
 
-impl_token!(DOT, 1_0_000_000_000u128, u128);
+impl_token!(peer, 1_0_000_000_000u128, u128);
 impl_token!(WND, 1_000_000_000_000u128, u128);
 impl_token!(KSM, 1_000_000_000_000u128, u128);
 

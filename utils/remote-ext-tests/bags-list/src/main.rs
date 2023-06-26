@@ -123,12 +123,12 @@ async fn main() {
 		(Runtime::peer, Command::CheckMigration) => {
 			use Peer_Runtime::{Block, Runtime};
 			use Peer_Runtime_constants::currency::UNITS;
-			migration::execute::<Runtime, Block>(UNITS as u64, "DOT", options.uri.clone()).await;
+			migration::execute::<Runtime, Block>(UNITS as u64, "peer", options.uri.clone()).await;
 		},
 		(Runtime::peer, Command::SanityCheck) => {
 			use Peer_Runtime::{Block, Runtime};
 			use Peer_Runtime_constants::currency::UNITS;
-			try_state::execute::<Runtime, Block>(UNITS as u64, "DOT", options.uri.clone()).await;
+			try_state::execute::<Runtime, Block>(UNITS as u64, "peer", options.uri.clone()).await;
 		},
 		(Runtime::peer, Command::Snapshot) => {
 			use Peer_Runtime::{Block, Runtime};

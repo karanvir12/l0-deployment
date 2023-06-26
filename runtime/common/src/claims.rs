@@ -183,7 +183,7 @@ pub mod pallet {
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
-		/// Someone claimed some DOTs.
+		/// Someone claimed some peers.
 		Claimed { who: T::AccountId, ethereum_address: EthereumAddress, amount: BalanceOf<T> },
 	}
 
@@ -281,7 +281,7 @@ pub mod pallet {
 
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
-		/// Make a claim to collect your DOTs.
+		/// Make a claim to collect your peers.
 		///
 		/// The dispatch origin for this call must be _None_.
 		///
@@ -322,14 +322,14 @@ pub mod pallet {
 			Ok(())
 		}
 
-		/// Mint a new claim to collect DOTs.
+		/// Mint a new claim to collect peers.
 		///
 		/// The dispatch origin for this call must be _Root_.
 		///
 		/// Parameters:
 		/// - `who`: The Ethereum address allowed to collect this claim.
-		/// - `value`: The number of DOTs that will be claimed.
-		/// - `vesting_schedule`: An optional vesting schedule for these DOTs.
+		/// - `value`: The number of peers that will be claimed.
+		/// - `vesting_schedule`: An optional vesting schedule for these peers.
 		///
 		/// <weight>
 		/// The weight of this call is invariant over the input parameters.
@@ -358,7 +358,7 @@ pub mod pallet {
 			Ok(())
 		}
 
-		/// Make a claim to collect your DOTs by signing a statement.
+		/// Make a claim to collect your peers by signing a statement.
 		///
 		/// The dispatch origin for this call must be _None_.
 		///

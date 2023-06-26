@@ -12,7 +12,7 @@ This release contains the changes from `{{ env.REF1 | replace(from="refs/tags/",
 {%- include "debug.md.tera" -%}
 
 {%- set CML = "[C]" -%}
-{%- set DOT = "[P]" -%}
+{%- set peer = "[P]" -%}
 {%- set SUB = "[S]" -%}
 
 {# -- Manual free notes section -- #}
