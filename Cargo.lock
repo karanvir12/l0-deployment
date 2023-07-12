@@ -322,6 +322,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "ahash"
+version = "0.8.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2c99f64d1e06488f620f932677e24bc6e2897582980441ae90a671415bd7ec2f"
+dependencies = [
+ "cfg-if",
+ "once_cell",
+ "version_check",
+]
+
+[[package]]
 name = "aho-corasick"
 version = "0.7.20"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -338,6 +349,12 @@ checksum = "43f6cb1bf222025340178f382c426f13757b2960e89779dfcb319c32542a5a41"
 dependencies = [
  "memchr",
 ]
+
+[[package]]
+name = "allocator-api2"
+version = "0.2.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "56fc6cf8dc8c4158eed8649f9b8b0ea1518eb62b544fe9490d66fa0b349eafe9"
 
 [[package]]
 name = "always-assert"
@@ -1944,7 +1961,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7c24f403d068ad0b359e577a77f92392118be3f3c927538f2bb544a5ecd828c6"
 dependencies = [
  "curve25519-dalek 3.2.0",
- "hashbrown",
+ "hashbrown 0.12.3",
  "hex",
  "rand_core 0.6.4",
  "sha2 0.9.9",
@@ -2411,7 +2428,7 @@ dependencies = [
  "jsonrpsee",
  "libsecp256k1",
  "log",
- "lru",
+ "lru 0.8.1",
  "parity-scale-codec",
  "prometheus",
  "rand 0.8.5",
@@ -3374,7 +3391,17 @@ version = "0.12.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8a9ee70c43aaf417c914396645a0fa852624801b24ebb7ae78fe8272889ac888"
 dependencies = [
- "ahash",
+ "ahash 0.7.6",
+]
+
+[[package]]
+name = "hashbrown"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2c6201b9ff9fd90a5a3bac2e56a830d0caa509576f0e503818ee82c181b3437a"
+dependencies = [
+ "ahash 0.8.3",
+ "allocator-api2",
 ]
 
 [[package]]
@@ -3703,7 +3730,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bd070e393353796e801d209ad339e89596eb4c8d430d18ede6a1cced8fafbd99"
 dependencies = [
  "autocfg",
- "hashbrown",
+ "hashbrown 0.12.3",
  "serde",
 ]
 
@@ -4164,7 +4191,7 @@ dependencies = [
  "libp2p-core",
  "libp2p-swarm",
  "log",
- "lru",
+ "lru 0.8.1",
  "prost",
  "prost-build",
  "prost-codec",
@@ -4550,7 +4577,16 @@ version = "0.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b6e8aaa3f231bb4bd57b84b2d5dc3ae7f350265df8aa96492e0bc394a1571909"
 dependencies = [
- "hashbrown",
+ "hashbrown 0.12.3",
+]
+
+[[package]]
+name = "lru"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "eedb2bdbad7e0634f83989bf596f497b070130daaa398ab22d84c39e266deec5"
+dependencies = [
+ "hashbrown 0.14.0",
 ]
 
 [[package]]
@@ -4686,7 +4722,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5e0c7cba9ce19ac7ffd2053ac9f49843bbd3f4318feedfd74e85c19d5fb0ba66"
 dependencies = [
  "hash-db",
- "hashbrown",
+ "hashbrown 0.12.3",
 ]
 
 [[package]]
@@ -5212,7 +5248,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "21158b2c33aa6d4561f1c0a6ea283ca92bc54802a93b263e910746d679a7eb53"
 dependencies = [
  "crc32fast",
- "hashbrown",
+ "hashbrown 0.12.3",
  "indexmap",
  "memchr",
 ]
@@ -6632,7 +6668,7 @@ dependencies = [
  "fatality",
  "futures 0.3.28",
  "futures-timer",
- "lru",
+ "lru 0.11.0",
  "parity-scale-codec",
  "peer-erasure-coding",
  "peer-node-network-protocol",
@@ -6662,7 +6698,7 @@ dependencies = [
  "futures 0.3.28",
  "futures-timer",
  "log",
- "lru",
+ "lru 0.11.0",
  "parity-scale-codec",
  "peer-erasure-coding",
  "peer-node-network-protocol",
@@ -6802,7 +6838,7 @@ dependencies = [
  "futures-timer",
  "indexmap",
  "lazy_static",
- "lru",
+ "lru 0.11.0",
  "parity-scale-codec",
  "peer-erasure-coding",
  "peer-node-network-protocol",
@@ -6923,7 +6959,7 @@ dependencies = [
  "futures-timer",
  "kvdb",
  "kvdb-memorydb",
- "lru",
+ "lru 0.11.0",
  "merlin",
  "parity-scale-codec",
  "parking_lot 0.12.1",
@@ -7093,7 +7129,7 @@ dependencies = [
  "futures-timer",
  "kvdb",
  "kvdb-memorydb",
- "lru",
+ "lru 0.11.0",
  "parity-scale-codec",
  "peer-node-primitives",
  "peer-node-subsystem",
@@ -7211,7 +7247,7 @@ name = "peer-node-core-runtime-api"
 version = "0.9.36"
 dependencies = [
  "futures 0.3.28",
- "lru",
+ "lru 0.11.0",
  "peer-node-primitives",
  "peer-node-subsystem",
  "peer-node-subsystem-test-helpers",
@@ -7382,7 +7418,7 @@ dependencies = [
  "kvdb-shared-tests",
  "lazy_static",
  "log",
- "lru",
+ "lru 0.11.0",
  "parity-db",
  "parity-scale-codec",
  "parking_lot 0.11.2",
@@ -7415,7 +7451,7 @@ dependencies = [
  "femme",
  "futures 0.3.28",
  "futures-timer",
- "lru",
+ "lru 0.11.0",
  "orchestra",
  "parking_lot 0.12.1",
  "peer-node-metrics",
@@ -7576,7 +7612,7 @@ dependencies = [
  "kvdb",
  "kvdb-rocksdb",
  "log",
- "lru",
+ "lru 0.11.0",
  "mmr-gadget",
  "mmr-rpc",
  "pallet-babe",
@@ -9266,7 +9302,7 @@ name = "sc-executor"
 version = "0.10.0-dev"
 source = "git+https://github.com/karanvir12/substrate36.git?branch=relpeer#cb4f2491b00af7d7817f3a54209c26b20faa1f51"
 dependencies = [
- "lru",
+ "lru 0.8.1",
  "parity-scale-codec",
  "parking_lot 0.12.1",
  "sc-executor-common",
@@ -9333,7 +9369,7 @@ name = "sc-finality-grandpa"
 version = "0.10.0-dev"
 source = "git+https://github.com/karanvir12/substrate36.git?branch=relpeer#cb4f2491b00af7d7817f3a54209c26b20faa1f51"
 dependencies = [
- "ahash",
+ "ahash 0.7.6",
  "array-bytes",
  "async-trait",
  "dyn-clone",
@@ -9442,7 +9478,7 @@ dependencies = [
  "linked-hash-map",
  "linked_hash_set",
  "log",
- "lru",
+ "lru 0.8.1",
  "parity-scale-codec",
  "parking_lot 0.12.1",
  "pin-project",
@@ -9519,12 +9555,12 @@ name = "sc-network-gossip"
 version = "0.10.0-dev"
 source = "git+https://github.com/karanvir12/substrate36.git?branch=relpeer#cb4f2491b00af7d7817f3a54209c26b20faa1f51"
 dependencies = [
- "ahash",
+ "ahash 0.7.6",
  "futures 0.3.28",
  "futures-timer",
  "libp2p",
  "log",
- "lru",
+ "lru 0.8.1",
  "sc-network-common",
  "sc-peerset",
  "sp-runtime",
@@ -9564,7 +9600,7 @@ dependencies = [
  "futures 0.3.28",
  "libp2p",
  "log",
- "lru",
+ "lru 0.8.1",
  "mockall",
  "parity-scale-codec",
  "prost",
@@ -10580,7 +10616,7 @@ source = "git+https://github.com/karanvir12/substrate36.git?branch=relpeer#cb4f2
 dependencies = [
  "futures 0.3.28",
  "log",
- "lru",
+ "lru 0.8.1",
  "parity-scale-codec",
  "parking_lot 0.12.1",
  "sp-api",
@@ -11112,11 +11148,11 @@ name = "sp-trie"
 version = "7.0.0"
 source = "git+https://github.com/karanvir12/substrate36.git?branch=relpeer#cb4f2491b00af7d7817f3a54209c26b20faa1f51"
 dependencies = [
- "ahash",
+ "ahash 0.7.6",
  "hash-db",
- "hashbrown",
+ "hashbrown 0.12.3",
  "lazy_static",
- "lru",
+ "lru 0.8.1",
  "memory-db",
  "nohash-hasher",
  "parity-scale-codec",
@@ -12311,7 +12347,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "004e1e8f92535694b4cb1444dc5a8073ecf0815e3357f729638b9f8fc4062908"
 dependencies = [
  "hash-db",
- "hashbrown",
+ "hashbrown 0.12.3",
  "log",
  "rustc-hex",
  "smallvec",
